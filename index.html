@@ -7,13 +7,13 @@
   
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
+  <link rel="stylesheet" href="https://unpkg.com/lucide-static@latest/font/lucide.css">
+  
   <style>
-    /* 🌐 Fallback Webfont */
-    @import url('https://fonts.cdnfonts.com/css/mv-boli');
-    
+    /* 🔤 Locally Hosted Dhivehi Font Asset */
     @font-face {
       font-family: 'Faruma';
-      src: url('https://cdn.jsdelivr.net/gh/google/fonts/ofl/faruma/Faruma-Regular.ttf') format('truetype');
+      src: url('./Faruma.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
     }
@@ -21,61 +21,72 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #f7fafc;
-      color: #2d3748;
-      font-family: 'Faruma', 'MV Boli', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      font-family: 'Faruma', sans-serif;
       overflow-x: hidden;
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Layout Customization */
+    /* Modern Layout Design */
     .header {
-      background: linear-gradient(135deg, #2b6cb0, #2c5282);
+      background: linear-gradient(135deg, #0f172a, #1e293b);
       color: white;
-      padding: 16px 20px;
+      padding: 14px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       position: sticky;
       top: 0;
       z-index: 1000;
+      border-bottom: 2px solid #c5a880; /* Elegant gold accent border */
     }
     .header-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
     .header h2 {
       margin: 0;
       font-size: 16px;
       font-weight: normal;
+      letter-spacing: 0.5px;
     }
     .menu-toggle {
       background: transparent;
       border: none;
       color: white;
-      font-size: 22px;
+      font-size: 20px;
       cursor: pointer;
       padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .national-logo {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.2));
     }
     .app-layout {
       display: flex;
-      height: calc(100vh - 54px);
+      height: calc(100vh - 66px);
       position: relative;
     }
 
-    /* Responsive Sidebar Drawer */
+    /* Navigation Drawer Split */
     .sidebar {
-      width: 240px;
+      width: 250px;
       background: white;
       border-left: 1px solid #e2e8f0;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      padding: 12px 8px;
+      gap: 6px;
+      padding: 16px 10px;
       box-sizing: border-box;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 999;
     }
     @media (max-width: 768px) {
@@ -85,7 +96,7 @@
         top: 0;
         height: 100%;
         transform: translateX(100%);
-        box-shadow: -4px 0 10px rgba(0,0,0,0.05);
+        box-shadow: -6px 0 20px rgba(0,0,0,0.06);
       }
       .sidebar.open {
         transform: translateX(0);
@@ -95,7 +106,8 @@
       display: none;
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.3);
+      background: rgba(15, 23, 42, 0.3);
+      backdrop-filter: blur(2px);
       z-index: 998;
     }
     .sidebar-overlay.show {
@@ -106,45 +118,63 @@
       background: transparent;
       border: none;
       text-align: right;
-      padding: 12px 16px;
+      padding: 12px 14px;
       font-size: 14px;
       font-family: inherit;
-      color: #4a5568;
+      color: #475569;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+    .sidebar-btn i {
+      font-size: 16px;
+      color: #64748b;
     }
     .sidebar-btn:hover {
-      background: #f7fafc;
+      background: #f1f5f9;
+      color: #0f172a;
     }
     .sidebar-btn.active {
-      background: #ebf8ff;
-      color: #2b6cb0;
+      background: #f0fdf4;
+      color: #166534;
       font-weight: bold;
     }
+    .sidebar-btn.active i {
+      color: #166534;
+    }
 
-    /* Core Listing View */
+    /* Forms Directory Workspace */
     .main-content {
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 14px;
+      padding: 16px;
       overflow-y: auto;
       width: 100%;
+      box-sizing: border-box;
     }
     .search-container {
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       flex-shrink: 0;
     }
     .search-bar {
       width: 100%;
-      padding: 12px 16px;
+      padding: 14px 16px;
       border: 1px solid #cbd5e1;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 14px;
       box-sizing: border-box;
       text-align: right;
       font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
+    }
+    .search-bar:focus {
+      border-color: #c5a880;
     }
     .category-block {
       display: none;
@@ -155,50 +185,69 @@
     .category-title {
       font-size: 15px;
       font-weight: bold;
-      color: #2c5282;
-      margin: 8px 4px 12px 0;
+      color: #0f172a;
+      margin: 12px 4px 14px 0;
       border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 6px;
+      padding-bottom: 8px;
     }
     .card {
       background: white;
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 10px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.04);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:active {
+      transform: scale(0.99);
+    }
+    .card-right-wrapper {
+      display: flex;
+      align-items: center;
       gap: 12px;
-      border: 1px solid #edf2f7;
+    }
+    .card-icon {
+      color: #c5a880;
+      font-size: 16px;
     }
     .card-text {
       font-size: 14px;
       line-height: 1.6;
-      color: #2d3748;
+      color: #334155;
       text-align: right;
     }
     .btn-view {
-      background-color: #ebf8ff;
-      color: #2b6cb0;
+      background-color: #0f172a;
+      color: white;
       border: none;
-      border-radius: 6px;
-      padding: 8px 14px;
+      border-radius: 8px;
+      padding: 10px 16px;
       font-size: 12px;
       cursor: pointer;
-      font-weight: bold;
       text-decoration: none;
-      display: inline-block;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+      box-shadow: 0 2px 4px rgba(15, 23, 42, 0.1);
     }
     .btn-missing {
-      background-color: #fee2e2;
-      color: #ef4444;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 14px;
-      font-size: 11px;
+      background-color: #f1f5f9;
+      color: #94a3b8;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 12px;
       cursor: pointer;
-      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
     }
     .hidden-card {
       display: none !important;
@@ -209,10 +258,12 @@
 
   <div class="header">
     <div class="header-right">
-      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <button class="menu-toggle" onclick="toggleSidebar()">
+        <i class="lucide-menu"></i>
+      </button>
       <h2>ރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓު</h2>
     </div>
-    <div style="font-size: 20px;">⚖️</div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Coat_of_arms_of_the_Maldives.svg" class="national-logo" alt="Maldives Emblem">
   </div>
 
   <div class="app-layout">
@@ -220,13 +271,27 @@
     <div class="sidebar-overlay" id="menuOverlay" onclick="toggleSidebar()"></div>
     
     <div class="sidebar" id="appSidebar">
-      <button class="sidebar-btn active" onclick="switchCategory('all', this)">📋 ހުރިހާ ފޯމެއް</button>
-      <button class="sidebar-btn" onclick="switchCategory('marriage', this)">💍 ކައިވެންޏާއި ގުޅޭ</button>
-      <button class="sidebar-btn" onclick="switchCategory('divorce', this)">💔 ވަރިއާއި ގުޅޭ</button>
-      <button class="sidebar-btn" onclick="switchCategory('expenses', this)">💰 ޚަރަދާއި ގުޅޭ</button>
-      <button class="sidebar-btn" onclick="switchCategory('family', this)">👨‍👩‍👧‍👦 ޢާއިލީ އެހެނިހެން</button>
-      <button class="sidebar-btn" onclick="switchCategory('civil', this)">⚖️ މަދަނީ ފޯމުތައް</button>
-      <button class="sidebar-btn" onclick="switchCategory('misc', this)">📁 އެހެނިހެން ފޯމުތައް</button>
+      <button class="sidebar-btn active" onclick="switchCategory('all', this)">
+        <i class="lucide-layers"></i> ހުރިހާ ފޯމެއް
+      </button>
+      <button class="sidebar-btn" onclick="switchCategory('marriage', this)">
+        <i class="lucide-heart"></i> ކައިވެންޏާއި ގުޅޭ
+      </button>
+      <button class="sidebar-btn" onclick="switchCategory('divorce', this)">
+        <i class="lucide-heart-off"></i> ވަރިއާއި ގުޅޭ
+      </button>
+      <button class="sidebar-btn" onclick="switchCategory('expenses', this)">
+        <i class="lucide-banknote"></i> ޚަރަދާއި ގުޅޭ
+      </button>
+      <button class="sidebar-btn" onclick="switchCategory('family', this)">
+        <i class="lucide-users"></i> ޢާއިލީ އެހެނިހެން
+      </button>
+      <button class="sidebar-btn" onclick="switchCategory('civil', this)">
+        <i class="lucide-gavel"></i> މަދަނީ ފޯމުތައް
+      </button>
+      <button class="sidebar-btn" onclick="switchCategory('misc', this)">
+        <i class="lucide-folder-open"></i> އެހެނިހެން ފޯމުތައް
+      </button>
     </div>
 
     <div class="main-content">
@@ -238,342 +303,342 @@
       <div id="portalContainer">
 
         <div class="category-block active-block" id="cat_marriage">
-          <div class="category-title">💍 ކައިވެންޏާއި ގުޅޭ ފޯމުތައް</div>
+          <div class="category-title">ކައިވެންޏާއި ގުޅޭ ފޯމުތައް</div>
           <div class="card" data-keywords="ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1uYcuctdbAP_aomniBiLvW2SVghBtinT1" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1uYcuctdbAP_aomniBiLvW2SVghBtinT1" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1ksewMgJTc97nwzArpcJt-h3a3hUBwiZz" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1ksewMgJTc97nwzArpcJt-h3a3hUBwiZz" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ވަރި ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1S_mBJgCqyN5HFgT7Qm2Zeb3NjuhR5Wol" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1S_mBJgCqyN5HFgT7Qm2Zeb3NjuhR5Wol" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1OfJ3dmcc-63sZx8g_Slcg9rTSacvVRT8" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1OfJ3dmcc-63sZx8g_Slcg9rTSacvVRT8" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1cpYDoWff3_BI6BKn_F_DNEoKO3lLZifA" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1cpYDoWff3_BI6BKn_F_DNEoKO3lLZifA" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1c5r3OTHLgbz0lqSwX76pbES-Ox3UsaSj" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1c5r3OTHLgbz0lqSwX76pbES-Ox3UsaSj" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1XdmuYEqhe0Ix8o89Abv5fS1p8dYlTt_3" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1XdmuYEqhe0Ix8o89Abv5fS1p8dYlTt_3" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=190QF0VbCvzArhvwYGk_C_EU-yu0QJ_w-" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=190QF0VbCvzArhvwYGk_C_EU-yu0QJ_w-" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
         </div>
 
         <div class="category-block active-block" id="cat_divorce">
-          <div class="category-title">💔 ވަރިއާއި ގުޅޭ ފޯމުތައް</div>
-          <div class="card" data-keywords="ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1byWcvJuBBSoMnpK_UPbIoBopl6PaJMT2" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+          <div class="category-title">ވަރިއާއި ގުޅޭ ފޯމuތައް</div>
+          <div class="card" data-keywords="ވަރި ސާބިތuކުރުމަށް އެދޭ ފޯމް">
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1byWcvJuBBSoMnpK_UPbIoBopl6PaJMT2" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1b8ihPdkGowOjkouXHPbcySlPUjqmHK6Z" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1b8ihPdkGowOjkouXHPbcySlPUjqmHK6Z" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ވަރިވުމާމެދު ޝައްކުވެގެން ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ވަރިވުމާމެދު ޝައްކuވެގެން ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1OrVlFHIfNwqN7q9in32iDNjr-3TVCAm_" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަރިވުމާމެދު ޝައްކުވެގެން ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1OrVlFHIfNwqN7q9in32iDNjr-3TVCAm_" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ވަރިކުރުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ވަރިކުރުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=132ATLMqiEbR6cA1srt4PZ-kcG3ttEquL" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަރިކުރުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=132ATLMqiEbR6cA1srt4PZ-kcG3ttEquL" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ވަރިވުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ވަރިވުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1_t1XzWLvDNE59vW5YWUfsXXSrEOsO4-i" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަރިވުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1_t1XzWLvDNE59vW5YWUfsXXSrEOsO4-i" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ވަރި ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1S_mBJgCqyN5HFgT7Qm2Zeb3NjuhR5Wol" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1S_mBJgCqyN5HFgT7Qm2Zeb3NjuhR5Wol" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
         </div>
 
         <div class="category-block active-block" id="cat_expenses">
-          <div class="category-title">💰 ޚަރަދާއި ގުޅޭ ފޯމުތައް</div>
+          <div class="category-title">ޚަރަދާއި ގުޅޭ ފޯމުތައް</div>
           <div class="card" data-keywords="ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1R6hQbvO9E76yTXATuWd5KjSTFO_UrEiY" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1R6hQbvO9E76yTXATuWd5KjSTFO_UrEiY" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ސާބިތު ދަރަނީގެ މައްސަލަ ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ސާބިތު ދަރަނީގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ސާބިތު ދަރަނީގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ޚަރަދު ހޯދުމަށްއެދި މައްސަލަ ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ޚަރަދު ހޯދުމަށްއެދި މައްސަލަ ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1yMWV503SXu0lrPzkK3JA2ZX-tgEoLYZa" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޚަރަދު ހޯދުމަށްއެދި މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1yMWV503SXu0lrPzkK3JA2ZX-tgEoLYZa" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
         </div>
 
         <div class="category-block active-block" id="cat_family">
-          <div class="category-title">👨‍👩‍👧‍👦 ޢާއިލީ އެހެނިހެން ފޯމުތައް</div>
+          <div class="category-title">ޢާއިލީ އެހެނިހެން ފޯމުތައް</div>
           <div class="card" data-keywords="އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް">
-            <div class="card-text">📝 އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ޙުކުމް އިޞްލާޙުކުރުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ޙުކުމް އިޞްލާޙުކުރުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޙުކުމް އިޞްލާޙުކުރުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ވަގުތީ ޢަމުރު ތަންފީޒު މުރާޖަޢާ ފޯމް">
-            <div class="card-text">📝 ވަގުތީ ޢަމުރު ތަންފީޒު/މުރާޖަޢާ ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަގުތީ ޢަމުރު ތަންފީޒު/މުރާޖަޢާ ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ކުޑަކުދިންގެ ޙައްޤުތަކުގެ ކޯޓު އަމުރު ފޯމް">
-            <div class="card-text">📝 ކުޑަކުދިންގެ ޙައްޤުތަކުގެ ކޯޓު އަމުރު ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ކުޑަކުދިންގެ ޙައްޤުތަކުގެ ކޯޓu އަމުރު ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ރަޖިސްޓްރާރގެ ނިންމުން ބަދަލުކުރާ ފޯމް">
-            <div class="card-text">📝Option ބަދަލުކުރާ ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ބަދަލުކުރާ ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1zf21cdWNLhnjnljMhHJViQropGn5qC_N" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1zf21cdWNLhnjnljMhHJViQropGn5qC_N" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ބޭސްފަރުވާއަށް ރަށުން ބޭރަށްދާ ފޯމް">
-            <div class="card-text">📝 ބޭސްފަރުވާއަށް ރަށުން ބޭރަށްދާ ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ބޭސްފަރުވާއަށް ރަށުން ބޭރަށްދާ ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ވަގުތީ ޢަމުރަށްއެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ވަގުތީ ޢަމުރަށްއެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1yinhMgWIz86UKSM9sDTT1AG3M120vJBz" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަގުތީ ޢަމުރަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1yinhMgWIz86UKSM9sDTT1AG3M120vJBz" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ތަދައްޚުލްވުމަށްއެދޭ ފޯމް ޢާއިލީ">
-            <div class="card-text">📝 ތަދައްޚުލްވުމަށްއެދޭ ފޯމް (ޢާއިލީ)</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1TeoLbbaYGL6AAkMxIXsIL-K7BXgP-kNr" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ތަދައްޚުލްވުމަށްއެދޭ ފޯމް (ޢާއިލީ)</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1TeoLbbaYGL6AAkMxIXsIL-K7BXgP-kNr" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
-          <div class="card" data-keywords="ބަދަލުގައި މීހަކު ހަމަޖައްސާ ފޯމް">
-            <div class="card-text">📝 ބަދަލުގައި މީހަކު ހަމަޖައްސާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1NWBHwjAXgN9IeCc0FLSsCdDNgMtSASq7" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+          <div class="card" data-keywords="ބަދަލުގައި މީހަކު ހަމަޖެއްސާ ފޯމް">
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ބަދަލުގައި މީހަކު ހަމަޖެއްސާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1NWBHwjAXgN9IeCc0FLSsCdDNgMtSASq7" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="މައްސަލައާއި ގުޅޭ ލިޔުންތަކަށްއެދޭ ފޯމް">
-            <div class="card-text">📝 މައްސަލައާއި ގުޅޭ ލިޔުންތަކަށްއެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1aPwqmrRcJL9nwrirlw1avEo0s8Nbmznh" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">މައްސަލައާއި ގުޅޭ ލިޔުންތަކަށްއެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1aPwqmrRcJL9nwrirlw1avEo0s8Nbmznh" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ލިޔުމުން ޝަފަހީ ހެކި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ލިޔުމުން ޝަފަހީ ހެކި ހuށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1r8tifhxaW4THw7NF9j-MRU4eOXlgeAJK" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ލިޔުމުން ޝަފަހީ ހެކި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1r8tifhxaW4THw7NF9j-MRU4eOXlgeAJK" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ކުދިންގެ ޙަޟާނަތު ހޯދާ ފޯމް">
-            <div class="card-text">📝 ކުދިންގެ ޙަޟާނަތު ހޯދާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1wGlMsvFwD1qtT_TQ85G2OiUkF" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ކުދިންގެ ޙަޟާނަތު ހޯދާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1wGlMsvFwD1qtT_TQ85G2OiUkF" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ފޯމް">
-            <div class="card-text">📝 ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1424UzDEdahB-8GSvoHrRNQB6jRfzs0SW" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1424UzDEdahB-8GSvoHrRNQB6jRfzs0SW" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރާ ޢަމުރު ފޯމް">
-            <div class="card-text">📝 ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރާ ޢަމުރު ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1dUjOQpjokoCgpKAwHCLFWMFl7dy60VuJ" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރާ ޢަމުރު ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1dUjOQpjokoCgpKAwHCLFWMFl7dy60VuJ" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ޢަމުރު ބަދަލު ބާޠިލް ކުރަން އެދޭ ފޯމް">
-            <div class="card-text">📝 ޢަމުރު ބަދަލު/ބާޠިލް ކުރަން އެދޭ ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޢަމުރު ބަދަލު/ބާޠިލް ކުރަން އެދޭ ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް">
-            <div class="card-text">📝 ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1exaekraJXEZuxf7iKtY8A9gfqBpdrJhI" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1exaekraJXEZuxf7iKtY8A9gfqBpdrJhI" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1t7BP2ooOejkI1l6R8luEZnJytPB03ln2" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1t7BP2ooOejkI1l6R8luEZnJytPB03ln2" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ޢާއިލީ އެހެނިހެން މައްސަލަތަކުގެ ފޯމް">
-            <div class="card-text">📝 ޢާއިލީ އެހެނިހެން މައްސަލަތަކުގެ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1G2A-sLVaOPBj6IWJC5Hs_qfRH6P99PU4" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޢާއިލީ އެހެނިހެން މައްސަލަތަކުގެ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1G2A-sLVaOPBj6IWJC5Hs_qfRH6P99PU4" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
         </div>
 
         <div class="category-block active-block" id="cat_civil">
-          <div class="category-title">⚖️ މަދަނީ ފޯމުތައް</div>
+          <div class="category-title">މަދަނީ ފޯމuތައް</div>
           <div class="card" data-keywords="ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1G2ApAHTN9BvQ2zNlHPoGxcrfReFPzOxx" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1G2ApAHTN9BvQ2zNlHPoGxcrfReFPzOxx" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1OgSP3RfK13m7HP_OoRNfHD-4bRA4_9Ud" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1OgSP3RfK13m7HP_OoRNfHD-4bRA4_9Ud" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="އިޙްތިޞާޞްއާމެދު އިޢުތިރާޒްކުރާ ފޯމް">
-            <div class="card-text">📝 އިޙްތިޞާޞްއާމެދު އިޢުތިރާޒްކުރާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1_sla5O3aK0Jjsl-diIUVh7TKGS7MXxRM" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">އިޙްތިޞާޞްއާމެދު އިޢުތިރާޒްކުރާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1_sla5O3aK0Jjsl-diIUVh7TKGS7MXxRM" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް">
-            <div class="card-text">📝 މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1mgGRwDl7FjNHIkuPUk4SH6uhCSVPScyE" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1mgGRwDl7FjNHIkuPUk4SH6uhCSVPScyE" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް">
-            <div class="card-text">📝 ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=13wu8dkVsadJpc-jQ6Bp3NTpxPTdLDqpE" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=13wu8dkVsadJpc-jQ6Bp3NTpxPTdLDqpE" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
-          <div class="card" data-keywords="އަޑuއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް">
-            <div class="card-text">📝 އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1CgGymGUp_psVpNf_7EXEOUU15kQAJOS5" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+          <div class="card" data-keywords="އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް">
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1CgGymGUp_psVpNf_7EXEOUU15kQAJOS5" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ދަޢުވާގެ ދިފާޢު ފޯމް">
-            <div class="card-text">📝 ދަޢުވާގެ ދިފާޢު ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1k18Eo49_n5DshtbBkZxdIbvJpH2VKhna" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ދަޢުވާގެ ދިފާޢު ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1k18Eo49_n5DshtbBkZxdIbvJpH2VKhna" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
-          <div class="card" data-keywords="ދިފާޢުގެ ޖަވާބު ފޯމް">
-            <div class="card-text">📝 ދިފާޢުގެ ޖަވާބު ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1IZzFHKHGlE0stp32IERzeoc_DtrG3-wi" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+          <div class="card" data-keywords="ދިފާޢުގެ ޖަވާބu ފޯމް">
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ދިފާޢުގެ ޖަވާބު ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1IZzFHKHGlE0stp32IERzeoc_DtrG3-wi" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް">
-            <div class="card-text">📝 ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1ol39bQqKtG78O5y6tonz3A4VXYmTHkma" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1ol39bQqKtG78O5y6tonz3A4VXYmTHkma" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް">
-            <div class="card-text">📝 އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=14_yQrNKz7q5ssYJcwM8d5rPH-8k4DOZP" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=14_yQrNKz7q5ssYJcwM8d5rPH-8k4DOZP" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1IR0h5xiS3bIaEhcRIO5j2SbVAQWuWAqk" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1IR0h5xiS3bIaEhcRIO5j2SbVAQWuWAqk" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1MiZKn52rzmHOev6Waso28maBZuT3t3s3" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1MiZKn52rzmHOev6Waso28maBZuT3t3s3" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ކޯޓު އަމުރަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ކޯޓު އަމުރަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1u8QiJ4RNZm0Q2Op0RpbXeZcw2PB8gXE1" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ކޯޓު އަމުރަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1u8QiJ4RNZm0Q2Op0RpbXeZcw2PB8gXE1" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
-          <div class="card" data-keywords="ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން">
-            <div class="card-text">📝 ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1zOoaDhGTFcJ0aK_DVh2NwivaYRHZIlwy" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+          <div class="card" data-keywords="ދަޢުވާ ފޯމާ ހަވާލuވީކަން އަންގާ ލިޔުން">
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1zOoaDhGTFcJ0aK_DVh2NwivaYRHZIlwy" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1wyx3BUkuip5Y1iajIQxDX4kmjwgPU68a" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1wyx3BUkuip5Y1iajIQxDX4kmjwgPU68a" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
-          <div class="card" data-keywords="ތަދައްޚުލުވުމަށް އެދޭ ފޯމް މަދަނީ">
-            <div class="card-text">📝 ތަދައްޚުލުވުމަށް އެދޭ ފޯމް (މަދަނީ)</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1pghHfTZkC1KKVWkJKqzr3LhFMd500ATX" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+          <div class="card" data-keywords="ތަދައްޚުލuވުމަށް އެދޭ ފޯމް މަދަނީ">
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ތަދައްޚުލުވުމަށް އެދޭ ފޯމް (މަދަނީ)</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1pghHfTZkC1KKVWkJKqzr3LhFMd500ATX" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1MxWV7tlEXY0GhL9Rkx_dKuEx7tJf5j1n" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1MxWV7tlEXY0GhL9Rkx_dKuEx7tJf5j1n" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1kZUtv4BDCACpmE9JMomqAIdAUQIHKJs1" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1kZUtv4BDCACpmE9JMomqAIdAUQIHKJs1" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް">
-            <div class="card-text">📝 ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1MeDu58RzqSiJuijM1AXu7_61uYHYh3V7" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1MeDu58RzqSiJuijM1AXu7_61uYHYh3V7" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1VGq3QPjoQ_d1POYvsos0oEBky-fzPQWf" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1VGq3QPjoQ_d1POYvsos0oEBky-fzPQWf" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="މިލްކުވެރިކަން ސާބިތުކުރުމުގެ ފޯމް">
-            <div class="card-text">📝 މިލްކުވެރިކަން ސާބިތuކުރުމުގެ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=19yq5v-Eeh9HOgcajLMgINMWEgGOjJG8u" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">މިލްކުވެރިކަން ސާބިތުކުރުމުގެ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=19yq5v-Eeh9HOgcajLMgINMWEgGOjJG8u" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް">
-            <div class="card-text">📝 ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1xsaeOO2geMpwZTAl5CtXkyWEso9IggJG" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1xsaeOO2geMpwZTAl5CtXkyWEso9IggJG" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް">
-            <div class="card-text">📝 ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1WQU4zfoLCbHl2N-xO8g69XLcYEzrP2rD" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1WQU4zfoLCbHl2N-xO8g69XLcYEzrP2rD" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1hgGCndC3VRJlL9ZA4KaHCu9HxAXMKXxi" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1hgGCndC3VRJlL9ZA4KaHCu9HxAXMKXxi" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް">
-            <div class="card-text">📝 އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1ABTRC5cmBe16UB7r0Ea1oaaFSqvG-chQ" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1ABTRC5cmBe16UB7r0Ea1oaaFSqvG-chQ" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
-          <div class="card" data-keywords="ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖައްސާ ފޯމް">
-            <div class="card-text">📝 ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖައްސާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1EcHVROZ7j5yCzqgj2v0Q2jqRcpvtpSwa" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+          <div class="card" data-keywords="ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖެއްސާ ފޯމް">
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖެއްސާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1EcHVROZ7j5yCzqgj2v0Q2jqRcpvtpSwa" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
         </div>
 
         <div class="category-block active-block" id="cat_misc">
-          <div class="category-title">📁 އެހެނިހެން ފޯމުތައް</div>
+          <div class="category-title">އެހެނިހެން ފޯމuތައް</div>
           <div class="card" data-keywords="ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1AoATIhtTG-0WWddDMRVtg4T6fqjR1SLh" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1AoATIhtTG-0WWddDMRVtg4T6fqjR1SLh" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ޚަސްމުން ޗުއްޓީއަށް އެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ޚަސްމުން ޗުއްޓީއަށް އެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޚަސްމުން ޗުއްޓީއަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=127dCFI50qE4Dmagjmf6_wg2Apw82k4_Q" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=127dCFI50qE4Dmagjmf6_wg2Apw82k4_Q" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=13o1OJdu2IOpce7rolDs_uPu7y6cfXmzI" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=13o1OJdu2IOpce7rolDs_uPu7y6cfXmzI" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1xF74X8jA2v1Rq6ZffAphDLaKzEgjQIdW" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1xF74X8jA2v1Rq6ZffAphDLaKzEgjQIdW" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="އެގްރީމެންޓް ރަޖިސްޓްރީ ތަސްދީޤުކުރުން">
-            <div class="card-text">📝 އެގްރީމެންޓް ރަޖިސްޓްރީ/ތަސްދީޤުކުރުން</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1i0wEw_iTYme63kOTEUNhLa5muP6PkMEw" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">އެގްރީމެންޓް ރަޖިސްޓްރީ/ތަސްދީޤުކުރުން</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1i0wEw_iTYme63kOTEUNhLa5muP6PkMEw" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށް އެދޭ ފޯމު">
-            <div class="card-text">📝 ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށް އެދޭ ފޯމު</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށް އެދޭ ފޯމު</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ޢައްޔަންކޮށްފައިވާ ވަކީލު ބަދަލު ވަކިކުރާ ފޯމު">
-            <div class="card-text">📝 ޢައްޔަންކޮށްފައިވާ ވަކީލު ބަދަލު/ވަކިކުރާ ފޯމު</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޢައްޔަންކޮށްފައިވާ ވަކީލު ބަދަލު/ވަކިކުރާ ފޯމު</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ބަދަލު ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވާ ފޯމު">
-            <div class="card-text">📝 ބަދަލu ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވާ ފޯމު</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ބަދަލު ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވާ ފޯމު</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ވަކާލާތު ކުރުމަށް އެދި ހުށަހަޅާ ފޯމް">
-            <div class="card-text">📝 ވަކާލާތު ކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ވަކާލާތު ކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
-          <div class="card" data-keywords="ޝަރީޢަތުގެ މަޖުލީސް އަޑuއެހުމަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1botbwRbW4UPQYSgOKdzDUthQ6Tx-Y0oq" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+          <div class="card" data-keywords="ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް">
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1botbwRbW4UPQYSgOKdzDUthQ6Tx-Y0oq" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
-          <div class="card" data-keywords="ޝަރީޢަތް ނިމުނuގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް">
-            <div class="card-text">📝 ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1plqalRIfZi3gXKQqyxQhUHPtz9szJrcr" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+          <div class="card" data-keywords="ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް">
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=1plqalRIfZi3gXKQqyxQhUHPtz9szJrcr" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
           <div class="card" data-keywords="މެޑިކަލް ފޯމް">
-            <div class="card-text">📝 މެޑިކަލް ފޯމް</div>
-            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=17cHXcmipk6Qh99_WqVgGLTQWvvf7NxtR" target="_blank" class="btn-view">ޑައުންލޯޑް</a></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">މެޑިކަލް ފޯމް</div></div>
+            <div class="actions"><a href="https://drive.google.com/uc?export=download&id=17cHXcmipk6Qh99_WqVgGLTQWvvf7NxtR" target="_blank" class="btn-view"><i class="lucide-download"></i></a></div>
           </div>
-          <div class="card" data-keywords="ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމu">
-            <div class="card-text">📝 ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމު</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+          <div class="card" data-keywords="ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމު">
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޤާނޫނީ ވަކީލu ތަނާޒުލުވުމަށް އެދޭ ފޯމު</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
           <div class="card" data-keywords="ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބu ހުށަހަޅާ ފޯމު">
-            <div class="card-text">📝 ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ހުށަހަޅާ ފޯމު</div>
-            <div class="actions"><button onclick="alertMissing()" class="btn-missing">ނެތް</button></div>
+            <div class="card-right-wrapper"><i class="lucide-file-text card-icon"></i><div class="card-text">ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ހުށަހަޅާ ފޯމު</div></div>
+            <div class="actions"><button onclick="alertMissing()" class="btn-missing"><i class="lucide-alert-circle"></i></button></div>
           </div>
         </div>
 
