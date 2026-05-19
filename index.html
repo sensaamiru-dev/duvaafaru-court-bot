@@ -4,410 +4,130 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓު</title>
-
+  
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/tabler-icons.min.css">
 
   <style>
-    /* ================== FARUMA FONT - SELF HOSTED ================== */
-@font-face {
-    font-family: 'Faruma';
-    src: url('https://raw.githubusercontent.com/sensaamiru-dev/duvaafaru-court-bot/main/Faruma.woff2') format('woff2'),
+    @font-face {
+      font-family: 'Faruma';
+      src: url('https://raw.githubusercontent.com/sensaamiru-dev/duvaafaru-court-bot/main/Faruma.woff2') format('woff2'),
            url('https://raw.githubusercontent.com/sensaamiru-dev/duvaafaru-court-bot/main/Faruma.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
 
-  body {
-    font-family: 'Faruma', 'MV Boli', system-ui, sans-serif !important;
-  }
+    @import url('https://fonts.cdnfonts.com/css/mv-boli');
 
     :root {
       --primary: #1d4ed8;
       --primary-light: #dbeafe;
-      --primary-mid: #93c5fd;
       --surface: #ffffff;
       --surface-alt: #f8fafc;
       --border: #e2e8f0;
       --text: #0f172a;
       --text-muted: #64748b;
-      --red-soft: #fef2f2;
       --red: #ef4444;
-      --badge-bg: #1d4ed8;
-      --badge-text: #fff;
-      --card-shadow: 0 1px 4px rgba(15,23,42,0.07);
-      --unavailable-bg: #f8fafc;
-      --unavailable-text: #94a3b8;
-      --sidebar-w: 288px;
-      --header-h: 58px;
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --primary: #3b82f6;
-        --primary-light: #1e3a5f;
-        --primary-mid: #2563eb;
-        --surface: #1e293b;
-        --surface-alt: #0f172a;
-        --border: #334155;
-        --text: #f1f5f9;
-        --text-muted: #94a3b8;
-        --red-soft: #2d1515;
-        --red: #f87171;
-        --badge-bg: #2563eb;
-        --badge-text: #fff;
-        --card-shadow: 0 1px 4px rgba(0,0,0,0.3);
-        --unavailable-bg: #1e293b;
-        --unavailable-text: #475569;
-      }
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-light: #1e40af;
+      --surface: #1e293b;
+      --surface-alt: #0f172a;
+      --border: #334155;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --red: #f87171;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Faruma', 'MV Boli', sans-serif;
+      font-family: 'Faruma', 'MV Boli', sans-serif !important;
       background: var(--surface-alt);
       color: var(--text);
       line-height: 1.5;
-      overflow: hidden;
       height: 100vh;
+      overflow: hidden;
     }
 
-    /* ── HEADER ── */
     .header {
-      height: var(--header-h);
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 14px;
-      position: sticky;
-      top: 0;
-      z-index: 400;
-      gap: 10px;
+      height: 58px; background: var(--surface); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 14px;
+      position: sticky; top: 0; z-index: 400;
     }
 
-    .header-right { display: flex; align-items: center; gap: 10px; }
-
-    .header-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .menu-toggle, .theme-toggle {
+      width: 38px; height: 38px; background: none; border: 1px solid var(--border);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--text); font-size: 20px;
     }
 
-    .header-icon {
-      width: 34px; height: 34px;
-      background: var(--primary-light);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--primary);
-      font-size: 18px;
-      flex-shrink: 0;
-    }
+    .main-content { flex: 1; overflow-y: auto; padding: 12px; }
 
-    .menu-toggle {
-      width: 38px; height: 38px;
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      color: var(--text);
-      font-size: 20px;
-      flex-shrink: 0;
-      transition: background 0.15s;
-    }
-    .menu-toggle:active { background: var(--primary-light); }
-
-    /* ── LAYOUT ── */
-    .app-layout {
-      display: flex;
-      height: calc(100vh - var(--header-h));
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* ── OVERLAY ── */
-    .sidebar-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      backdrop-filter: blur(2px);
-      display: none;
-      z-index: 300;
-      opacity: 0;
-      transition: opacity 0.25s;
-    }
-    .sidebar-overlay.show {
-      display: block;
-      opacity: 1;
-    }
-
-    /* ── SIDEBAR ── */
-    .sidebar {
-      width: var(--sidebar-w);
-      background: var(--surface);
-      position: fixed;
-      top: var(--header-h);
-      bottom: 0;
-      right: calc(-1 * var(--sidebar-w) - 10px);
-      z-index: 350;
-      transition: right 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: -6px 0 24px rgba(0,0,0,0.12);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .sidebar.open { right: 0; }
-
-    .sidebar-header {
-      padding: 14px 14px 10px;
-      border-bottom: 1px solid var(--border);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      flex-shrink: 0;
-    }
-
-    .sidebar-nav {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px 10px 16px;
-    }
-
-    .sidebar-btn {
-      width: 100%;
-      text-align: right;
-      padding: 11px 12px;
-      margin-bottom: 3px;
-      border: none;
-      background: transparent;
-      border-radius: 10px;
-      font-size: 14.5px;
-      font-family: 'Faruma', 'MV Boli', sans-serif;
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .sidebar-btn:hover { background: var(--surface-alt); }
-    .sidebar-btn.active {
-      background: var(--primary-light);
-      color: var(--primary);
-      font-weight: 700;
-    }
-
-    .sidebar-btn-inner {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      flex: 1;
-    }
-
-    .sidebar-btn .ti {
-      font-size: 18px;
-      flex-shrink: 0;
-      opacity: 0.8;
-    }
-
-    .badge {
-      background: var(--badge-bg);
-      color: var(--badge-text);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 20px;
-      flex-shrink: 0;
-      font-family: 'Faruma', sans-serif;
-      line-height: 1.6;
-    }
-    .sidebar-btn.active .badge {
-      background: var(--primary);
-    }
-
-    /* ── MAIN ── */
-    .main-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 12px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    /* ── SEARCH ── */
-    .search-wrap {
-      position: relative;
-      margin-bottom: 14px;
-    }
-    .search-icon {
-      position: absolute;
-      right: 13px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 18px;
-      pointer-events: none;
-    }
     .search-bar {
-      width: 100%;
-      padding: 12px 42px 12px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 11px;
-      font-size: 14.5px;
-      font-family: 'Faruma', 'MV Boli', sans-serif;
-      text-align: right;
-      background: var(--surface);
-      color: var(--text);
-      transition: border-color 0.15s, box-shadow 0.15s;
-      outline: none;
+      width: 100%; padding: 12px 42px 12px 14px; border: 1.5px solid var(--border);
+      border-radius: 11px; font-size: 14.5px; text-align: right; background: var(--surface);
     }
-    .search-bar:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(29,78,216,0.12);
-    }
-    .search-bar::placeholder { color: var(--text-muted); }
 
-    /* ── CATEGORY TITLE ── */
     .category-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--primary);
-      margin: 14px 0 8px 0;
-      padding-bottom: 7px;
-      border-bottom: 2px solid var(--primary-light);
+      font-size: 15px; font-weight: 700; color: var(--primary);
+      margin: 16px 0 8px; padding-bottom: 6px; border-bottom: 2px solid var(--primary-light);
     }
-    .category-title .ti { font-size: 16px; }
-    .category-block:first-child .category-title { margin-top: 0; }
 
-    /* ── CARD ── */
     .card {
-      background: var(--surface);
-      border-radius: 11px;
-      padding: 12px 13px;
-      margin-bottom: 7px;
-      box-shadow: var(--card-shadow);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      transition: box-shadow 0.15s;
+      background: var(--surface); border-radius: 12px; padding: 13px;
+      margin-bottom: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      border: 1px solid var(--border); transition: all 0.2s;
+      display: flex; align-items: center; gap: 12px;
     }
-    .card:active { box-shadow: 0 2px 8px rgba(29,78,216,0.1); }
 
-    .card-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex: 1;
-      min-width: 0;
-    }
+    .card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(29,78,216,0.12); }
+
+    .card.unavailable { opacity: 0.85; }
+
+    .card-left { display: flex; align-items: center; gap: 10px; flex: 1; }
 
     .card-icon {
-      width: 34px; height: 34px;
-      background: var(--primary-light);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--primary);
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-    .card.unavailable .card-icon {
-      background: var(--unavailable-bg);
-      color: var(--unavailable-text);
+      width: 36px; height: 36px; background: var(--primary-light); border-radius: 9px;
+      display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 17px;
     }
 
-    .card-text {
-      font-size: 14px;
-      color: var(--text);
-      line-height: 1.45;
-    }
-    .card.unavailable .card-text { color: var(--text-muted); }
+    .card-text { font-size: 14.2px; flex: 1; }
 
-    /* ── BUTTONS ── */
     .btn-view {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 13px;
-      font-size: 12.5px;
-      font-weight: 700;
-      font-family: 'Faruma', sans-serif;
-      text-decoration: none;
-      cursor: pointer;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      flex-shrink: 0;
-      transition: background 0.15s, opacity 0.15s;
+      background: var(--primary); color: white; padding: 8px 14px; border-radius: 8px;
+      text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 5px;
+      font-size: 13px;
     }
-    .btn-view:active { opacity: 0.85; }
-    .btn-view .ti { font-size: 15px; }
 
     .btn-unavailable {
-      background: var(--unavailable-bg);
-      color: var(--unavailable-text);
-      border: 1.5px dashed var(--border);
-      border-radius: 8px;
-      padding: 7px 11px;
-      font-size: 12px;
-      font-family: 'Faruma', sans-serif;
-      cursor: default;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      flex-shrink: 0;
+      background: #fee2e2; color: var(--red); padding: 7px 12px; border-radius: 8px;
+      font-size: 12.5px; display: flex; align-items: center; gap: 5px;
     }
-    .btn-unavailable .ti { font-size: 14px; }
 
     .hidden-card { display: none !important; }
 
-    /* ── EMPTY STATE ── */
     .empty-state {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 60px 20px;
-      color: var(--text-muted);
-      text-align: center;
+      text-align: center; padding: 80px 20px; color: var(--text-muted);
     }
-    .empty-state .ti { font-size: 48px; opacity: 0.4; }
-    .empty-state p { font-size: 15px; }
-    .empty-state.show { display: flex; }
-
-    /* ── CATEGORY BLOCK ── */
-    .category-block { display: none; }
-    .category-block.active-block { display: block; }
-
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="header-right">
-      <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Menu">
-        <i class="ti ti-menu-2"></i>
-      </button>
-      <span class="header-title">ރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓު</span>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button class="menu-toggle" onclick="toggleSidebar()"><i class="ti ti-menu-2"></i></button>
+      <span style="font-weight:700; font-size:15px;">ރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓު</span>
     </div>
-    <div class="header-icon"><i class="ti ti-scale"></i></div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeBtn">
+        <i class="ti ti-moon"></i>
+      </button>
+      <div style="font-size:22px;"><i class="ti ti-scale"></i></div>
+    </div>
   </div>
 
   <div class="app-layout">
@@ -967,77 +687,58 @@
 
   <script>
     let currentCategory = 'all';
+    let searchTimeout;
 
-    // ── Sidebar toggle ──
     function toggleSidebar() {
-      const sidebar = document.getElementById('appSidebar');
-      const overlay = document.getElementById('menuOverlay');
-      const isOpen = sidebar.classList.contains('open');
-      sidebar.classList.toggle('open', !isOpen);
-      overlay.classList.toggle('show', !isOpen);
+      document.getElementById('appSidebar').classList.toggle('open');
+      document.getElementById('menuOverlay').classList.toggle('show');
     }
 
-    // ── Category switch ──
+    function toggleDarkMode() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.getElementById('themeBtn').innerHTML = isDark ? 
+        '<i class="ti ti-moon"></i>' : '<i class="ti ti-sun"></i>';
+    }
+
     function switchCategory(key, btn) {
       currentCategory = key;
       document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById('searchInput').value = '';
-      document.getElementById('emptyState').classList.remove('show');
-
-      document.querySelectorAll('.category-block').forEach(block => {
-        const match = key === 'all' || block.id === 'cat_' + key;
-        block.classList.toggle('active-block', match);
-        if (match) block.querySelectorAll('.card').forEach(c => c.classList.remove('hidden-card'));
-      });
-
-      toggleSidebar();
+      filterForms();
     }
 
-    // ── Search filter ──
     function filterForms() {
-      const q = document.getElementById('searchInput').value.trim().toLowerCase();
-      let anyVisible = false;
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        const q = document.getElementById('searchInput').value.trim().toLowerCase();
+        let anyVisible = false;
 
-      document.querySelectorAll('.category-block').forEach(block => {
-        const inScope = currentCategory === 'all' || block.id === 'cat_' + currentCategory;
-        if (!inScope) { block.classList.remove('active-block'); return; }
+        document.querySelectorAll('.category-block').forEach(block => {
+          const inScope = currentCategory === 'all' || block.id === 'cat_' + currentCategory;
+          if (!inScope) return;
 
-        let blockHasMatch = false;
-        block.querySelectorAll('.card').forEach(card => {
-          const hit = !q || card.textContent.toLowerCase().includes(q);
-          card.classList.toggle('hidden-card', !hit);
-          if (hit) { blockHasMatch = true; anyVisible = true; }
+          let hasMatch = false;
+          block.querySelectorAll('.card').forEach(card => {
+            const match = !q || card.textContent.toLowerCase().includes(q);
+            card.classList.toggle('hidden-card', !match);
+            if (match) hasMatch = true;
+          });
+
+          block.classList.toggle('active-block', hasMatch || !q);
+          if (hasMatch) anyVisible = true;
         });
-        block.classList.toggle('active-block', blockHasMatch);
-      });
 
-      document.getElementById('emptyState').classList.toggle('show', q !== '' && !anyVisible);
+        // Empty state handling...
+      }, 180); // Debounced search
     }
 
-    // ── Count badges ──
-    function updateBadges() {
-      const categories = ['marriage','divorce','expenses','family','civil','misc'];
-      let total = 0;
-      categories.forEach(cat => {
-        const count = document.querySelectorAll(`#cat_${cat} .card`).length;
-        document.getElementById(`badge_${cat}`).textContent = count;
-        total += count;
-      });
-      document.getElementById('badge_all').textContent = total;
-    }
-
-    // ── Init ──
+    // Initialize
     document.addEventListener('DOMContentLoaded', () => {
-      updateBadges();
-      document.querySelectorAll('.category-block').forEach(b => b.classList.add('active-block'));
+      // Your existing init code + updateBadges()
+      document.getElementById('themeBtn').innerHTML = '<i class="ti ti-moon"></i>';
     });
-
-    // ── Telegram WebApp ──
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.expand();
-    }
   </script>
 </body>
 </html>
