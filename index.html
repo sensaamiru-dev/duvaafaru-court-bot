@@ -4,420 +4,1028 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓު</title>
-  
+
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/tabler-icons.min.css">
 
   <style>
     @import url('https://fonts.cdnfonts.com/css/faruma');
 
     :root {
-      --primary: #2b6cb0;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #1e2937;
-      --muted: #64748b;
+      --primary: #1d4ed8;
+      --primary-light: #dbeafe;
+      --primary-mid: #93c5fd;
+      --surface: #ffffff;
+      --surface-alt: #f8fafc;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --red-soft: #fef2f2;
+      --red: #ef4444;
+      --badge-bg: #1d4ed8;
+      --badge-text: #fff;
+      --card-shadow: 0 1px 4px rgba(15,23,42,0.07);
+      --unavailable-bg: #f8fafc;
+      --unavailable-text: #94a3b8;
+      --sidebar-w: 288px;
+      --header-h: 58px;
     }
 
-    [data-theme="dark"] {
-      --bg: #0f172a;
-      --card: #1e2937;
-      --text: #e2e8f0;
-      --muted: #94a3b8;
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #3b82f6;
+        --primary-light: #1e3a5f;
+        --primary-mid: #2563eb;
+        --surface: #1e293b;
+        --surface-alt: #0f172a;
+        --border: #334155;
+        --text: #f1f5f9;
+        --text-muted: #94a3b8;
+        --red-soft: #2d1515;
+        --red: #f87171;
+        --badge-bg: #2563eb;
+        --badge-text: #fff;
+        --card-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        --unavailable-bg: #1e293b;
+        --unavailable-text: #475569;
+      }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Faruma', sans-serif;
-      background: var(--bg);
+      font-family: 'Faruma', 'MV Boli', sans-serif;
+      background: var(--surface-alt);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.5;
+      overflow: hidden;
+      height: 100vh;
     }
 
+    /* ── HEADER ── */
     .header {
-      background: var(--card);
-      padding: 14px 16px;
+      height: var(--header-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      justify-content: space-between;
+      padding: 0 14px;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 400;
+      gap: 10px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 10px; }
+
+    .header-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-icon {
+      width: 34px; height: 34px;
+      background: var(--primary-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary);
+      font-size: 18px;
+      flex-shrink: 0;
     }
 
     .menu-toggle {
-      font-size: 26px;
+      width: 38px; height: 38px;
       background: none;
-      border: none;
-      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
       cursor: pointer;
+      color: var(--text);
+      font-size: 20px;
+      flex-shrink: 0;
+      transition: background 0.15s;
     }
+    .menu-toggle:active { background: var(--primary-light); }
 
+    /* ── LAYOUT ── */
     .app-layout {
       display: flex;
-      height: calc(100vh - 60px);
+      height: calc(100vh - var(--header-h));
+      overflow: hidden;
       position: relative;
+    }
+
+    /* ── OVERLAY ── */
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(2px);
+      display: none;
+      z-index: 300;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .sidebar-overlay.show {
+      display: block;
+      opacity: 1;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--surface);
+      position: fixed;
+      top: var(--header-h);
+      bottom: 0;
+      right: calc(-1 * var(--sidebar-w) - 10px);
+      z-index: 350;
+      transition: right 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -6px 0 24px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
     }
+    .sidebar.open { right: 0; }
 
-    /* Sidebar */
-    .sidebar {
-      width: 280px;
-      background: var(--card);
-      padding: 12px;
-      overflow-y: auto;
-      position: fixed;
-      top: 60px;
-      bottom: 0;
-      right: -280px;
-      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 300;
-      box-shadow: -4px 0 15px rgba(0,0,0,0.15);
+    .sidebar-header {
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
     }
 
-    .sidebar.open { right: 0; }
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 10px 16px;
+    }
 
     .sidebar-btn {
       width: 100%;
       text-align: right;
-      padding: 14px 16px;
-      margin-bottom: 6px;
+      padding: 11px 12px;
+      margin-bottom: 3px;
       border: none;
-      background: #f1f5f9;
+      background: transparent;
       border-radius: 10px;
-      font-size: 15px;
+      font-size: 14.5px;
+      font-family: 'Faruma', 'MV Boli', sans-serif;
       cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      color: var(--text);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: all 0.2s;
+      gap: 8px;
+    }
+    .sidebar-btn:hover { background: var(--surface-alt); }
+    .sidebar-btn.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 700;
     }
 
-    [data-theme="dark"] .sidebar-btn { background: #334155; }
+    .sidebar-btn-inner {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex: 1;
+    }
 
-    .sidebar-btn.active {
-      background: #e0f2fe;
-      color: var(--primary);
-      font-weight: bold;
+    .sidebar-btn .ti {
+      font-size: 18px;
+      flex-shrink: 0;
+      opacity: 0.8;
     }
 
     .badge {
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 20px;
+      flex-shrink: 0;
+      font-family: 'Faruma', sans-serif;
+      line-height: 1.6;
+    }
+    .sidebar-btn.active .badge {
       background: var(--primary);
-      color: white;
-      font-size: 12px;
-      padding: 2px 8px;
-      border-radius: 9999px;
     }
 
-    .sidebar-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      z-index: 200;
-    }
-
-    .sidebar-overlay.show { display: block; }
-
-    /* Main Content */
+    /* ── MAIN ── */
     .main-content {
       flex: 1;
-      padding: 14px;
       overflow-y: auto;
+      padding: 12px;
+      -webkit-overflow-scrolling: touch;
     }
 
+    /* ── SEARCH ── */
+    .search-wrap {
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .search-icon {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 18px;
+      pointer-events: none;
+    }
     .search-bar {
       width: 100%;
-      padding: 14px 16px;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
-      font-size: 15px;
+      padding: 12px 42px 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 11px;
+      font-size: 14.5px;
+      font-family: 'Faruma', 'MV Boli', sans-serif;
       text-align: right;
-      background: var(--card);
+      background: var(--surface);
       color: var(--text);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
     }
+    .search-bar:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(29,78,216,0.12);
+    }
+    .search-bar::placeholder { color: var(--text-muted); }
 
+    /* ── CATEGORY TITLE ── */
     .category-title {
-      font-size: 16px;
-      font-weight: bold;
-      color: #1e40af;
-      margin: 16px 0 10px 0;
-      padding-bottom: 6px;
-      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 14px 0 8px 0;
+      padding-bottom: 7px;
+      border-bottom: 2px solid var(--primary-light);
     }
+    .category-title .ti { font-size: 16px; }
+    .category-block:first-child .category-title { margin-top: 0; }
 
+    /* ── CARD ── */
     .card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 10px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      background: var(--surface);
+      border-radius: 11px;
+      padding: 12px 13px;
+      margin-bottom: 7px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 12px;
-      transition: all 0.2s;
+      justify-content: space-between;
+      gap: 10px;
+      transition: box-shadow 0.15s;
     }
+    .card:active { box-shadow: 0 2px 8px rgba(29,78,216,0.1); }
 
-    .card.not-available {
-      opacity: 0.75;
-      filter: saturate(0.7);
-    }
-
-    .icon-box {
-      width: 42px;
-      height: 42px;
-      background: #e0f2fe;
-      border-radius: 10px;
+    .card-left {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 20px;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-icon {
+      width: 34px; height: 34px;
+      background: var(--primary-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary);
+      font-size: 16px;
       flex-shrink: 0;
+    }
+    .card.unavailable .card-icon {
+      background: var(--unavailable-bg);
+      color: var(--unavailable-text);
     }
 
     .card-text {
-      flex: 1;
-      font-size: 14.5px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.45;
     }
+    .card.unavailable .card-text { color: var(--text-muted); }
 
+    /* ── BUTTONS ── */
     .btn-view {
-      background: #e0f2fe;
-      color: #1e40af;
+      background: var(--primary);
+      color: #fff;
       border: none;
       border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: bold;
+      padding: 8px 13px;
+      font-size: 12.5px;
+      font-weight: 700;
+      font-family: 'Faruma', sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
       display: flex;
       align-items: center;
-      gap: 4px;
-      text-decoration: none;
+      gap: 5px;
+      flex-shrink: 0;
+      transition: background 0.15s, opacity 0.15s;
     }
+    .btn-view:active { opacity: 0.85; }
+    .btn-view .ti { font-size: 15px; }
 
-    .not-available-btn {
-      background: #fee2e2;
-      color: #ef4444;
+    .btn-unavailable {
+      background: var(--unavailable-bg);
+      color: var(--unavailable-text);
+      border: 1.5px dashed var(--border);
+      border-radius: 8px;
+      padding: 7px 11px;
+      font-size: 12px;
+      font-family: 'Faruma', sans-serif;
       cursor: default;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
     }
+    .btn-unavailable .ti { font-size: 14px; }
 
+    .hidden-card { display: none !important; }
+
+    /* ── EMPTY STATE ── */
     .empty-state {
-      text-align: center;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       padding: 60px 20px;
-      color: var(--muted);
+      color: var(--text-muted);
+      text-align: center;
     }
+    .empty-state .ti { font-size: 48px; opacity: 0.4; }
+    .empty-state p { font-size: 15px; }
+    .empty-state.show { display: flex; }
 
-    .ti { vertical-align: middle; }
+    /* ── CATEGORY BLOCK ── */
+    .category-block { display: none; }
+    .category-block.active-block { display: block; }
+
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="header-right">
-      <button class="menu-toggle" onclick="toggleSidebar()"><i class="ti ti-menu-2"></i></button>
-      <h2>ރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓު</h2>
+      <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Menu">
+        <i class="ti ti-menu-2"></i>
+      </button>
+      <span class="header-title">ރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓު</span>
     </div>
-    <div><i class="ti ti-scale" style="font-size:24px;"></i></div>
+    <div class="header-icon"><i class="ti ti-scale"></i></div>
   </div>
 
   <div class="app-layout">
+
     <div class="sidebar-overlay" id="menuOverlay" onclick="toggleSidebar()"></div>
-    
+
     <div class="sidebar" id="appSidebar">
-      <button class="sidebar-btn active" onclick="switchCategory('all', this)"><i class="ti ti-layout-grid"></i> ހުރިހާ ފޯމެއް <span class="badge">68</span></button>
-      <button class="sidebar-btn" onclick="switchCategory('marriage', this)"><i class="ti ti-heart"></i> ކައިވެންޏާއި ގުޅޭ <span class="badge">8</span></button>
-      <button class="sidebar-btn" onclick="switchCategory('divorce', this)"><i class="ti ti-heart-broken"></i> ވަރިއާއި ގުޅޭ <span class="badge">6</span></button>
-      <button class="sidebar-btn" onclick="switchCategory('expenses', this)"><i class="ti ti-cash"></i> ޚަރަދާއި ގުޅޭ <span class="badge">3</span></button>
-      <button class="sidebar-btn" onclick="switchCategory('family', this)"><i class="ti ti-users"></i> ޢާއިލީ އެހެނިހެން <span class="badge">18</span></button>
-      <button class="sidebar-btn" onclick="switchCategory('civil', this)"><i class="ti ti-scale"></i> މަދަނީ ފޯމުތައް <span class="badge">23</span></button>
-      <button class="sidebar-btn" onclick="switchCategory('misc', this)"><i class="ti ti-folder"></i> އެހެނިހެން ފޯމުތައް <span class="badge">15</span></button>
+      <div class="sidebar-header">ބައިތައް</div>
+      <nav class="sidebar-nav">
+        <button class="sidebar-btn active" onclick="switchCategory('all', this)">
+          <div class="sidebar-btn-inner">
+            <i class="ti ti-layout-list"></i>
+            ހުރިހާ ފޯމެއް
+          </div>
+          <span class="badge" id="badge_all">0</span>
+        </button>
+        <button class="sidebar-btn" onclick="switchCategory('marriage', this)">
+          <div class="sidebar-btn-inner">
+            <i class="ti ti-heart"></i>
+            ކައިވެންޏާއި ގުޅޭ
+          </div>
+          <span class="badge" id="badge_marriage">0</span>
+        </button>
+        <button class="sidebar-btn" onclick="switchCategory('divorce', this)">
+          <div class="sidebar-btn-inner">
+            <i class="ti ti-heart-broken"></i>
+            ވަރިއާއި ގުޅޭ
+          </div>
+          <span class="badge" id="badge_divorce">0</span>
+        </button>
+        <button class="sidebar-btn" onclick="switchCategory('expenses', this)">
+          <div class="sidebar-btn-inner">
+            <i class="ti ti-cash"></i>
+            ޚަރަދާއި ގުޅޭ
+          </div>
+          <span class="badge" id="badge_expenses">0</span>
+        </button>
+        <button class="sidebar-btn" onclick="switchCategory('family', this)">
+          <div class="sidebar-btn-inner">
+            <i class="ti ti-users"></i>
+            ޢާއިލީ އެހެނިހެން
+          </div>
+          <span class="badge" id="badge_family">0</span>
+        </button>
+        <button class="sidebar-btn" onclick="switchCategory('civil', this)">
+          <div class="sidebar-btn-inner">
+            <i class="ti ti-scale"></i>
+            މަދަނީ ފޯމުތައް
+          </div>
+          <span class="badge" id="badge_civil">0</span>
+        </button>
+        <button class="sidebar-btn" onclick="switchCategory('misc', this)">
+          <div class="sidebar-btn-inner">
+            <i class="ti ti-folder"></i>
+            އެހެނިހެން ފޯމުތައް
+          </div>
+          <span class="badge" id="badge_misc">0</span>
+        </button>
+      </nav>
     </div>
 
-    <div class="main-content">
-      <input type="text" class="search-bar" id="searchInput" 
-             placeholder="ފޯމެއް ނުވަތަ ކީވޯޑެއް ހޯއްދަވާލައްވާ..." 
-             onkeyup="filterForms()">
+    <div class="main-content" id="mainContent">
+      <div class="search-wrap">
+        <i class="ti ti-search search-icon"></i>
+        <input type="text" class="search-bar" id="searchInput"
+               placeholder="ފޯމެއް ނުވަތަ ކީވޯޑެއް ހޯއްދަވާލައްވާ..."
+               oninput="filterForms()">
+      </div>
 
       <div id="portalContainer">
 
         <!-- ====================== MARRIAGE ====================== -->
-        <div class="category-block active-block" id="cat_marriage">
-          <div class="category-title">💍 ކައިވެންޏާއި ގުޅޭ ފޯމުތައް</div>
-          <div class="card" data-keywords="ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް"><div class="card-text">ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1uYcuctdbAP_aomniBiLvW2SVghBtinT1" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް"><div class="card-text">އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1ksewMgJTc97nwzArpcJt-h3a3hUBwiZz" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ވަރި ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް"><div class="card-text">ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1S_mBJgCqyN5HFgT7Qm2Zeb3NjuhR5Wol" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް"><div class="card-text">ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1OfJ3dmcc-63sZx8g_Slcg9rTSacvVRT8" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް"><div class="card-text">ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1cpYDoWff3_BI6BKn_F_DNEoKO3lLZifA" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް"><div class="card-text">ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1c5r3OTHLgbz0lqSwX76pbES-Ox3UsaSj" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް"><div class="card-text">ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1XdmuYEqhe0Ix8o89Abv5fS1p8dYlTt_3" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް"><div class="card-text">ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=190QF0VbCvzArhvwYGk_C_EU-yu0QJ_w-" target="_blank" class="btn-view">VIEW</a></div></div>
+        <div class="category-block active-block" id="cat_marriage" data-title="💍 ކައިވެންޏާއި ގުޅޭ ފޯމުތައް" data-icon="ti-heart">
+          <div class="category-title"><i class="ti ti-heart"></i> ކައިވެންޏާއި ގުޅޭ ފޯމުތައް</div>
+
+          <div class="card" data-keywords="ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1uYcuctdbAP_aomniBiLvW2SVghBtinT1" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1ksewMgJTc97nwzArpcJt-h3a3hUBwiZz" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ވަރި ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1S_mBJgCqyN5HFgT7Qm2Zeb3NjuhR5Wol" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1OfJ3dmcc-63sZx8g_Slcg9rTSacvVRT8" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1cpYDoWff3_BI6BKn_F_DNEoKO3lLZifA" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1c5r3OTHLgbz0lqSwX76pbES-Ox3UsaSj" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1XdmuYEqhe0Ix8o89Abv5fS1p8dYlTt_3" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=190QF0VbCvzArhvwYGk_C_EU-yu0QJ_w-" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
         </div>
 
         <!-- ====================== DIVORCE ====================== -->
-        <div class="category-block active-block" id="cat_divorce">
-          <div class="category-title">💔 ވަރިއާއި ގުޅޭ ފޯމުތައް</div>
-          <div class="card" data-keywords="ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް"><div class="card-text">ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1byWcvJuBBSoMnpK_UPbIoBopl6PaJMT2" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް"><div class="card-text">ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1b8ihPdkGowOjkouXHPbcySlPUjqmHK6Z" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ވަރިވުމާމެދު ޝައްކުވެގެން ހުށަހަޅާ ފޯމް"><div class="card-text">ވަރިވުމާމެދު ޝައްކުވެގެން ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1OrVlFHIfNwqN7q9in32iDNjr-3TVCAm_" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ވަރިކުރުމަށް އެދޭ ފޯމް"><div class="card-text">ވަރިކުރުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=132ATLMqiEbR6cA1srt4PZ-kcG3ttEquL" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ވަރިވުމަށް އެދޭ ފޯމް"><div class="card-text">ވަރިވުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1_t1XzWLvDNE59vW5YWUfsXXSrEOsO4-i" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ވަރި ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް"><div class="card-text">ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1S_mBJgCqyN5HFgT7Qm2Zeb3NjuhR5Wol" target="_blank" class="btn-view">VIEW</a></div></div>
+        <div class="category-block active-block" id="cat_divorce" data-title="💔 ވަރިއާއި ގުޅޭ ފޯމުތައް" data-icon="ti-heart-broken">
+          <div class="category-title"><i class="ti ti-heart-broken"></i> ވަރިއާއި ގުޅޭ ފޯމުތައް</div>
+
+          <div class="card" data-keywords="ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1byWcvJuBBSoMnpK_UPbIoBopl6PaJMT2" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1b8ihPdkGowOjkouXHPbcySlPUjqmHK6Z" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ވަރިވުމާމެދު ޝައްކުވެގެން ހުށަހަޅާ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ވަރިވުމާމެދު ޝައްކުވެގެން ހުށަހަޅާ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1OrVlFHIfNwqN7q9in32iDNjr-3TVCAm_" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ވަރިކުރުމަށް އެދޭ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ވަރިކުރުމަށް އެދޭ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=132ATLMqiEbR6cA1srt4PZ-kcG3ttEquL" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ވަރިވުމަށް އެދޭ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ވަރިވުމަށް އެދޭ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1_t1XzWLvDNE59vW5YWUfsXXSrEOsO4-i" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ވަރި ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1S_mBJgCqyN5HFgT7Qm2Zeb3NjuhR5Wol" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
         </div>
 
         <!-- ====================== EXPENSES ====================== -->
-        <div class="category-block active-block" id="cat_expenses">
-          <div class="category-title">💰 ޚަރަދާއި ގުޅޭ ފޯމުތައް</div>
-          <div class="card" data-keywords="ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް"><div class="card-text">ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1R6hQbvO9E76yTXATuWd5KjSTFO_UrEiY" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ސާބިތު ދަރަނީގެ މައްސަލަ ހުށަހަޅާ ފޯމް"><div class="card-text">ސާބިތު ދަރަނީގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ޚަރަދު ހޯދުމަށްއެދި މައްސަލަ ހުށަހަޅާ ފޯމް"><div class="card-text">ޚަރަދު ހޯދުމަށްއެދި މައްސަލަ ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1yMWV503SXu0lrPzkK3JA2ZX-tgEoLYZa" target="_blank" class="btn-view">VIEW</a></div></div>
+        <div class="category-block active-block" id="cat_expenses" data-title="💰 ޚަރަދާއި ގުޅޭ ފޯމުތައް" data-icon="ti-cash">
+          <div class="category-title"><i class="ti ti-cash"></i> ޚަރަދާއި ގުޅޭ ފޯމުތައް</div>
+
+          <div class="card" data-keywords="ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1R6hQbvO9E76yTXATuWd5KjSTFO_UrEiY" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card unavailable" data-keywords="ސާބިތު ދަރަނީގެ މައްސަލަ ހުށަހަޅާ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-off"></i></div>
+              <div class="card-text">ސާބިތު ދަރަނީގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div>
+            </div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card" data-keywords="ޚަރަދު ހޯދުމަށްއެދި މައްސަލަ ހުށަހަޅާ ފޯމް">
+            <div class="card-left">
+              <div class="card-icon"><i class="ti ti-file-description"></i></div>
+              <div class="card-text">ޚަރަދު ހޯދުމަށްއެދި މައްސަލަ ހުށަހަޅާ ފޯމް</div>
+            </div>
+            <a href="https://drive.google.com/open?id=1yMWV503SXu0lrPzkK3JA2ZX-tgEoLYZa" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
         </div>
 
         <!-- ====================== FAMILY ====================== -->
-        <div class="category-block active-block" id="cat_family">
-          <div class="category-title">👨‍👩‍👧‍👦 ޢާއިލީ އެހެނިހެން ފޯމުތައް</div>
-          <div class="card" data-keywords="އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް"><div class="card-text">އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ޙުކުމް އިޞްލާޙުކުރުމަށް އެދޭ ފޯމް"><div class="card-text">ޙުކުމް އިޞްލާޙުކުރުމަށް އެދޭ ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ވަގުތީ ޢަމުރު ތަންފީޒު މުރާޖަޢާ ފޯމް"><div class="card-text">ވަގުތީ ޢަމުރު ތަންފީޒު/މުރާޖަޢާ ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ކުޑަކުދިންގެ ޙައްޤުތަކުގެ ކޯޓު އަމުރު ފޯމް"><div class="card-text">ކުޑަކުދިންގެ ޙައްޤުތަކުގެ ކޯޓު އަމުރު ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް"><div class="card-text">ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ރަޖިސްޓްރާރގެ ނިންމުން ބަދަލުކުރާ ފޯމް"><div class="card-text">ރަޖިސްޓްރާރގެ ނިންމުން ބަދަލުކުރާ ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް"><div class="card-text">މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1zf21cdWNLhnjnljMhHJViQropGn5qC_N" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ބޭސްފަރުވާއަށް ރަށުން ބޭރަށްދާ ފޯމް"><div class="card-text">ބޭސްފަރުވާއަށް ރަށުން ބޭރަށްދާ ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ވަގުތީ ޢަމުރަށްއެދި ހުށަހަޅާ ފޯމް"><div class="card-text">ވަގުތީ ޢަމުރަށްއެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1yinhMgWIz86UKSM9sDTT1AG3M120vJBz" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ތަދައްޚުލްވުމަށްއެދޭ ފޯމް ޢާއިލީ"><div class="card-text">ތަދައްޚުލްވުމަށްއެދޭ ފޯމް (ޢާއިލީ)</div><div class="actions"><a href="https://drive.google.com/open?id=1TeoLbbaYGL6AAkMxIXsIL-K7BXgP-kNr" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ބަދަލުގައި މީހަކު ހަމަޖައްސާ ފޯމް"><div class="card-text">ބަދަލުގައި މީހަކު ހަމަޖައްސާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1NWBHwjAXgN9IeCc0FLSsCdDNgMtSASq7" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="މައްސަލައާއި ގުޅޭ ލިޔުންތަކަށްއެދޭ ފޯމް"><div class="card-text">މައްސަލައާއި ގުޅޭ ލިޔުންތަކަށްއެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1aPwqmrRcJL9nwrirlw1avEo0s8Nbmznh" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ލިޔުންޝަފަހީ ހެކި ހުށަހަޅާ ފޯމް"><div class="card-text">ލިޔުން ޝަފަހީ ހެކި ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1r8tifhxaW4THw7NF9j-MRU4eOXlgeAJK" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ކުދިންގެ ޙަޟާނަތު ހޯދާ ފޯމް"><div class="card-text">ކުދިންގެ ޙަޟާނަތު ހޯދާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1wGlMsvFwD1qtT_TQ85G2OiUkF" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ފޯމް"><div class="card-text">ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް"><div class="card-text">ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1424UzDEdahB-8GSvoHrRNQB6jRfzs0SW" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރާ ޢަމުރު ފޯމް"><div class="card-text">ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރާ ޢަމުރު ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1dUjOQpjokoCgpKAwHCLFWMFl7dy60VuJ" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ޢަމުރު ބަދަލު ބާޠިލް ކުރަން އެދޭ ފޯމް"><div class="card-text">ޢަމުރު ބަދަލު/ބާޠިލް ކުރަން އެދޭ ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް"><div class="card-text">ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1exaekraJXEZuxf7iKtY8A9gfqBpdrJhI" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް"><div class="card-text">އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1t7BP2ooOejkI1l6R8luEZnJytPB03ln2" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ޢާއިލީ އެހެނިހެން މައްސަލަތަކުގެ ފޯމް"><div class="card-text">ޢާއިލީ އެހެނިހެން މައްސަލަތަކުގެ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1G2A-sLVaOPBj6IWJC5Hs_qfRH6P99PU4" target="_blank" class="btn-view">VIEW</a></div></div>
+        <div class="category-block active-block" id="cat_family" data-title="👨‍👩‍👧‍👦 ޢާއިލީ އެހެނިހެން ފޯމުތައް" data-icon="ti-users">
+          <div class="category-title"><i class="ti ti-users"></i> ޢާއިލީ އެހެނިހެން ފޯމުތައް</div>
+
+          <div class="card unavailable" data-keywords="އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card unavailable" data-keywords="ޙުކުމް އިޞްލާޙުކުރުމަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ޙުކުމް އިޞްލާޙުކުރުމަށް އެދޭ ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card unavailable" data-keywords="ވަގުތީ ޢަމުރު ތަންފީޒު މުރާޖަޢާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ވަގުތީ ޢަމުރު ތަންފީޒު/މުރާޖަޢާ ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card unavailable" data-keywords="ކުޑަކުދިންގެ ޙައްޤުތަކުގެ ކޯޓު އަމުރު ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ކުޑަކުދިންގެ ޙައްޤުތަކުގެ ކޯޓު އަމުރު ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card unavailable" data-keywords="ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card unavailable" data-keywords="ރަޖިސްޓްރާރގެ ނިންމުން ބަދަލުކުރާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ރަޖިސްޓްރާރގެ ނިންމުން ބަދަލުކުރާ ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card" data-keywords="މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1zf21cdWNLhnjnljMhHJViQropGn5qC_N" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card unavailable" data-keywords="ބޭސްފަރުވާއަށް ރަށުން ބޭރަށްދާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ބޭސްފަރުވާއަށް ރަށުން ބޭރަށްދާ ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card" data-keywords="ވަގުތީ ޢަމުރަށްއެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ވަގުތީ ޢަމުރަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1yinhMgWIz86UKSM9sDTT1AG3M120vJBz" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ތަދައްޚުލްވުމަށްއެދޭ ފޯމް ޢާއިލީ">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ތަދައްޚުލްވުމަށްއެދޭ ފޯމް (ޢާއިލީ)</div></div>
+            <a href="https://drive.google.com/open?id=1TeoLbbaYGL6AAkMxIXsIL-K7BXgP-kNr" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ބަދަލުގައި މީހަކު ހަމަޖައްސާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ބަދަލުގައި މީހަކު ހަމަޖައްސާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1NWBHwjAXgN9IeCc0FLSsCdDNgMtSASq7" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="މައްސަލައާއި ގުޅޭ ލިޔުންތަކަށްއެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މައްސަލައާއި ގުޅޭ ލިޔުންތަކަށްއެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1aPwqmrRcJL9nwrirlw1avEo0s8Nbmznh" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ލިޔުންޝަފަހީ ހެކި ހުށަހަޅާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ލިޔުން ޝަފަހީ ހެކި ހުށަހަޅާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1r8tifhxaW4THw7NF9j-MRU4eOXlgeAJK" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ކުދިންގެ ޙަޟާނަތު ހޯދާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ކުދިންގެ ޙަޟާނަތު ހޯދާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1wGlMsvFwD1qtT_TQ85G2OiUkF" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card unavailable" data-keywords="ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card" data-keywords="ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1424UzDEdahB-8GSvoHrRNQB6jRfzs0SW" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރާ ޢަމުރު ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރާ ޢަމުރު ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1dUjOQpjokoCgpKAwHCLFWMFl7dy60VuJ" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card unavailable" data-keywords="ޢަމުރު ބަދަލު ބާޠިލް ކުރަން އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ޢަމުރު ބަދަލު/ބާޠިލް ކުރަން އެދޭ ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card" data-keywords="ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1exaekraJXEZuxf7iKtY8A9gfqBpdrJhI" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1t7BP2ooOejkI1l6R8luEZnJytPB03ln2" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ޢާއިލީ އެހެނިހެން މައްސަލަތަކުގެ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޢާއިލީ އެހެނިހެން މައްސަލަތަކުގެ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1G2A-sLVaOPBj6IWJC5Hs_qfRH6P99PU4" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
         </div>
 
         <!-- ====================== CIVIL ====================== -->
-        <div class="category-block active-block" id="cat_civil">
-          <div class="category-title">⚖️ މަދަނީ ފޯމުތައް</div>
-          <div class="card" data-keywords="ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް"><div class="card-text">ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1G2ApAHTN9BvQ2zNlHPoGxcrfReFPzOxx" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް"><div class="card-text">ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1OgSP3RfK13m7HP_OoRNfHD-4bRA4_9Ud" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="އިޙްތިޞާޞްއާމެދު އިޢުތިރާޜްކުރާ ފޯމް"><div class="card-text">އިޙްތިޞާޞްއާމެދު އިޢުތިރާޒްކުރާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1_sla5O3aK0Jjsl-diIUVh7TKGS7MXxRM" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް"><div class="card-text">މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1mgGRwDl7FjNHIkuPUk4SH6uhCSVPScyE" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް"><div class="card-text">ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=13wu8dkVsadJpc-jQ6Bp3NTpxPTdLDqpE" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް"><div class="card-text">އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1CgGymGUp_psVpNf_7EXEOUU15kQAJOS5" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ދަޢުވާގެ ދިފާޢު ފޯމް"><div class="card-text">ދަޢުވާގެ ދިފާޢު ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1k18Eo49_n5DshtbBkZxdIbvJpH2VKhna" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ދިފާޢުގެ ޖަވާބު ފޯމް"><div class="card-text">ދިފާޢުގެ ޖަވާބު ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1IZzFHKHGlE0stp32IERzeoc_DtrG3-wi" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް"><div class="card-text">ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1ol39bQqKtG78O5y6tonz3A4VXYmTHkma" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް"><div class="card-text">އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=14_yQrNKz7q5ssYJcwM8d5rPH-8k4DOZP" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް"><div class="card-text">ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1IR0h5xiS3bIaEhcRIO5j2SbVAQWuWAqk" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް"><div class="card-text">މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1MiZKn52rzmHOev6Waso28maBZuT3t3s3" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ކޯޓު އަމުރަށް އެދޭ ފޯމް"><div class="card-text">ކޯޓު އަމުރަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1u8QiJ4RNZm0Q2Op0RpbXeZcw2PB8gXE1" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން"><div class="card-text">ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން</div><div class="actions"><a href="https://drive.google.com/open?id=1zOoaDhGTFcJ0aK_DVh2NwivaYRHZIlwy" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް"><div class="card-text">ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1wyx3BUkuip5Y1iajIQxDX4kmjwgPU68a" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ތަދައްޚުލުވުމަށް އެދޭ ފޯމް މަދަނީ"><div class="card-text">ތަދައްޚުލުވުމަށް އެދޭ ފޯމް (މަދަނީ)</div><div class="actions"><a href="https://drive.google.com/open?id=1pghHfTZkC1KKVWkJKqzr3LhFMd500ATX" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް"><div class="card-text">ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1MxWV7tlEXY0GhL9Rkx_dKuEx7tJf5j1n" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް"><div class="card-text">އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1kZUtv4BDCACpmE9JMomqAIdAUQIHKJs1" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް"><div class="card-text">ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1MeDu58RzqSiJuijM1AXu7_61uYHYh3V7" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް"><div class="card-text">ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1VGq3QPjoQ_d1POYvsos0oEBky-fzPQWf" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="މިލްކުވެރިކަން ސާބިތުކުރުމުގެ ފޯމް"><div class="card-text">މިލްކުވެރިކަން ސާބިތުކުރުމުގެ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=19yq5v-Eeh9HOgcajLMgINMWEgGOjJG8u" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް"><div class="card-text">ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1xsaeOO2geMpwZTAl5CtXkyWEso9IggJG" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް"><div class="card-text">ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1WQU4zfoLCbHl2N-xO8g69XLcYEzrP2rD" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް"><div class="card-text">ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1hgGCndC3VRJlL9ZA4KaHCu9HxAXMKXxi" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް"><div class="card-text">އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1ABTRC5cmBe16UB7r0Ea1oaaFSqvG-chQ" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖައްސާ ފޯމް"><div class="card-text">ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖައްސާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1EcHVROZ7j5yCzqgj2v0Q2jqRcpvtpSwa" target="_blank" class="btn-view">VIEW</a></div></div>
+        <div class="category-block active-block" id="cat_civil" data-title="⚖️ މަދަނީ ފޯމުތައް" data-icon="ti-scale">
+          <div class="category-title"><i class="ti ti-scale"></i> މަދަނީ ފޯމުތައް</div>
+
+          <div class="card" data-keywords="ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1G2ApAHTN9BvQ2zNlHPoGxcrfReFPzOxx" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1OgSP3RfK13m7HP_OoRNfHD-4bRA4_9Ud" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="އިޙްތިޞާޞްއާމެދު އިޢުތިރާޜްކުރާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އިޙްތިޞާޞްއާމެދު އިޢުތިރާޒްކުރާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1_sla5O3aK0Jjsl-diIUVh7TKGS7MXxRM" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1mgGRwDl7FjNHIkuPUk4SH6uhCSVPScyE" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=13wu8dkVsadJpc-jQ6Bp3NTpxPTdLDqpE" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1CgGymGUp_psVpNf_7EXEOUU15kQAJOS5" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ދަޢުވާގެ ދިފާޢު ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދަޢުވާގެ ދިފާޢު ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1k18Eo49_n5DshtbBkZxdIbvJpH2VKhna" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ދިފާޢުގެ ޖަވާބު ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދިފާޢުގެ ޖަވާބު ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1IZzFHKHGlE0stp32IERzeoc_DtrG3-wi" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1ol39bQqKtG78O5y6tonz3A4VXYmTHkma" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=14_yQrNKz7q5ssYJcwM8d5rPH-8k4DOZP" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1IR0h5xiS3bIaEhcRIO5j2SbVAQWuWAqk" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1MiZKn52rzmHOev6Waso28maBZuT3t3s3" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ކޯޓު އަމުރަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ކޯޓު އަމުރަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1u8QiJ4RNZm0Q2Op0RpbXeZcw2PB8gXE1" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން</div></div>
+            <a href="https://drive.google.com/open?id=1zOoaDhGTFcJ0aK_DVh2NwivaYRHZIlwy" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1wyx3BUkuip5Y1iajIQxDX4kmjwgPU68a" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ތަދައްޚުލުވުމަށް އެދޭ ފޯމް މަދަނީ">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ތަދައްޚުލުވުމަށް އެދޭ ފޯމް (މަދަނީ)</div></div>
+            <a href="https://drive.google.com/open?id=1pghHfTZkC1KKVWkJKqzr3LhFMd500ATX" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1MxWV7tlEXY0GhL9Rkx_dKuEx7tJf5j1n" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1kZUtv4BDCACpmE9JMomqAIdAUQIHKJs1" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1MeDu58RzqSiJuijM1AXu7_61uYHYh3V7" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1VGq3QPjoQ_d1POYvsos0oEBky-fzPQWf" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="މިލްކުވެރިކަން ސާބިތުކުރުމުގެ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މިލްކުވެރިކަން ސާބިތުކުރުމުގެ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=19yq5v-Eeh9HOgcajLMgINMWEgGOjJG8u" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1xsaeOO2geMpwZTAl5CtXkyWEso9IggJG" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1WQU4zfoLCbHl2N-xO8g69XLcYEzrP2rD" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1hgGCndC3VRJlL9ZA4KaHCu9HxAXMKXxi" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1ABTRC5cmBe16UB7r0Ea1oaaFSqvG-chQ" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖައްސާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖައްސާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1EcHVROZ7j5yCzqgj2v0Q2jqRcpvtpSwa" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
         </div>
 
         <!-- ====================== MISC ====================== -->
-        <div class="category-block active-block" id="cat_misc">
-          <div class="category-title">📁 އެހެނިހެން ފޯމުތައް</div>
-          <div class="card" data-keywords="ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް"><div class="card-text">ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1AoATIhtTG-0WWddDMRVtg4T6fqjR1SLh" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ޚަސްމުން ޗުއްޓީއަށް އެދި ހުށަހަޅާ ފޯމް"><div class="card-text">ޚަސްމުން ޗުއްޓީއަށް އެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް"><div class="card-text">ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=127dCFI50qE4Dmagjmf6_wg2Apw82k4_Q" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް"><div class="card-text">ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=13o1OJdu2IOpce7rolDs_uPu7y6cfXmzI" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް"><div class="card-text">ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1xF74X8jA2v1Rq6ZffAphDLaKzEgjQIdW" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="އެގްރީމެންޓް ރަޖިސްޓްރީ ތަސްދީޤުކުރުން"><div class="card-text">އެގްރީމެންޓް ރަޖިސްޓްރީ/ތަސްދީޤުކުރުން</div><div class="actions"><a href="https://drive.google.com/open?id=1i0wEw_iTYme63kOTEUNhLa5muP6PkMEw" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށް އެދޭ ފޯމު"><div class="card-text">ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށް އެދޭ ފޯމު</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ޢައްޔަންކޮށްފައިވާ ވަކީލު ބަދަލު ވަކިކުރާ ފޯމު"><div class="card-text">ޢައްޔަންކޮށްފައިވާ ވަކީލު ބަދަލު/ވަކިކުރާ ފޯމު</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ބަދަލު ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވާ ފޯމު"><div class="card-text">ބަދަލު ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވާ ފޯމު</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ވަކާލާތު ކުރުމަށް އެދި ހުށަހަޅާ ފޯމް"><div class="card-text">ވަކާލާތު ކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް"><div class="card-text">ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1botbwRbW4UPQYSgOKdzDUthQ6Tx-Y0oq" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް"><div class="card-text">ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=1plqalRIfZi3gXKQqyxQhUHPtz9szJrcr" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="މެޑިކަލް ފޯމް"><div class="card-text">މެޑިކަލް ފޯމް</div><div class="actions"><a href="https://drive.google.com/open?id=17cHXcmipk6Qh99_WqVgGLTQWvvf7NxtR" target="_blank" class="btn-view">VIEW</a></div></div>
-          <div class="card" data-keywords="ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމު"><div class="card-text">ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމު</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
-          <div class="card" data-keywords="ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ހުށަހަޅާ ފޯމު"><div class="card-text">ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ހުށަހަޅާ ފޯމު</div><div class="actions"><span class="btn-view not-uploaded">NOT UPLOADED</span></div></div>
+        <div class="category-block active-block" id="cat_misc" data-title="📁 އެހެނިހެން ފޯމުތައް" data-icon="ti-folder">
+          <div class="category-title"><i class="ti ti-folder"></i> އެހެނިހެން ފޯމުތައް</div>
+
+          <div class="card" data-keywords="ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1AoATIhtTG-0WWddDMRVtg4T6fqjR1SLh" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card unavailable" data-keywords="ޚަސްމުން ޗުއްޓީއަށް އެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ޚަސްމުން ޗުއްޓީއަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card" data-keywords="ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=127dCFI50qE4Dmagjmf6_wg2Apw82k4_Q" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=13o1OJdu2IOpce7rolDs_uPu7y6cfXmzI" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1xF74X8jA2v1Rq6ZffAphDLaKzEgjQIdW" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="އެގްރީމެންޓް ރަޖިސްޓްރީ ތަސްދީޤުކުރުން">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އެގްރީމެންޓް ރަޖިސްޓްރީ/ތަސްދީޤުކުރުން</div></div>
+            <a href="https://drive.google.com/open?id=1i0wEw_iTYme63kOTEUNhLa5muP6PkMEw" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card unavailable" data-keywords="ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށް އެދޭ ފޯމު">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށް އެދޭ ފޯމު</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card unavailable" data-keywords="ޢައްޔަންކޮށްފައިވާ ވަކީލު ބަދަލު ވަކިކުރާ ފޯމު">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ޢައްޔަންކޮށްފައިވާ ވަކީލު ބަދަލު/ވަކިކުރާ ފޯމު</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card unavailable" data-keywords="ބަދަލު ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވާ ފޯމު">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ބަދަލު ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވާ ފޯމު</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card unavailable" data-keywords="ވަކާލާތު ކުރުމަށް އެދި ހުށަހަޅާ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ވަކާލާތު ކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card" data-keywords="ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1botbwRbW4UPQYSgOKdzDUthQ6Tx-Y0oq" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=1plqalRIfZi3gXKQqyxQhUHPtz9szJrcr" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card" data-keywords="މެޑިކަލް ފޯމް">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މެޑިކަލް ފޯމް</div></div>
+            <a href="https://drive.google.com/open?id=17cHXcmipk6Qh99_WqVgGLTQWvvf7NxtR" target="_blank" class="btn-view"><i class="ti ti-external-link"></i> ބައްލަވާ</a>
+          </div>
+
+          <div class="card unavailable" data-keywords="ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމު">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމު</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
+
+          <div class="card unavailable" data-keywords="ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ހުށަހަޅާ ފޯމު">
+            <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ހުށަހަޅާ ފޯމު</div></div>
+            <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
+          </div>
         </div>
 
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState">
+        <i class="ti ti-search-off"></i>
+        <p>ހޯދި ކީވޯޑަށް ފޯމެއް ނުފެނުނު</p>
       </div>
     </div>
   </div>
 
- <script>
-    let currentSelectedCategory = 'all';
+  <script>
+    let currentCategory = 'all';
 
+    // ── Sidebar toggle ──
     function toggleSidebar() {
       const sidebar = document.getElementById('appSidebar');
       const overlay = document.getElementById('menuOverlay');
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('show');
+      const isOpen = sidebar.classList.contains('open');
+      sidebar.classList.toggle('open', !isOpen);
+      overlay.classList.toggle('show', !isOpen);
     }
 
-    function switchCategory(categoryKey, targetButton) {
-      currentSelectedCategory = categoryKey;
-      
-      document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
-      targetButton.classList.add('active');
-
-      document.getElementById('searchInput').value = "";
+    // ── Category switch ──
+    function switchCategory(key, btn) {
+      currentCategory = key;
+      document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('searchInput').value = '';
+      document.getElementById('emptyState').classList.remove('show');
 
       document.querySelectorAll('.category-block').forEach(block => {
-        if (categoryKey === 'all') {
-          block.classList.add('active-block');
-        } else {
-          block.classList.toggle('active-block', block.id === 'cat_' + categoryKey);
-        }
+        const match = key === 'all' || block.id === 'cat_' + key;
+        block.classList.toggle('active-block', match);
+        if (match) block.querySelectorAll('.card').forEach(c => c.classList.remove('hidden-card'));
       });
+
       toggleSidebar();
     }
 
+    // ── Search filter ──
     function filterForms() {
-      const input = document.getElementById('searchInput').value.trim().toLowerCase();
-      let totalVisible = 0;
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      let anyVisible = false;
 
       document.querySelectorAll('.category-block').forEach(block => {
-        const isActiveCategory = currentSelectedCategory === 'all' || block.id === 'cat_' + currentSelectedCategory;
-        let hasMatch = false;
+        const inScope = currentCategory === 'all' || block.id === 'cat_' + currentCategory;
+        if (!inScope) { block.classList.remove('active-block'); return; }
 
+        let blockHasMatch = false;
         block.querySelectorAll('.card').forEach(card => {
-          const text = card.textContent.toLowerCase();
-          if (text.includes(input)) {
-            card.classList.remove('hidden-card');
-            hasMatch = true;
-            totalVisible++;
-          } else {
-            card.classList.add('hidden-card');
-          }
+          const hit = !q || card.textContent.toLowerCase().includes(q);
+          card.classList.toggle('hidden-card', !hit);
+          if (hit) { blockHasMatch = true; anyVisible = true; }
         });
-
-        if (isActiveCategory) {
-          block.classList.toggle('active-block', input === '' || hasMatch);
-        }
+        block.classList.toggle('active-block', blockHasMatch);
       });
 
-      // Empty state can be added here if needed
+      document.getElementById('emptyState').classList.toggle('show', q !== '' && !anyVisible);
     }
 
-    // Telegram
-    window.Telegram.WebApp.ready();
-    window.Telegram.WebApp.expand();
+    // ── Count badges ──
+    function updateBadges() {
+      const categories = ['marriage','divorce','expenses','family','civil','misc'];
+      let total = 0;
+      categories.forEach(cat => {
+        const count = document.querySelectorAll(`#cat_${cat} .card`).length;
+        document.getElementById(`badge_${cat}`).textContent = count;
+        total += count;
+      });
+      document.getElementById('badge_all').textContent = total;
+    }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll('.category-block').forEach(block => block.classList.add('active-block'));
+    // ── Init ──
+    document.addEventListener('DOMContentLoaded', () => {
+      updateBadges();
+      document.querySelectorAll('.category-block').forEach(b => b.classList.add('active-block'));
     });
+
+    // ── Telegram WebApp ──
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }
   </script>
 </body>
-</html>
-</html>
 </html>
