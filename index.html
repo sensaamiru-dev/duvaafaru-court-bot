@@ -413,10 +413,10 @@
     .category-block { display: none; }
     .category-block.active-block { display: block; }
 
-    @media (min-width: 768px) {
+@media (min-width: 768px) {
   .menu-toggle { display: none; }
   .sidebar-overlay { display: none !important; }
-
+  
   .sidebar {
     position: relative;
     top: auto;
@@ -424,13 +424,14 @@
     bottom: auto;
     height: 100%;
     box-shadow: none;
-    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border); 
+    border-left: none;
     flex-shrink: 0;
     display: flex;
   }
 
   .app-layout {
-    flex-direction: row-reverse; /* sidebar on the right, content on left */
+    flex-direction: row; 
   }
 }
 
