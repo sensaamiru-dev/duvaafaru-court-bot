@@ -1149,43 +1149,63 @@ body {
     overlay.classList.toggle('show', !isOpen);
   }
 
-  function switchCategory(key, btn) {
-    currentCategory = key;
-    document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('searchInput').value = '';
-    document.getElementById('emptyState').classList.remove('show');
-    document.querySelector('.search-wrap').style.display = key === 'contacts' ? 'none' : '';
+function switchCategory(key, btn) {
+  currentCategory = key;
+  document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('emptyState').classList.remove('show');
 
-    document.querySelectorAll('.category-block').forEach(block => {
-      const match = key === 'all' || block.id === 'cat_' + key;
-      block.classList.toggle('active-block', match);
-      if (match) block.querySelectorAll('.card').forEach(c => c.classList.remove('hidden-card'));
+  // Show search bar for all categories EXCEPT contacts
+  document.querySelector('.search-wrap').style.display = key === 'contacts' ? 'none' : '';
+
+  document.querySelectorAll('.category-block').forEach(block => {
+    if (key === 'contacts') {
+      // Only show contacts block, hide all others
+      block.classList.toggle('active-block', block.id === 'cat_contacts');
+    } else if (key === 'all') {
+      // Show all form blocks, hide contacts
+      block.classList.toggle('active-block', block.id !== 'cat_contacts');
+      if (block.id !== 'cat_contacts') {
+        block.querySelectorAll('.card').forEach(c => c.classList.remove('hidden-card'));
+      }
+    } else {
+      // Show only the selected category
+      block.classList.toggle('active-block', block.id === 'cat_' + key);
+      if (block.id === 'cat_' + key) {
+        block.querySelectorAll('.card').forEach(c => c.classList.remove('hidden-card'));
+      }
+    }
+  });
+
+  if (window.innerWidth < 768) toggleSidebar();
+}
+
+function filterForms() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  let anyVisible = false;
+
+  document.querySelectorAll('.category-block').forEach(block => {
+    // ALWAYS hide contacts block during search
+    if (block.id === 'cat_contacts') {
+      block.classList.remove('active-block');
+      return;
+    }
+
+    const inScope = currentCategory === 'all' || block.id === 'cat_' + currentCategory;
+    if (!inScope) { block.classList.remove('active-block'); return; }
+
+    let blockHasMatch = false;
+    block.querySelectorAll('.card').forEach(card => {
+      const hit = !q || card.textContent.toLowerCase().includes(q);
+      card.classList.toggle('hidden-card', !hit);
+      if (hit) { blockHasMatch = true; anyVisible = true; }
     });
+    block.classList.toggle('active-block', blockHasMatch);
+  });
 
-    if (window.innerWidth < 768) toggleSidebar();
-  }
-
-  function filterForms() {
-    const q = document.getElementById('searchInput').value.trim().toLowerCase();
-    let anyVisible = false;
-
-    document.querySelectorAll('.category-block').forEach(block => {
-      if (block.id === 'cat_contacts') return;
-      const inScope = currentCategory === 'all' || block.id === 'cat_' + currentCategory;
-      if (!inScope) { block.classList.remove('active-block'); return; }
-
-      let blockHasMatch = false;
-      block.querySelectorAll('.card').forEach(card => {
-        const hit = !q || card.textContent.toLowerCase().includes(q);
-        card.classList.toggle('hidden-card', !hit);
-        if (hit) { blockHasMatch = true; anyVisible = true; }
-      });
-      block.classList.toggle('active-block', blockHasMatch);
-    });
-
-    document.getElementById('emptyState').classList.toggle('show', q !== '' && !anyVisible);
-  }
+  document.getElementById('emptyState').classList.toggle('show', q !== '' && !anyVisible);
+}
 
   function updateBadges() {
     const categories = ['marriage','divorce','expenses','family','civil','misc'];
@@ -1198,10 +1218,13 @@ body {
     document.getElementById('badge_all').textContent = total;
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    updateBadges();
-    document.querySelectorAll('.category-block:not(#cat_contacts)').forEach(b => b.classList.add('active-block'));
+document.addEventListener('DOMContentLoaded', () => {
+  updateBadges();
+  // Only show form blocks on load, NOT contacts
+  document.querySelectorAll('.category-block').forEach(block => {
+    block.classList.toggle('active-block', block.id !== 'cat_contacts');
   });
+});
 
   if (window.Telegram && window.Telegram.WebApp) {
     window.Telegram.WebApp.ready();
