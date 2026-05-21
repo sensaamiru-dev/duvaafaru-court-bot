@@ -438,12 +438,19 @@ body {
       font-size: 18px;
       flex-shrink: 0;
     }
-    .contact-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    
+.contact-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-links-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
     .contact-label {
       font-size: 13.5px;
       color: var(--text);
@@ -1097,14 +1104,27 @@ body {
             <a href="tel:6580419" class="contact-number"><i class="ti ti-phone-call"></i> 6580419</a>
           </div>
         </div>
-        <div class="contact-card">
-          <div class="contact-icon"><i class="ti ti-brand-telegram"></i></div>
-          <div class="contact-info">
-            <div class="contact-label">ހޮޓްލައިން، ވައިބަރ އަދި ޓެލެގްރާމް</div>
-            <a href="tel:7413545" class="contact-number"><i class="ti ti-phone-call"></i> 7413545</a>
-          </div>
-        </div>
-      </div>
+<div class="contact-card">
+  <div class="contact-icon"><i class="ti ti-brand-telegram"></i></div>
+  <div class="contact-info">
+    <div class="contact-label">ހޮޓްލައިން، ވައިބަރ އަދި ޓެލެގްރާމް</div>
+    
+    <!-- Phone -->
+    <a href="tel:7413545" class="contact-number">
+      <i class="ti ti-phone-call"></i> 741 3545
+    </a>
+    
+    <!-- Viber Community -->
+    <a href="https://invite.viber.com/?g2=YOUR_VIBER_GROUP_LINK" target="_blank" class="contact-number" style="background: #7360f2; margin-top: 6px;">
+      <i class="ti ti-brand-viber"></i> ވައިބަރ ކޮމިއުނިޓީ
+    </a>
+    
+    <!-- Facebook Page -->
+    <a href="https://facebook.com/YOUR_PAGE_NAME" target="_blank" class="contact-number" style="background: #1877f2; margin-top: 6px;">
+      <i class="ti ti-brand-facebook"></i> ފޭސްބުކް ޕޭޖް
+    </a>
+  </div>
+</div>
 
     </div><!-- end portalContainer -->
 
