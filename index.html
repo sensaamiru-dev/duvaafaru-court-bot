@@ -531,6 +531,51 @@ body {
     bottom: 24px;
   }
 }
+    /* ── FOOTER ── */
+.court-footer {
+  margin-top: 32px;
+  padding: 24px 16px;
+  text-align: center;
+  border-top: 2px solid var(--primary-light);
+  background: var(--surface);
+  border-radius: 11px 11px 0 0;
+}
+
+.footer-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 24px;
+  margin: 0 auto 12px;
+}
+
+.footer-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.footer-hours {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.footer-credit {
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
 
   </style>
 </head>
@@ -1174,6 +1219,13 @@ body {
     <div class="empty-state" id="emptyState">
       <i class="ti ti-search-off"></i>
       <p>ހޯދި ކީވޯޑަށް ފޯމެއް ނުފެނުނު</p>
+    </div>
+    <!-- FOOTER HERE -->
+    <div class="court-footer">
+      <div class="footer-icon"><i class="ti ti-building-courthouse"></i></div>
+      <p class="footer-title">މާޅޮސްމަޑުލު އުތުރުބުރީ ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓު</p>
+      <p class="footer-hours"><i class="ti ti-clock"></i> ހުޅުވިފައި ހުންނާނީ: 08:00 - 14:00</p>
+      <p class="footer-credit">ފޯމުތަކުގެ ޕޯޓަލް v1.0</p>
     </div>
         <!-- Scroll to Top Button -->
     <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" aria-label="މައްޗަށް ދާން">
