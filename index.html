@@ -413,6 +413,57 @@
     .category-block { display: none; }
     .category-block.active-block { display: block; }
 
+    /* ── CONTACT CARDS ── */
+    .contact-card {
+      background: var(--surface);
+      border-radius: 11px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .contact-icon {
+      width: 38px; height: 38px;
+      background: var(--primary-light);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .contact-label {
+      font-size: 13.5px;
+      color: var(--text);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .contact-number {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-family: 'Faruma', sans-serif;
+      font-weight: 700;
+      width: fit-content;
+      transition: opacity 0.15s;
+    }
+    .contact-number:active { opacity: 0.8; }
+    .contact-number .ti { font-size: 14px; }
+
 @media (min-width: 768px) {
   .menu-toggle { display: none; }
   .sidebar-overlay { display: none !important; }
@@ -510,6 +561,12 @@
           </div>
           <span class="badge" id="badge_misc">0</span>
         </button>
+        <button class="sidebar-btn" onclick="switchCategory('contacts', this)">
+          <div class="sidebar-btn-inner">
+            <i class="ti ti-phone"></i>
+            ގުޅުމަށް
+          </div>
+        </button>
       </nav>
     </div>
 
@@ -520,6 +577,54 @@
                placeholder="ފޯމެއް ނުވަތަ ކީވޯޑެއް ހޯއްދަވާލައްވާ..."
                oninput="filterForms()">
       </div>
+
+      <!-- ====================== CONTACTS ====================== -->
+        <div class="category-block" id="cat_contacts">
+          <div class="category-title"><i class="ti ti-phone"></i> ގުޅޭނެ ނަންބަރުތައް</div>
+
+          <div class="contact-card">
+            <div class="contact-icon"><i class="ti ti-heart"></i></div>
+            <div class="contact-info">
+              <div class="contact-label">ކާވެންޏާއި ގުޅޭ އެންމެހާ ކަންކަން</div>
+              <a href="tel:6580427" class="contact-number"><i class="ti ti-phone-call"></i> 658 0427</a>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon"><i class="ti ti-scale"></i></div>
+            <div class="contact-info">
+              <div class="contact-label">ޝަރީޢަތާއި ގުޅޭ އެންމެހާ ކަންކަން</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <a href="tel:6580425" class="contact-number"><i class="ti ti-phone-call"></i> 658 0425</a>
+                <a href="tel:6580135" class="contact-number"><i class="ti ti-phone-call"></i> 658 0135</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon"><i class="ti ti-cash"></i></div>
+            <div class="contact-info">
+              <div class="contact-label">ފައިސާއާއި އިދާރީ އެހެނިހެން ކަންކަން</div>
+              <a href="tel:6580424" class="contact-number"><i class="ti ti-phone-call"></i> 658 0424</a>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon"><i class="ti ti-user"></i></div>
+            <div class="contact-info">
+              <div class="contact-label">ކޯޓް އެޑްމިނިސްޓްރޭޓަރ</div>
+              <a href="tel:6580419" class="contact-number"><i class="ti ti-phone-call"></i> 658 0419</a>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon"><i class="ti ti-brand-telegram"></i></div>
+            <div class="contact-info">
+              <div class="contact-label">ހޮޓްލައިން، ވައިބަރ އަދި ޓެލެގްރާމް</div>
+              <a href="tel:7413545" class="contact-number"><i class="ti ti-phone-call"></i> 741 3545</a>
+            </div>
+          </div>
+        </div>
 
       <div id="portalContainer">
 
@@ -1028,6 +1133,7 @@ function switchCategory(key, btn) {
   btn.classList.add('active');
   document.getElementById('searchInput').value = '';
   document.getElementById('emptyState').classList.remove('show');
+  document.querySelector('.search-wrap').style.display = key === 'contacts' ? 'none' : '';
 
   document.querySelectorAll('.category-block').forEach(block => {
     const match = key === 'all' || block.id === 'cat_' + key;
