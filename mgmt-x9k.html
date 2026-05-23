@@ -856,6 +856,7 @@ function doLogin() {
   document.getElementById("loginWrap").style.display = "none";
   document.getElementById("mainApp").classList.add("show");
   document.getElementById("gasUrlMain").value = url;
+  document.getElementById("statSent").textContent = localStorage.getItem("totalSent") || "0"; // ← ADD THIS
   loadStats();
   renderLog();
 }
@@ -936,7 +937,9 @@ async function sendBroadcast() {
       activityLog.unshift(entry);
       if (activityLog.length > 30) activityLog.pop();
       localStorage.setItem("adminLog", JSON.stringify(activityLog));
-      document.getElementById("statSent").textContent = parseInt(document.getElementById("statSent").textContent || "0") + 1;
+      const prevSent = parseInt(localStorage.getItem("totalSent") || "0") + 1;
+      localStorage.setItem("totalSent", prevSent);
+      document.getElementById("statSent").textContent = prevSent;
       clearMsg();
       renderLog();
       showToast("ބްރޯޑްކާސްޓް ފޮނުވި ✓ (" + (entry.count) + " ފަރާތަށް)", "success");
