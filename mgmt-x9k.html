@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="dv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ކޯޓު ބޮޓް - އެޑްމިން</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@font-face {
+  font-family: 'Faruma';
+  src: url('https://raw.githubusercontent.com/sensaamiru-dev/duvaafaru-court-bot/main/Faruma.woff2') format('woff2'),
+       url('https://raw.githubusercontent.com/sensaamiru-dev/duvaafaru-court-bot/main/Faruma.woff') format('woff');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+:root {
+  --primary: #1d4ed8;
+  --primary-hover: #1e40af;
+  --primary-light: #eff6ff;
+  --surface: #ffffff;
+  --surface-alt: #f8fafc;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --danger: #dc2626;
+  --danger-light: #fef2f2;
+  --success: #16a34a;
+  --success-light: #f0fdf4;
+  --warning: #d97706;
+  --warning-light: #fffbeb;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --primary-light: #1e3a5f;
+    --surface: #1e293b;
+    --surface-alt: #0f172a;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --danger: #f87171;
+    --danger-light: #2d1515;
+    --success: #4ade80;
+    --success-light: #14261a;
+    --warning: #fbbf24;
+    --warning-light: #27200a;
+    --card-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Faruma', 'MV Boli', sans-serif;
+  background: var(--surface-alt);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* LOGIN SCREEN */
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.login-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
+}
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.login-logo img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+.login-logo-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+}
+.login-logo-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.login-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  display: block;
+}
+.login-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 14px;
+  background: var(--surface);
+  color: var(--text);
+  direction: ltr;
+  margin-bottom: 14px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.login-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.login-btn:hover { background: var(--primary-hover); }
+.login-btn:active { opacity: 0.9; }
+.login-error {
+  background: var(--danger-light);
+  color: var(--danger);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 14px;
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+.login-error.show { display: flex; }
+
+/* MAIN APP */
+.app { display: none; }
+.app.show { display: block; }
+
+/* HEADER */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-badge {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.logout-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.logout-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+/* CONTENT */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+/* STAT CARDS */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 14px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+}
+.stat-num {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  font-family: 'Inter', sans-serif;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* SECTION CARD */
+.section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--card-shadow);
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.section-head .ti {
+  font-size: 18px;
+  color: var(--primary);
+}
+.section-head-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+.section-head-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+/* BROADCAST */
+.msg-type-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.type-chip {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-family: 'Faruma', sans-serif;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.type-chip.active {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+}
+.broadcast-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Faruma', 'MV Boli', sans-serif;
+  font-size: 14.5px;
+  color: var(--text);
+  background: var(--surface);
+  resize: vertical;
+  min-height: 130px;
+  outline: none;
+  direction: rtl;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  margin-bottom: 10px;
+}
+.broadcast-textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.char-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: left;
+  margin-bottom: 12px;
+  font-family: 'Inter', sans-serif;
+}
+.char-count.warn { color: var(--warning); }
+.char-count.over { color: var(--danger); }
+
+/* PREVIEW BOX */
+.preview-box {
+  background: var(--surface-alt);
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 14px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  min-height: 60px;
+  color: var(--text);
+  direction: rtl;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.preview-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* TEMPLATES */
+.template-btn {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: right;
+  width: 100%;
+  margin-bottom: 7px;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.template-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.template-btn .ti { font-size: 15px; flex-shrink: 0; }
+
+/* SEND ROW */
+.send-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.btn-send {
+  flex: 1;
+  padding: 13px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s, opacity 0.15s;
+}
+.btn-send:hover { background: var(--primary-hover); }
+.btn-send:disabled { opacity: 0.5; cursor: default; }
+.btn-clear {
+  padding: 12px 16px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-clear:hover { border-color: var(--danger); color: var(--danger); }
+
+/* CONFIRM MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-backdrop.show { display: flex; }
+.modal {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  border: 1px solid var(--border);
+}
+.modal-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--warning-light);
+  color: var(--warning);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 16px;
+}
+.modal-title {
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.modal-sub {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.modal-preview {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  color: var(--text);
+  direction: rtl;
+  white-space: pre-wrap;
+  max-height: 120px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+.modal-btns {
+  display: flex;
+  gap: 10px;
+}
+.modal-cancel {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.modal-cancel:hover { border-color: var(--text-muted); }
+.modal-confirm {
+  flex: 1;
+  padding: 12px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.modal-confirm:hover { background: var(--primary-hover); }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 13px 22px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 999;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  max-width: 90vw;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.success .ti { color: #4ade80; }
+.toast.error .ti { color: #f87171; }
+
+/* LOG */
+.log-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.log-item:last-child { border-bottom: none; }
+.log-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.log-dot.success { background: var(--success); }
+.log-dot.error { background: var(--danger); }
+.log-dot.info { background: var(--primary); }
+.log-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  margin-top: 2px;
+}
+.empty-log {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.empty-log .ti { font-size: 32px; opacity: 0.4; }
+
+/* SPINNER */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { animation: spin 0.8s linear infinite; display: inline-block; }
+
+/* GAS URL input */
+.gas-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.gas-input {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Inter', monospace;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--surface);
+  direction: ltr;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.gas-input:focus { border-color: var(--primary); }
+.gas-save-btn {
+  padding: 9px 14px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.gas-save-btn:hover { background: var(--primary-hover); }
+.info-banner {
+  background: var(--primary-light);
+  border: 1px solid rgba(59,130,246,0.25);
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 13px;
+  color: var(--primary);
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.info-banner .ti { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: repeat(3, 1fr); }
+  .stat-num { font-size: 20px; }
+  .content { padding: 14px 12px 40px; }
+}
+  </style>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="https://raw.githubusercontent.com/sensaamiru-dev/duvaafaru-court-bot/main/Coat_of_arms_of_Maldives.png" alt="">
+      <div>
+        <div class="login-logo-text">ރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓް</div>
+        <div class="login-logo-sub">އެޑްމިން ޕެނަލް</div>
+      </div>
+    </div>
+    <div class="login-error" id="loginError">
+      <i class="ti ti-alert-circle"></i>
+      <span id="loginErrorMsg">ޕިން ކޯޑް ރަނގަޅެއްނޫން</span>
+    </div>
+    <label class="login-label">ޕިން ކޯޑް</label>
+    <input type="password" class="login-input" id="pinInput" placeholder="••••••" maxlength="10" onkeydown="if(event.key==='Enter')doLogin()">
+    <label class="login-label">GAS ްވެބ- URL</label>
+    <input type="url" class="login-input" id="gasUrlLogin" placeholder="https://script.google.com/macros/s/..." style="font-size:12px; font-family: monospace;" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">
+      <i class="ti ti-login"></i> ލޮގްއިން
+    </button>
+    <p style="font-size:11.5px; color:var(--text-muted); margin-top:14px; text-align:center; line-height:1.6;">
+      ޕިން ކޯޑް ބަދަލުކުރެވޭ ގޮތް: admin.html ގައި <code style="font-size:11px; background:var(--surface-alt); padding:1px 5px; border-radius:4px;">ADMIN_PIN</code> ބަދަލުކުރާ
+    </p>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div class="app" id="mainApp">
+  <div class="header">
+    <div class="header-title">
+      <i class="ti ti-shield-check" style="color:var(--primary); font-size:20px;"></i>
+      ބޮޓް މެނޭޖްމެންޓް
+      <span class="header-badge">އެޑްމިން</span>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">
+      <i class="ti ti-logout"></i> ލޮގްއައުޓް
+    </button>
+  </div>
+
+  <div class="content">
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="statUsers">—</div>
+        <div class="stat-label">ބޭނުންކުރާ ފަރާތްތައް</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statSent">0</div>
+        <div class="stat-label">ފޮނުވި މެސެޖް</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statForms">—</div>
+        <div class="stat-label">ފޯމުތައް</div>
+      </div>
+    </div>
+
+    <!-- GAS SETTINGS (if URL changed after login) -->
+    <div class="section-card">
+      <div class="section-head">
+        <i class="ti ti-settings"></i>
+        <div>
+          <div class="section-head-text">GAS ކަނެކްޝަން</div>
+          <div class="section-head-sub">Google Apps Script ވެބ-އެޕް URL</div>
+        </div>
+      </div>
+      <div class="gas-wrap">
+        <input type="url" class="gas-input" id="gasUrlMain" placeholder="https://script.google.com/macros/s/...">
+        <button class="gas-save-btn" onclick="saveGasUrl()"><i class="ti ti-check"></i> ްސޭވ</button>
+      </div>
+      <p style="font-size:11.5px; color:var(--text-muted); margin-top:8px; text-align:left; font-family:'Inter',sans-serif;">
+        GAS → Deploy → Manage Deployments → Copy Web App URL
+      </p>
+    </div>
+
+    <!-- BROADCAST -->
+    <div class="section-card">
+      <div class="section-head">
+        <i class="ti ti-speakerphone"></i>
+        <div>
+          <div class="section-head-text">ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ފޮނުވުން</div>
+          <div class="section-head-sub">Broadcast — ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ފޮނުވޭ</div>
+        </div>
+      </div>
+
+      <!-- Templates -->
+      <div style="margin-bottom:12px;">
+        <div class="preview-label"><i class="ti ti-template"></i> ތައްޔާރީ ޓެމްޕްލޭޓްތައް</div>
+        <button class="template-btn" onclick="useTemplate('announce')">
+          <i class="ti ti-bell"></i> 📢 އިޢުލާން
+        </button>
+        <button class="template-btn" onclick="useTemplate('maintenance')">
+          <i class="ti ti-tool"></i> 🔧 ހިދުމަތް ވަގުތީ ގޮތުން ހުއްޓާލުން
+        </button>
+        <button class="template-btn" onclick="useTemplate('holiday')">
+          <i class="ti ti-calendar"></i> 🏖️ ބަންދު ދުވަހުގެ ނޯޓިސް
+        </button>
+        <button class="template-btn" onclick="useTemplate('newform')">
+          <i class="ti ti-file-plus"></i> 📝 އާ ފޯމެއް އިތުރުވުން
+        </button>
+      </div>
+
+      <!-- Message type -->
+      <div class="preview-label"><i class="ti ti-align-right"></i> ފޯރމެޓް</div>
+      <div class="msg-type-row">
+        <button class="type-chip active" id="chip_text" onclick="setType('text')">
+          <i class="ti ti-letter-t"></i> ޓެކްސްޓް
+        </button>
+        <button class="type-chip" id="chip_bold" onclick="setType('bold')">
+          <i class="ti ti-bold"></i> ބޯލްޑް ހެޑިން
+        </button>
+        <button class="type-chip" id="chip_list" onclick="setType('list')">
+          <i class="ti ti-list"></i> ލިސްޓް
+        </button>
+      </div>
+
+      <!-- Textarea -->
+      <textarea class="broadcast-textarea" id="broadcastMsg"
+        placeholder="ބޭނުންވާ ޚަބަރު ނުވަތަ އިޢުލާން ލިޔުއްވާ..."
+        oninput="updatePreview()"></textarea>
+      <div class="char-count" id="charCount">0 / 4096</div>
+
+      <!-- Preview -->
+      <div class="preview-label"><i class="ti ti-eye"></i> ޓެލެގްރާމް ޕްރިވިއު</div>
+      <div class="preview-box" id="msgPreview" dir="rtl">ލިޔުއްވާ — ޕްރިވިއު މިތާ ފެންނާނެ</div>
+
+      <!-- Send -->
+      <div class="send-row" style="margin-top:14px;">
+        <button class="btn-clear" onclick="clearMsg()">
+          <i class="ti ti-trash"></i> ސާފުކުރޭ
+        </button>
+        <button class="btn-send" id="sendBtn" onclick="confirmBroadcast()">
+          <i class="ti ti-send"></i> ފޮނުވާ
+        </button>
+      </div>
+    </div>
+
+    <!-- ACTIVITY LOG -->
+    <div class="section-card">
+      <div class="section-head">
+        <i class="ti ti-history"></i>
+        <div>
+          <div class="section-head-text">ހަރަކާތުގެ ލޮގް</div>
+          <div class="section-head-sub">ފޮނުވި ހުރިހާ ބްރޯޑްކާސްޓްތަކުގެ ތާރީޚް</div>
+        </div>
+      </div>
+      <div id="activityLog">
+        <div class="empty-log">
+          <i class="ti ti-clipboard-list"></i>
+          <span>އެއްވެސް ހަރަކާތެއް ނެތް</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-backdrop" id="confirmModal">
+  <div class="modal">
+    <div class="modal-icon"><i class="ti ti-speakerphone"></i></div>
+    <div class="modal-title">މެސެޖު ފޮނުވަން ބޭނުންތޯ؟</div>
+    <div class="modal-sub" id="modalSubText">ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ތިރީގައިވާ މެސެޖް ފޮނުވޭނެ.</div>
+    <div class="modal-preview" id="modalPreviewText"></div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal()">ނޫން</button>
+      <button class="modal-confirm" id="modalConfirmBtn" onclick="sendBroadcast()">
+        <i class="ti ti-send"></i> ފޮނުވާ
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <i class="ti ti-check" id="toastIcon"></i>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+const ADMIN_PIN = "1234"; // ← CHANGE THIS to your desired PIN
+
+let gasUrl = "";
+let msgType = "text";
+let activityLog = JSON.parse(localStorage.getItem("adminLog") || "[]");
+
+const templates = {
+  announce: "📢 *އިޢުލާން*\n\nރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓުން ދެންނެވުމަށް ބޭނުންވަނީ:\n\n[މިތާ ތިބާ ލިޔުއްވާ]\n\nއިތުރު މަޢުލޫމާތަށް: 6580449",
+  maintenance: "🔧 *ހިދުމަތް ވަގުތީ ގޮތުން ހުއްޓާލުން*\n\nތިރީގައިވާ ވަގުތުތަކުގައި ބޮޓްގެ ހިދުމަތް ވަގުތީ ގޮތުން ހުއްޓިދާނެ:\n\nތާރީހް: [ތާރީހް]\nވަގުތު: [ވަގުތު]\n\nf ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓުގެ ރަސްމީ ބޮޓް ބޭނުންކުރައްވާ ހުރިހާ ފަރާތްތަކަށް ނިހާޔަތަށް ޝުކުރު ދަންނަވަން.",
+  holiday: "🏖️ *ބަންދު ދުވަހުގެ ނޯޓިސް*\n\n[ތާރީހް] ދުވަހަކީ ސަރުކާރު ބަންދު ދުވަހެއްކަމަށްވާތީ، ކޯޓުގެ ހިދުމަތް ލިބެން ނޯންނާނެ.\n\n[ތާރީހް] ވަނަ ދުވަހު ހިދުމަތް ލިބޭނެ.\n\nބަންދު ދުވަހު ހިދުމަތް ބޭނުންވެލައްވާ ފަރާތްތަކަށް ހޮޓްލައިން: 7413545",
+  newform: "📝 *އާ ފޯމެއް ތައާރަފްވެއްޖެ!*\n\nކޯޓަށް ހިދުމަތަށްއެދި ހުށަހެޅުމަށް، [ފޯމުގެ ނަން] ބޮޓްގެ ޒަރިއްޔާއިން ޑައުންލޯޑް ކުރެވޭނެ.\n\nކެޓެގަރީ: [ކެޓެގަރީ]\n\nފޯމް ހޯއްދެވުމަށް: /start",
+};
+
+function doLogin() {
+  const pin = document.getElementById("pinInput").value;
+  const url = document.getElementById("gasUrlLogin").value.trim();
+  const err = document.getElementById("loginError");
+  const errMsg = document.getElementById("loginErrorMsg");
+
+  if (pin !== ADMIN_PIN) {
+    errMsg.textContent = "ޕިން ކޯޑް ރަނގަޅެއްނޫން";
+    err.classList.add("show");
+    return;
+  }
+  if (!url || !url.startsWith("https://script.google.com")) {
+    errMsg.textContent = "ރަނގަޅު GAS URL އެއް ލިޔެދެއްވާ";
+    err.classList.add("show");
+    return;
+  }
+
+  err.classList.remove("show");
+  gasUrl = url;
+  localStorage.setItem("gasUrl", url);
+  document.getElementById("loginWrap").style.display = "none";
+  document.getElementById("mainApp").classList.add("show");
+  document.getElementById("gasUrlMain").value = url;
+  loadStats();
+  renderLog();
+}
+
+function doLogout() {
+  document.getElementById("loginWrap").style.display = "";
+  document.getElementById("mainApp").classList.remove("show");
+  document.getElementById("pinInput").value = "";
+}
+
+function saveGasUrl() {
+  const url = document.getElementById("gasUrlMain").value.trim();
+  if (!url.startsWith("https://script.google.com")) {
+    showToast("ރަނގަޅު URL އެއް ލިޔެދެއްވާ", "error");
+    return;
+  }
+  gasUrl = url;
+  localStorage.setItem("gasUrl", url);
+  showToast("URL ސޭވ ވެއްޖެ ✓", "success");
+}
+
+function setType(t) {
+  msgType = t;
+  document.querySelectorAll(".type-chip").forEach(c => c.classList.remove("active"));
+  document.getElementById("chip_" + t).classList.add("active");
+  updatePreview();
+}
+
+function useTemplate(key) {
+  document.getElementById("broadcastMsg").value = templates[key];
+  updatePreview();
+}
+
+function updatePreview() {
+  const raw = document.getElementById("broadcastMsg").value;
+  const len = raw.length;
+  const counter = document.getElementById("charCount");
+  counter.textContent = len + " / 4096";
+  counter.className = "char-count" + (len > 3800 ? (len > 4096 ? " over" : " warn") : "");
+
+  let preview = raw
+    .replace(/\*([^*]+)\*/g, "<strong>$1</strong>")
+    .replace(/\n/g, "<br>");
+
+  document.getElementById("msgPreview").innerHTML = preview || '<span style="color:var(--text-muted)">ލިޔުއްވާ — ޕްރިވިއު މިތާ ފެންނާނެ</span>';
+}
+
+function clearMsg() {
+  document.getElementById("broadcastMsg").value = "";
+  updatePreview();
+}
+
+function confirmBroadcast() {
+  const msg = document.getElementById("broadcastMsg").value.trim();
+  if (!msg) { showToast("މެސެޖެއް ލިޔެދެއްވާ", "error"); return; }
+  if (!gasUrl) { showToast("GAS URL ލިޔެދެއްވާ", "error"); return; }
+  document.getElementById("modalPreviewText").textContent = msg.substring(0, 300) + (msg.length > 300 ? "..." : "");
+  document.getElementById("modalSubText").textContent = "ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ތިރީގައިވާ މެސެޖް ފޮނުވޭނެ.";
+  document.getElementById("confirmModal").classList.add("show");
+}
+
+function closeModal() {
+  document.getElementById("confirmModal").classList.remove("show");
+}
+
+async function sendBroadcast() {
+  const msg = document.getElementById("broadcastMsg").value.trim();
+  const btn = document.getElementById("modalConfirmBtn");
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader spinner"></i> ފޮނުވަނީ...';
+
+  try {
+    const resp = await fetch(gasUrl + "?action=broadcast&key=" + encodeURIComponent(ADMIN_PIN) + "&message=" + encodeURIComponent(msg));
+    const data = await resp.json();
+    closeModal();
+    if (data.success !== false) {
+      const entry = { type: "success", text: msg.substring(0, 80) + (msg.length > 80 ? "..." : ""), time: new Date().toLocaleString("en-MV"), count: data.count || "?" };
+      activityLog.unshift(entry);
+      if (activityLog.length > 30) activityLog.pop();
+      localStorage.setItem("adminLog", JSON.stringify(activityLog));
+      document.getElementById("statSent").textContent = parseInt(document.getElementById("statSent").textContent || "0") + 1;
+      clearMsg();
+      renderLog();
+      showToast("ބްރޯޑްކާސްޓް ފޮނުވި ✓ (" + (entry.count) + " ފަރާތަށް)", "success");
+    } else {
+      showToast("ފޮނުވުމުގައި ގޯހެއް ދިމާވި: " + (data.error || ""), "error");
+    }
+  } catch(e) {
+    closeModal();
+    showToast("ކަނެކްޝަން ގޯހެއް ދިމާވި", "error");
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-send"></i> ހޫން، ފޮނުވާ';
+}
+
+async function loadStats() {
+  if (!gasUrl) return;
+  try {
+    const resp = await fetch(gasUrl + "?action=stats&key=" + encodeURIComponent(ADMIN_PIN));
+    const data = await resp.json();
+    if (data.users !== undefined) document.getElementById("statUsers").textContent = data.users;
+  } catch(e) {
+    document.getElementById("statUsers").textContent = "?";
+  }
+  document.getElementById("statForms").textContent = "86";
+}
+
+function renderLog() {
+  const container = document.getElementById("activityLog");
+  if (!activityLog.length) {
+    container.innerHTML = '<div class="empty-log"><i class="ti ti-clipboard-list"></i><span>އަދި ހިންގި ކަމެއް ނެތް</span></div>';
+    return;
+  }
+  container.innerHTML = activityLog.map(e => `
+    <div class="log-item">
+      <div class="log-dot ${e.type}"></div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-size:13px; color:var(--text); line-height:1.5; word-break:break-word;">${e.text}</div>
+        <div class="log-meta">${e.time} &nbsp;·&nbsp; ${e.count} ފަރާތަށް</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function showToast(msg, type) {
+  const t = document.getElementById("toast");
+  const icon = document.getElementById("toastIcon");
+  document.getElementById("toastMsg").textContent = msg;
+  t.className = "toast " + (type || "success");
+  icon.className = "ti ti-" + (type === "error" ? "alert-circle" : "check");
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3500);
+}
+
+// Restore URL from previous session
+const savedUrl = localStorage.getItem("gasUrl");
+if (savedUrl) document.getElementById("gasUrlLogin").value = savedUrl;
+
+// Update preview on load
+updatePreview();
+renderLog();
+</script>
+</body>
+</html>
