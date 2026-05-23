@@ -646,22 +646,22 @@ body {
       <img src="https://raw.githubusercontent.com/sensaamiru-dev/duvaafaru-court-bot/main/Coat_of_arms_of_Maldives.png" alt="">
       <div>
         <div class="login-logo-text">ރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓް</div>
-        <div class="login-logo-sub">އެޑްމިން ޕެނަލް</div>
+        <div class="login-logo-sub">ބްރޯޑްކާސްޓް ޕެނަލް</div>
       </div>
     </div>
     <div class="login-error" id="loginError">
       <i class="ti ti-alert-circle"></i>
       <span id="loginErrorMsg">ޕިން ކޯޑް ރަނގަޅެއްނޫން</span>
     </div>
-    <label class="login-label">ޕިން ކޯޑް</label>
+    <label class="login-label">PIN CODE</label>
     <input type="password" class="login-input" id="pinInput" placeholder="••••••" maxlength="10" onkeydown="if(event.key==='Enter')doLogin()">
-    <label class="login-label">GAS ްވެބ- URL</label>
+    <label class="login-label">GAS WEB URL</label>
     <input type="url" class="login-input" id="gasUrlLogin" placeholder="https://script.google.com/macros/s/..." style="font-size:12px; font-family: monospace;" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" onclick="doLogin()">
-      <i class="ti ti-login"></i> ލޮގްއިން
+      <i class="ti ti-login"></i> LOGIN
     </button>
     <p style="font-size:11.5px; color:var(--text-muted); margin-top:14px; text-align:center; line-height:1.6;">
-      ޕިން ކޯޑް ބަދަލުކުރެވޭ ގޮތް: admin.html ގައި <code style="font-size:11px; background:var(--surface-alt); padding:1px 5px; border-radius:4px;">ADMIN_PIN</code> ބަދަލުކުރާ
+      Enter the WEB URL & <code style="font-size:11px; background:var(--surface-alt); padding:1px 5px; border-radius:4px;">ADMIN_PIN</code>
     </p>
   </div>
 </div>
@@ -671,11 +671,11 @@ body {
   <div class="header">
     <div class="header-title">
       <i class="ti ti-shield-check" style="color:var(--primary); font-size:20px;"></i>
-      ބޮޓް މެނޭޖްމެންޓް
-      <span class="header-badge">އެޑްމިން</span>
+      Dhuvaafaru Magistrate Court Bot
+      <span class="header-badge">Broadcast</span>
     </div>
     <button class="logout-btn" onclick="doLogout()">
-      <i class="ti ti-logout"></i> ލޮގްއައުޓް
+      <i class="ti ti-logout"></i> LOGOUT
     </button>
   </div>
 
@@ -702,8 +702,8 @@ body {
       <div class="section-head">
         <i class="ti ti-settings"></i>
         <div>
-          <div class="section-head-text">GAS ކަނެކްޝަން</div>
-          <div class="section-head-sub">Google Apps Script ވެބ-އެޕް URL</div>
+          <div class="section-head-text">GAS Connection</div>
+          <div class="section-head-sub">Google Apps Script WebApp URL</div>
         </div>
       </div>
       <div class="gas-wrap">
@@ -721,7 +721,7 @@ body {
         <i class="ti ti-speakerphone"></i>
         <div>
           <div class="section-head-text">ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ފޮނުވުން</div>
-          <div class="section-head-sub">Broadcast — ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ފޮނުވޭ</div>
+          <div class="section-head-sub">Broadcast — ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ފޮނުވޭނެ</div>
         </div>
       </div>
 
@@ -941,14 +941,14 @@ async function sendBroadcast() {
       renderLog();
       showToast("ބްރޯޑްކާސްޓް ފޮނުވި ✓ (" + (entry.count) + " ފަރާތަށް)", "success");
     } else {
-      showToast("ފޮނުވުމުގައި ގޯހެއް ދިމާވި: " + (data.error || ""), "error");
+      showToast("ފޮނުވުމުގައި ގޯހެއް ދިމާވެއްޖެ: " + (data.error || ""), "error");
     }
   } catch(e) {
     closeModal();
-    showToast("ކަނެކްޝަން ގޯހެއް ދިމާވި", "error");
+    showToast("ކަނެކްޝަން ގޯހެއް ދިމާވެއްޖެ", "error");
   }
   btn.disabled = false;
-  btn.innerHTML = '<i class="ti ti-send"></i> ހޫން، ފޮނުވާ';
+  btn.innerHTML = '<i class="ti ti-send"></i> އާން، ފޮނުވާ';
 }
 
 async function loadStats() {
