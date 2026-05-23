@@ -1186,95 +1186,107 @@ body {
 <script>
   // ── CONFIG ──
   // Replace with your actual GAS deployment ID
-  const API_URL = "https://script.google.com/macros/s/AKfycbyQ96oBXodvR6jo3eXtbp7sAE-BG2PkyaNRp4C56bLh-mj6oYPKPO2D9dwqBadbcoS1/exec";
+  const API_URL = "https://script.google.com/macros/s/AKfycby4WETgBUwV9lbfbSalJpxQMH-Zm1RaG6yg52ab8-iKN0Dj_D3LpZByB6sPxO6fhBb6/exec";
 
   let currentCategory = 'all';
   let formsData = []; // Store loaded forms
 
-  // ── DYNAMIC FORM LOADING FROM GAS ──
-  async function loadFormsFromAPI() {
-    try {
-      const response = await fetch(API_URL + "?action=getForms");
-      const data = await response.json();
-      
-      if (!data.success) {
-        console.error("API Error:", data.error);
-        fallbackToStaticForms();
-        return;
-      }
-
-      formsData = data.forms;
-      
-      // Clear existing form blocks (keep contacts)
-      document.querySelectorAll('.category-block:not(#cat_contacts)').forEach(el => el.remove());
-      
-      // Group forms by category
-      const categories = {};
-      data.forms.forEach(form => {
-        if (!categories[form.category]) categories[form.category] = [];
-        categories[form.category].push(form);
-      });
-
-      // Build HTML for each category
-      const container = document.getElementById('portalContainer');
-      
-      Object.keys(categories).forEach(catKey => {
-        const forms = categories[catKey];
-        const block = document.createElement('div');
-        block.className = 'category-block';
-        block.id = `cat_${catKey}`;
-        block.dataset.title = getCategoryTitle(catKey);
-        block.dataset.icon = getCategoryIcon(catKey);
-        
-        // Category title
-        const titleDiv = document.createElement('div');
-        titleDiv.className = 'category-title';
-        titleDiv.innerHTML = `<i class="ti ${getCategoryIcon(catKey)}"></i> ${getCategoryTitle(catKey)}`;
-        block.appendChild(titleDiv);
-
-        // Form cards
-        forms.forEach(form => {
-          const card = document.createElement('div');
-          card.className = `card ${form.status === 'unavailable' ? 'unavailable' : ''}`;
-          card.dataset.keywords = form.keywords;
-          
-          const isUnavailable = form.status === 'unavailable' || form.file_id === 'PLACE_DRIVE_ID_HERE' || !form.file_id;
-          const iconClass = isUnavailable ? 'ti-file-off' : 'ti-file-description';
-          const btnClass = isUnavailable ? 'btn-unavailable' : 'btn-view';
-          const btnContent = isUnavailable 
-            ? '<i class="ti ti-clock"></i> ލިބެން ނެތް'
-            : '<i class="ti ti-download"></i> ޑައުންލޯޑް';
-          const btnTag = isUnavailable 
-            ? `<span class="${btnClass}">${btnContent}</span>`
-            : `<a href="https://drive.google.com/uc?export=download&id=${form.file_id}" target="_blank" class="${btnClass}">${btnContent}</a>`;
-
-          card.innerHTML = `
-            <div class="card-left">
-              <div class="card-icon"><i class="ti ${iconClass}"></i></div>
-              <div class="card-text">${form.name}</div>
-            </div>
-            ${btnTag}
-          `;
-          
-          block.appendChild(card);
-        });
-
-        // Insert before contacts block
-        container.insertBefore(block, document.getElementById('cat_contacts'));
-      });
-
-      // Re-initialize badges and visibility
-      updateBadges();
-      if (currentCategory === 'all') {
-        document.querySelectorAll('.category-block:not(#cat_contacts)').forEach(b => b.classList.add('active-block'));
-      }
-
-    } catch (error) {
-      console.error("Failed to load forms:", error);
+// ✅ NEW: JSONP-based form loader (no CORS issues)
+function loadFormsFromAPI() {
+  const callbackName = 'formsCallback_' + Date.now();
+  
+  // Create global callback function
+  window[callbackName] = function(data) {
+    // Clean up
+    delete window[callbackName];
+    if (script.parentNode) script.parentNode.removeChild(script);
+    
+    if (!data.success) {
+      console.error("API Error:", data.error);
       fallbackToStaticForms();
+      return;
     }
-  }
 
+    formsData = data.forms;
+    
+    // Clear existing form blocks (keep contacts)
+    document.querySelectorAll('.category-block:not(#cat_contacts)').forEach(el => el.remove());
+    
+    // Group forms by category
+    const categories = {};
+    data.forms.forEach(form => {
+      if (!categories[form.category]) categories[form.category] = [];
+      categories[form.category].push(form);
+    });
+
+    // Build HTML for each category
+    const container = document.getElementById('portalContainer');
+    
+    Object.keys(categories).forEach(catKey => {
+      const forms = categories[catKey];
+      const block = document.createElement('div');
+      block.className = 'category-block';
+      block.id = 'cat_' + catKey;
+      block.dataset.title = getCategoryTitle(catKey);
+      block.dataset.icon = getCategoryIcon(catKey);
+      
+      // Category title
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'category-title';
+      titleDiv.innerHTML = `<i class="ti ${getCategoryIcon(catKey)}"></i> ${getCategoryTitle(catKey)}`;
+      block.appendChild(titleDiv);
+
+      // Form cards
+      forms.forEach(form => {
+        const card = document.createElement('div');
+        card.className = `card ${form.status === 'unavailable' ? 'unavailable' : ''}`;
+        card.dataset.keywords = form.keywords;
+        
+        const isUnavailable = form.status === 'unavailable' || !form.file_id || form.file_id === 'PLACE_DRIVE_ID_HERE';
+        const iconClass = isUnavailable ? 'ti-file-off' : 'ti-file-description';
+        const btnClass = isUnavailable ? 'btn-unavailable' : 'btn-view';
+        const btnContent = isUnavailable 
+          ? '<i class="ti ti-clock"></i> ލިބެން ނެތް'
+          : '<i class="ti ti-download"></i> ޑައުންލޯޑް';
+        const btnTag = isUnavailable 
+          ? `<span class="${btnClass}">${btnContent}</span>`
+          : `<a href="https://drive.google.com/uc?export=download&id=${form.file_id}" target="_blank" class="${btnClass}">${btnContent}</a>`;
+
+        card.innerHTML = `
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ${iconClass}"></i></div>
+            <div class="card-text">${form.name}</div>
+          </div>
+          ${btnTag}
+        `;
+        
+        block.appendChild(card);
+      });
+
+      // Insert before contacts block
+      container.insertBefore(block, document.getElementById('cat_contacts'));
+    });
+
+    // Re-initialize badges and visibility
+    updateBadges();
+    if (currentCategory === 'all') {
+      document.querySelectorAll('.category-block:not(#cat_contacts)').forEach(b => b.classList.add('active-block'));
+    }
+  };
+  
+  // Create script tag for JSONP
+  const script = document.createElement('script');
+  script.src = API_URL + "?action=getForms&callback=" + callbackName;
+  
+  script.onerror = function() {
+    console.error("Failed to load forms from API");
+    delete window[callbackName];
+    if (script.parentNode) script.parentNode.removeChild(script);
+    fallbackToStaticForms();
+  };
+  
+  document.head.appendChild(script);
+}
   function getCategoryTitle(key) {
     const titles = {
       marriage: '💍 ކައިވެންޏާއި ގުޅޭ ފޯމުތައް',
