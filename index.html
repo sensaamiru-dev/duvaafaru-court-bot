@@ -1184,140 +1184,8 @@ body {
 </div><!-- end app-layout -->
 
 <script>
-  // ── CONFIG ──
-  // Replace with your actual GAS deployment ID
-  const API_URL = "https://script.google.com/macros/s/AKfycbwHxAWtmGlCPayxay2sW_xsdcop1TpD74SEeZNB4bKUEcRYFVHVrkCs5GA_925kN3jA/exec";
-
   let currentCategory = 'all';
-  let formsData = []; // Store loaded forms
 
-// ✅ NEW: JSONP-based form loader (no CORS issues)
-function loadFormsFromAPI() {
-  const callbackName = 'formsCallback_' + Date.now();
-  
-  // Create global callback function
-  window[callbackName] = function(data) {
-    // Clean up
-    delete window[callbackName];
-    if (script.parentNode) script.parentNode.removeChild(script);
-    
-    if (!data.success) {
-      console.error("API Error:", data.error);
-      fallbackToStaticForms();
-      return;
-    }
-
-    formsData = data.forms;
-    
-    // Clear existing form blocks (keep contacts)
-    document.querySelectorAll('.category-block:not(#cat_contacts)').forEach(el => el.remove());
-    
-    // Group forms by category
-    const categories = {};
-    data.forms.forEach(form => {
-      if (!categories[form.category]) categories[form.category] = [];
-      categories[form.category].push(form);
-    });
-
-    // Build HTML for each category
-    const container = document.getElementById('portalContainer');
-    
-    Object.keys(categories).forEach(catKey => {
-      const forms = categories[catKey];
-      const block = document.createElement('div');
-      block.className = 'category-block';
-      block.id = 'cat_' + catKey;
-      block.dataset.title = getCategoryTitle(catKey);
-      block.dataset.icon = getCategoryIcon(catKey);
-      
-      // Category title
-      const titleDiv = document.createElement('div');
-      titleDiv.className = 'category-title';
-      titleDiv.innerHTML = `<i class="ti ${getCategoryIcon(catKey)}"></i> ${getCategoryTitle(catKey)}`;
-      block.appendChild(titleDiv);
-
-      // Form cards
-      forms.forEach(form => {
-        const card = document.createElement('div');
-        card.className = `card ${form.status === 'unavailable' ? 'unavailable' : ''}`;
-        card.dataset.keywords = form.keywords;
-        
-        const isUnavailable = form.status === 'unavailable' || !form.file_id || form.file_id === 'PLACE_DRIVE_ID_HERE';
-        const iconClass = isUnavailable ? 'ti-file-off' : 'ti-file-description';
-        const btnClass = isUnavailable ? 'btn-unavailable' : 'btn-view';
-        const btnContent = isUnavailable 
-          ? '<i class="ti ti-clock"></i> ލިބެން ނެތް'
-          : '<i class="ti ti-download"></i> ޑައުންލޯޑް';
-        const btnTag = isUnavailable 
-          ? `<span class="${btnClass}">${btnContent}</span>`
-          : `<a href="https://drive.google.com/uc?export=download&id=${form.file_id}" target="_blank" class="${btnClass}">${btnContent}</a>`;
-
-        card.innerHTML = `
-          <div class="card-left">
-            <div class="card-icon"><i class="ti ${iconClass}"></i></div>
-            <div class="card-text">${form.name}</div>
-          </div>
-          ${btnTag}
-        `;
-        
-        block.appendChild(card);
-      });
-
-      // Insert before contacts block
-      container.insertBefore(block, document.getElementById('cat_contacts'));
-    });
-
-    // Re-initialize badges and visibility
-    updateBadges();
-    if (currentCategory === 'all') {
-      document.querySelectorAll('.category-block:not(#cat_contacts)').forEach(b => b.classList.add('active-block'));
-    }
-  };
-  
-  // Create script tag for JSONP
-  const script = document.createElement('script');
-  script.src = API_URL + "?action=getForms&callback=" + callbackName;
-  
-  script.onerror = function() {
-    console.error("Failed to load forms from API");
-    delete window[callbackName];
-    if (script.parentNode) script.parentNode.removeChild(script);
-    fallbackToStaticForms();
-  };
-  
-  document.head.appendChild(script);
-}
-  function getCategoryTitle(key) {
-    const titles = {
-      marriage: '💍 ކައިވެންޏާއި ގުޅޭ ފޯމުތައް',
-      divorce: '💔 ވަރިއާއި ގުޅޭ ފޯމުތައް',
-      expenses: '💰 ޚަރަދާއި ގުޅޭ ފޯމުތައް',
-      family: '👨‍👩‍👧‍👦 ޢާއިލީ އެހެނިހެން ފޯމުތައް',
-      civil: '⚖️ މަދަނީ ފޯމުތައް',
-      misc: '📁 އެހެނިހެން ފޯމުތައް'
-    };
-    return titles[key] || key;
-  }
-
-  function getCategoryIcon(key) {
-    const icons = {
-      marriage: 'ti-heart',
-      divorce: 'ti-heart-broken',
-      expenses: 'ti-cash',
-      family: 'ti-users',
-      civil: 'ti-scale',
-      misc: 'ti-folder'
-    };
-    return icons[key] || 'ti-file';
-  }
-
-  function fallbackToStaticForms() {
-    console.log("Using static forms as fallback");
-    updateBadges();
-    document.querySelectorAll('.category-block:not(#cat_contacts)').forEach(b => b.classList.add('active-block'));
-  }
-
-  // ── SIDEBAR & NAVIGATION ──
   function toggleSidebar() {
     const sidebar = document.getElementById('appSidebar');
     const overlay = document.getElementById('menuOverlay');
@@ -1326,118 +1194,102 @@ function loadFormsFromAPI() {
     overlay.classList.toggle('show', !isOpen);
   }
 
-  function switchCategory(key, btn) {
-    currentCategory = key;
-    document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('searchInput').value = '';
-    document.getElementById('emptyState').classList.remove('show');
-    document.querySelector('.search-wrap').style.display = key === 'contacts' ? 'none' : '';
+function switchCategory(key, btn) {
+  currentCategory = key;
+  document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('emptyState').classList.remove('show');
 
-    document.querySelectorAll('.category-block').forEach(block => {
-      if (key === 'contacts') {
-        block.classList.toggle('active-block', block.id === 'cat_contacts');
-      } else if (key === 'all') {
-        block.classList.toggle('active-block', block.id !== 'cat_contacts');
-        if (block.id !== 'cat_contacts') {
-          block.querySelectorAll('.card').forEach(c => c.classList.remove('hidden-card'));
-        }
-      } else {
-        block.classList.toggle('active-block', block.id === 'cat_' + key);
-        if (block.id === 'cat_' + key) {
-          block.querySelectorAll('.card').forEach(c => c.classList.remove('hidden-card'));
-        }
+  // Show search bar for all categories EXCEPT contacts
+  document.querySelector('.search-wrap').style.display = key === 'contacts' ? 'none' : '';
+
+  document.querySelectorAll('.category-block').forEach(block => {
+    if (key === 'contacts') {
+      // Only show contacts block, hide all others
+      block.classList.toggle('active-block', block.id === 'cat_contacts');
+    } else if (key === 'all') {
+      // Show all form blocks, hide contacts
+      block.classList.toggle('active-block', block.id !== 'cat_contacts');
+      if (block.id !== 'cat_contacts') {
+        block.querySelectorAll('.card').forEach(c => c.classList.remove('hidden-card'));
       }
-    });
-
-    if (window.innerWidth < 768) toggleSidebar();
-  }
-
-  // ── SEARCH ──
-  function filterForms() {
-    const q = document.getElementById('searchInput').value.trim().toLowerCase();
-    let anyVisible = false;
-
-    document.querySelectorAll('.category-block').forEach(block => {
-      if (block.id === 'cat_contacts') {
-        block.classList.remove('active-block');
-        return;
+    } else {
+      // Show only the selected category
+      block.classList.toggle('active-block', block.id === 'cat_' + key);
+      if (block.id === 'cat_' + key) {
+        block.querySelectorAll('.card').forEach(c => c.classList.remove('hidden-card'));
       }
+    }
+  });
 
-      const inScope = currentCategory === 'all' || block.id === 'cat_' + currentCategory;
-      if (!inScope) { block.classList.remove('active-block'); return; }
+  if (window.innerWidth < 768) toggleSidebar();
+}
 
-      let blockHasMatch = false;
-      block.querySelectorAll('.card').forEach(card => {
-        const hit = !q || card.textContent.toLowerCase().includes(q);
-        card.classList.toggle('hidden-card', !hit);
-        if (hit) { blockHasMatch = true; anyVisible = true; }
-      });
-      block.classList.toggle('active-block', blockHasMatch);
+function filterForms() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  let anyVisible = false;
+
+  document.querySelectorAll('.category-block').forEach(block => {
+    // ALWAYS hide contacts block during search
+    if (block.id === 'cat_contacts') {
+      block.classList.remove('active-block');
+      return;
+    }
+
+    const inScope = currentCategory === 'all' || block.id === 'cat_' + currentCategory;
+    if (!inScope) { block.classList.remove('active-block'); return; }
+
+    let blockHasMatch = false;
+    block.querySelectorAll('.card').forEach(card => {
+      const hit = !q || card.textContent.toLowerCase().includes(q);
+      card.classList.toggle('hidden-card', !hit);
+      if (hit) { blockHasMatch = true; anyVisible = true; }
     });
+    block.classList.toggle('active-block', blockHasMatch);
+  });
 
-    document.getElementById('emptyState').classList.toggle('show', q !== '' && !anyVisible);
-  }
+  document.getElementById('emptyState').classList.toggle('show', q !== '' && !anyVisible);
+}
 
-  // ── BADGES ──
   function updateBadges() {
     const categories = ['marriage','divorce','expenses','family','civil','misc'];
     let total = 0;
     categories.forEach(cat => {
       const count = document.querySelectorAll(`#cat_${cat} .card`).length;
-      const badge = document.getElementById(`badge_${cat}`);
-      if (badge) badge.textContent = count;
+      document.getElementById(`badge_${cat}`).textContent = count;
       total += count;
     });
-    const allBadge = document.getElementById('badge_all');
-    if (allBadge) allBadge.textContent = total;
+    document.getElementById('badge_all').textContent = total;
   }
 
-  // ── SCROLL TO TOP ──
-  const scrollTopBtn = document.getElementById('scrollTopBtn');
-  const mainContent = document.getElementById('mainContent');
-
-  function scrollToTop() {
-    mainContent.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  if (mainContent && scrollTopBtn) {
-    mainContent.addEventListener('scroll', () => {
-      if (mainContent.scrollTop > 400) {
-        scrollTopBtn.classList.add('show');
-      } else {
-        scrollTopBtn.classList.remove('show');
-      }
-    });
-  }
-
-  // ── PRIVACY-FRIENDLY ANALYTICS ──
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn-view');
-    if (!btn) return;
-    
-    const card = btn.closest('.card');
-    if (!card) return;
-    
-    const formName = card.querySelector('.card-text')?.textContent?.trim();
-    if (!formName) return;
-    
-    const countKey = 'dl_count_' + formName;
-    const currentCount = parseInt(localStorage.getItem(countKey) || '0');
-    localStorage.setItem(countKey, currentCount + 1);
-    localStorage.setItem('dl_time_' + formName, Date.now());
+document.addEventListener('DOMContentLoaded', () => {
+  updateBadges();
+  // Only show form blocks on load, NOT contacts
+  document.querySelectorAll('.category-block').forEach(block => {
+    block.classList.toggle('active-block', block.id !== 'cat_contacts');
   });
+});
 
-  // ── TELEGRAM WEBAPP ──
   if (window.Telegram && window.Telegram.WebApp) {
     window.Telegram.WebApp.ready();
     window.Telegram.WebApp.expand();
   }
+  // ── SCROLL TO TOP ──
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+const mainContent = document.getElementById('mainContent');
 
-  // ── INIT ──
-  document.addEventListener('DOMContentLoaded', () => {
-    loadFormsFromAPI(); // Load forms from Google Sheet API
-  });
+function scrollToTop() {
+  mainContent.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+mainContent.addEventListener('scroll', () => {
+  if (mainContent.scrollTop > 400) {
+    scrollTopBtn.classList.add('show');
+  } else {
+    scrollTopBtn.classList.remove('show');
+  }
+});
 </script>
 </body>
 </html>
