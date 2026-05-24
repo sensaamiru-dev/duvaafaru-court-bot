@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>DMC bot - Admin</title>
+  <title>DMC bot - Broadcast</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
@@ -14,641 +14,926 @@
   font-weight: normal; font-style: normal; font-display: swap;
 }
 :root {
-  --primary: #1d4ed8; --primary-hover: #1e40af; --primary-light: #eff6ff;
-  --surface: #ffffff; --surface-alt: #f8fafc; --border: #e2e8f0;
-  --text: #0f172a; --text-muted: #64748b;
-  --danger: #dc2626; --danger-light: #fef2f2;
-  --success: #16a34a; --success-light: #f0fdf4;
-  --warning: #d97706; --warning-light: #fffbeb;
+  --primary: #1d4ed8;
+  --primary-hover: #1e40af;
+  --primary-light: #eff6ff;
+  --surface: #ffffff;
+  --surface-alt: #f8fafc;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --danger: #dc2626;
+  --danger-light: #fef2f2;
+  --success: #16a34a;
+  --success-light: #f0fdf4;
+  --warning: #d97706;
+  --warning-light: #fffbeb;
   --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary: #3b82f6; --primary-hover: #2563eb; --primary-light: #1e3a5f;
-    --surface: #1e293b; --surface-alt: #0f172a; --border: #334155;
-    --text: #f1f5f9; --text-muted: #94a3b8;
-    --danger: #f87171; --danger-light: #2d1515;
-    --success: #4ade80; --success-light: #14261a;
-    --warning: #fbbf24; --warning-light: #27200a;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --primary-light: #1e3a5f;
+    --surface: #1e293b;
+    --surface-alt: #0f172a;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --danger: #f87171;
+    --danger-light: #2d1515;
+    --success: #4ade80;
+    --success-light: #14261a;
+    --warning: #fbbf24;
+    --warning-light: #27200a;
     --card-shadow: 0 1px 4px rgba(0,0,0,0.3);
   }
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Faruma','MV Boli',sans-serif; background:var(--surface-alt); color:var(--text); min-height:100vh; line-height:1.6; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Faruma', 'MV Boli', sans-serif;
+  background: var(--surface-alt);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
 
-.login-wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
-.login-card { background:var(--surface); border-radius:16px; padding:36px 32px; width:100%; max-width:380px; box-shadow:var(--card-shadow); border:1px solid var(--border); }
-.login-logo { display:flex; align-items:center; gap:12px; margin-bottom:28px; }
-.login-logo img { width:44px; height:44px; object-fit:contain; }
-.login-logo-text { font-size:15px; font-weight:700; color:var(--text); line-height:1.35; }
-.login-logo-sub { font-size:12px; color:var(--text-muted); font-weight:400; }
-.login-label { font-size:13px; color:var(--text-muted); margin-bottom:6px; display:block; }
-.login-input { width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:10px; font-family:'Faruma',sans-serif; font-size:14px; background:var(--surface); color:var(--text); direction:ltr; margin-bottom:14px; outline:none; transition:border-color 0.15s,box-shadow 0.15s; }
-.login-input:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(59,130,246,0.15); }
-.login-btn { width:100%; padding:12px; background:var(--primary); color:#fff; border:none; border-radius:10px; font-family:'Faruma',sans-serif; font-size:14.5px; font-weight:700; cursor:pointer; transition:background 0.15s; display:flex; align-items:center; justify-content:center; gap:8px; }
-.login-btn:hover { background:var(--primary-hover); }
-.login-error { background:var(--danger-light); color:var(--danger); border-radius:8px; padding:10px 14px; font-size:13px; margin-bottom:14px; display:none; align-items:center; gap:8px; }
-.login-error.show { display:flex; }
+/* LOGIN SCREEN */
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.login-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
+}
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.login-logo img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+.login-logo-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+}
+.login-logo-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.login-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  display: block;
+}
+.login-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 14px;
+  background: var(--surface);
+  color: var(--text);
+  direction: ltr;
+  margin-bottom: 14px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.login-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.login-btn:hover { background: var(--primary-hover); }
+.login-btn:active { opacity: 0.9; }
+.login-error {
+  background: var(--danger-light);
+  color: var(--danger);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 14px;
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+.login-error.show { display: flex; }
 
-.app { display:none; }
-.app.show { display:block; }
+/* MAIN APP */
+.app { display: none; }
+.app.show { display: block; }
 
-.header { background:var(--surface); border-bottom:1px solid var(--border); padding:0 20px; height:56px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
-.header-title { font-size:15px; font-weight:700; color:var(--text); display:flex; align-items:center; gap:10px; }
-.header-badge { background:var(--primary-light); color:var(--primary); font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px; }
-.logout-btn { background:none; border:1px solid var(--border); border-radius:8px; padding:7px 12px; font-family:'Faruma',sans-serif; font-size:13px; color:var(--text-muted); cursor:pointer; display:flex; align-items:center; gap:6px; transition:all 0.15s; }
-.logout-btn:hover { border-color:var(--danger); color:var(--danger); }
+/* HEADER */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-badge {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.logout-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.logout-btn:hover { border-color: var(--danger); color: var(--danger); }
 
-.content { max-width:820px; margin:0 auto; padding:20px 16px 40px; }
+/* CONTENT */
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
 
-.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
-.stat-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 14px; box-shadow:var(--card-shadow); text-align:center; }
-.stat-num { font-size:26px; font-weight:700; color:var(--text); line-height:1.2; font-family:'Inter',sans-serif; }
-.stat-label { font-size:12px; color:var(--text-muted); margin-top:4px; }
+/* STAT CARDS */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 14px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+}
+.stat-num {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  font-family: 'Inter', sans-serif;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
 
-.section-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:14px; box-shadow:var(--card-shadow); }
-.section-head { display:flex; align-items:center; gap:9px; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--border); }
-.section-head .ti { font-size:18px; color:var(--primary); }
-.section-head-text { font-size:15px; font-weight:700; color:var(--text); }
-.section-head-sub { font-size:12px; color:var(--text-muted); margin-top:1px; }
-
-/* TABS */
-.tab-row { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:16px; }
-.tab-btn { padding:7px 14px; border-radius:8px; font-size:13px; font-family:'Faruma',sans-serif; border:1.5px solid var(--border); background:transparent; color:var(--text-muted); cursor:pointer; transition:all 0.15s; }
-.tab-btn.active { background:var(--primary-light); border-color:var(--primary); color:var(--primary); font-weight:700; }
-.tab-btn:hover:not(.active) { border-color:var(--text-muted); }
-
-/* FORMS TABLE */
-.forms-toolbar { display:flex; gap:8px; margin-bottom:12px; align-items:center; flex-wrap:wrap; }
-.search-input { flex:1; min-width:160px; padding:9px 12px; border:1.5px solid var(--border); border-radius:8px; font-family:'Faruma',sans-serif; font-size:13px; background:var(--surface); color:var(--text); direction:rtl; outline:none; transition:border-color 0.15s; }
-.search-input:focus { border-color:var(--primary); }
-.btn-add { padding:9px 16px; background:var(--primary); color:#fff; border:none; border-radius:8px; font-family:'Faruma',sans-serif; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px; white-space:nowrap; transition:background 0.15s; }
-.btn-add:hover { background:var(--primary-hover); }
-
-.forms-table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:10px; }
-table { width:100%; border-collapse:collapse; font-size:13px; }
-thead th { background:var(--surface-alt); padding:10px 12px; text-align:right; font-weight:700; color:var(--text-muted); font-size:12px; border-bottom:1px solid var(--border); white-space:nowrap; }
-thead th:last-child { text-align:center; }
-tbody tr { border-bottom:1px solid var(--border); transition:background 0.1s; }
-tbody tr:last-child { border-bottom:none; }
-tbody tr:hover { background:var(--surface-alt); }
-tbody td { padding:10px 12px; color:var(--text); vertical-align:middle; }
-.td-name { max-width:240px; line-height:1.4; }
-.td-id { font-family:'Inter',monospace; font-size:11px; color:var(--text-muted); max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; direction:ltr; text-align:left; }
-.status-badge { display:inline-flex; align-items:center; gap:4px; padding:3px 9px; border-radius:20px; font-size:11px; font-weight:700; }
-.status-active { background:var(--success-light); color:var(--success); }
-.status-unavailable { background:var(--surface-alt); color:var(--text-muted); border:1px solid var(--border); }
-.action-btns { display:flex; gap:6px; justify-content:center; }
-.btn-edit { padding:5px 10px; background:var(--primary-light); color:var(--primary); border:1px solid var(--primary); border-radius:6px; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:4px; font-family:'Faruma',sans-serif; transition:all 0.15s; }
-.btn-edit:hover { background:var(--primary); color:#fff; }
-.btn-del { padding:5px 10px; background:var(--danger-light); color:var(--danger); border:1px solid var(--danger); border-radius:6px; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:4px; font-family:'Faruma',sans-serif; transition:all 0.15s; }
-.btn-del:hover { background:var(--danger); color:#fff; }
-.empty-table { text-align:center; padding:32px; color:var(--text-muted); font-size:13px; }
-
-/* MODAL */
-.modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.5); backdrop-filter:blur(3px); z-index:500; display:none; align-items:center; justify-content:center; padding:20px; }
-.modal-backdrop.show { display:flex; }
-.modal { background:var(--surface); border-radius:16px; padding:28px 24px; width:100%; max-width:460px; box-shadow:0 20px 60px rgba(0,0,0,0.2); border:1px solid var(--border); }
-.modal-title { font-size:17px; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
-.modal-title .ti { color:var(--primary); }
-.field-label { font-size:13px; color:var(--text-muted); margin-bottom:5px; display:block; }
-.field-input { width:100%; padding:10px 13px; border:1.5px solid var(--border); border-radius:9px; font-family:'Faruma',sans-serif; font-size:13.5px; background:var(--surface); color:var(--text); outline:none; transition:border-color 0.15s; margin-bottom:12px; }
-.field-input:focus { border-color:var(--primary); }
-.field-input[dir="ltr"] { direction:ltr; font-family:'Inter',monospace; font-size:12px; }
-.field-select { width:100%; padding:10px 13px; border:1.5px solid var(--border); border-radius:9px; font-family:'Faruma',sans-serif; font-size:13.5px; background:var(--surface); color:var(--text); outline:none; margin-bottom:12px; cursor:pointer; }
-.modal-btns { display:flex; gap:10px; margin-top:4px; }
-.modal-cancel { flex:1; padding:12px; background:none; border:1px solid var(--border); border-radius:10px; font-family:'Faruma',sans-serif; font-size:14px; color:var(--text-muted); cursor:pointer; }
-.modal-cancel:hover { border-color:var(--text-muted); }
-.modal-save { flex:1; padding:12px; background:var(--primary); color:#fff; border:none; border-radius:10px; font-family:'Faruma',sans-serif; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; transition:background 0.15s; }
-.modal-save:hover { background:var(--primary-hover); }
-.modal-save:disabled { opacity:0.5; cursor:default; }
-.modal-del-confirm { flex:1; padding:12px; background:var(--danger); color:#fff; border:none; border-radius:10px; font-family:'Faruma',sans-serif; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; }
+/* SECTION CARD */
+.section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--card-shadow);
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.section-head .ti {
+  font-size: 18px;
+  color: var(--primary);
+}
+.section-head-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+.section-head-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
 
 /* BROADCAST */
-.broadcast-textarea { width:100%; padding:12px 14px; border:1.5px solid var(--border); border-radius:10px; font-family:'Faruma','MV Boli',sans-serif; font-size:14.5px; color:var(--text); background:var(--surface); resize:vertical; min-height:130px; outline:none; direction:rtl; transition:border-color 0.15s,box-shadow 0.15s; margin-bottom:10px; }
-.broadcast-textarea:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(59,130,246,0.15); }
-.char-count { font-size:12px; color:var(--text-muted); text-align:left; margin-bottom:12px; font-family:'Inter',sans-serif; }
-.char-count.warn { color:var(--warning); }
-.char-count.over { color:var(--danger); }
-.preview-label { font-size:11px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px; display:flex; align-items:center; gap:5px; }
-.preview-box { background:var(--surface-alt); border:1.5px dashed var(--border); border-radius:10px; padding:14px; margin-bottom:14px; font-size:13.5px; line-height:1.65; min-height:60px; color:var(--text); direction:rtl; white-space:pre-wrap; word-break:break-word; }
-.msg-type-row { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
-.type-chip { padding:6px 14px; border-radius:20px; font-size:12.5px; font-family:'Faruma',sans-serif; border:1.5px solid var(--border); background:transparent; color:var(--text-muted); cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px; }
-.type-chip.active { background:var(--primary-light); border-color:var(--primary); color:var(--primary); font-weight:700; }
-.template-btn { background:var(--surface-alt); border:1px solid var(--border); border-radius:8px; padding:9px 12px; font-family:'Faruma',sans-serif; font-size:13px; color:var(--text); cursor:pointer; text-align:right; width:100%; margin-bottom:7px; transition:all 0.15s; display:flex; align-items:center; gap:8px; }
-.template-btn:hover { background:var(--primary-light); border-color:var(--primary); color:var(--primary); }
-.send-row { display:flex; gap:10px; align-items:center; }
-.btn-send { flex:1; padding:13px; background:var(--primary); color:#fff; border:none; border-radius:10px; font-family:'Faruma',sans-serif; font-size:14.5px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:background 0.15s,opacity 0.15s; }
-.btn-send:hover { background:var(--primary-hover); }
-.btn-send:disabled { opacity:0.5; cursor:default; }
-.btn-clear { padding:12px 16px; background:none; border:1px solid var(--border); border-radius:10px; font-family:'Faruma',sans-serif; font-size:13px; color:var(--text-muted); cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px; }
-.btn-clear:hover { border-color:var(--danger); color:var(--danger); }
+.msg-type-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.type-chip {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-family: 'Faruma', sans-serif;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.type-chip.active {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+}
+.broadcast-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Faruma', 'MV Boli', sans-serif;
+  font-size: 14.5px;
+  color: var(--text);
+  background: var(--surface);
+  resize: vertical;
+  min-height: 130px;
+  outline: none;
+  direction: rtl;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  margin-bottom: 10px;
+}
+.broadcast-textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.char-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: left;
+  margin-bottom: 12px;
+  font-family: 'Inter', sans-serif;
+}
+.char-count.warn { color: var(--warning); }
+.char-count.over { color: var(--danger); }
 
-/* CONFIRM BROADCAST MODAL */
-.modal-icon { width:52px; height:52px; border-radius:50%; background:var(--warning-light); color:var(--warning); display:flex; align-items:center; justify-content:center; font-size:24px; margin:0 auto 16px; }
-.modal-sub { font-size:13.5px; color:var(--text-muted); text-align:center; margin-bottom:20px; line-height:1.6; }
-.modal-preview { background:var(--surface-alt); border:1px solid var(--border); border-radius:8px; padding:12px; font-size:13px; color:var(--text); direction:rtl; white-space:pre-wrap; max-height:120px; overflow-y:auto; margin-bottom:20px; }
-.modal-confirm { flex:1; padding:12px; background:var(--primary); color:#fff; border:none; border-radius:10px; font-family:'Faruma',sans-serif; font-size:14px; font-weight:700; cursor:pointer; transition:background 0.15s; display:flex; align-items:center; justify-content:center; gap:7px; }
-.modal-confirm:hover { background:var(--primary-hover); }
+/* PREVIEW BOX */
+.preview-box {
+  background: var(--surface-alt);
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 14px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  min-height: 60px;
+  color: var(--text);
+  direction: rtl;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.preview-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
-/* GAS */
-.gas-wrap { display:flex; gap:8px; align-items:center; }
-.gas-input { flex:1; padding:9px 12px; border:1.5px solid var(--border); border-radius:8px; font-family:'Inter',monospace; font-size:12px; color:var(--text); background:var(--surface); direction:ltr; outline:none; transition:border-color 0.15s; }
-.gas-input:focus { border-color:var(--primary); }
-.gas-save-btn { padding:9px 14px; background:var(--primary); color:#fff; border:none; border-radius:8px; font-family:'Faruma',sans-serif; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap; display:flex; align-items:center; gap:5px; }
-.gas-save-btn:hover { background:var(--primary-hover); }
+/* TEMPLATES */
+.template-btn {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: right;
+  width: 100%;
+  margin-bottom: 7px;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.template-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.template-btn .ti { font-size: 15px; flex-shrink: 0; }
 
-/* LOG */
-.log-item { display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13px; }
-.log-item:last-child { border-bottom:none; }
-.log-dot { width:8px; height:8px; border-radius:50%; margin-top:5px; flex-shrink:0; }
-.log-dot.success { background:var(--success); }
-.log-dot.error { background:var(--danger); }
-.log-meta { font-size:11px; color:var(--text-muted); font-family:'Inter',sans-serif; margin-top:2px; }
-.empty-log { text-align:center; color:var(--text-muted); font-size:13px; padding:24px 0; display:flex; flex-direction:column; align-items:center; gap:8px; }
-.empty-log .ti { font-size:32px; opacity:0.4; }
+/* SEND ROW */
+.send-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.btn-send {
+  flex: 1;
+  padding: 13px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s, opacity 0.15s;
+}
+.btn-send:hover { background: var(--primary-hover); }
+.btn-send:disabled { opacity: 0.5; cursor: default; }
+.btn-clear {
+  padding: 12px 16px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-clear:hover { border-color: var(--danger); color: var(--danger); }
+
+/* CONFIRM MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-backdrop.show { display: flex; }
+.modal {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  border: 1px solid var(--border);
+}
+.modal-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--warning-light);
+  color: var(--warning);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 16px;
+}
+.modal-title {
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.modal-sub {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.modal-preview {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  color: var(--text);
+  direction: rtl;
+  white-space: pre-wrap;
+  max-height: 120px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+.modal-btns {
+  display: flex;
+  gap: 10px;
+}
+.modal-cancel {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.modal-cancel:hover { border-color: var(--text-muted); }
+.modal-confirm {
+  flex: 1;
+  padding: 12px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.modal-confirm:hover { background: var(--primary-hover); }
 
 /* TOAST */
-.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:#1e293b; color:#f1f5f9; padding:13px 22px; border-radius:12px; font-size:13.5px; display:flex; align-items:center; gap:10px; z-index:999; transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1); box-shadow:0 8px 32px rgba(0,0,0,0.2); max-width:90vw; }
-.toast.show { transform:translateX(-50%) translateY(0); }
-.toast.success .ti { color:#4ade80; }
-.toast.error .ti { color:#f87171; }
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 13px 22px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 999;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  max-width: 90vw;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.success .ti { color: #4ade80; }
+.toast.error .ti { color: #f87171; }
 
-@keyframes spin { to { transform:rotate(360deg); } }
-.spinner { animation:spin 0.8s linear infinite; display:inline-block; }
-@media (max-width:480px) { .stats-row { grid-template-columns:repeat(3,1fr); } .stat-num { font-size:20px; } .content { padding:14px 12px 40px; } }
+/* LOG */
+.log-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.log-item:last-child { border-bottom: none; }
+.log-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.log-dot.success { background: var(--success); }
+.log-dot.error { background: var(--danger); }
+.log-dot.info { background: var(--primary); }
+.log-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  margin-top: 2px;
+}
+.empty-log {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.empty-log .ti { font-size: 32px; opacity: 0.4; }
+
+/* SPINNER */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { animation: spin 0.8s linear infinite; display: inline-block; }
+
+/* GAS URL input */
+.gas-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.gas-input {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Inter', monospace;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--surface);
+  direction: ltr;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.gas-input:focus { border-color: var(--primary); }
+.gas-save-btn {
+  padding: 9px 14px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Faruma', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.gas-save-btn:hover { background: var(--primary-hover); }
+.info-banner {
+  background: var(--primary-light);
+  border: 1px solid rgba(59,130,246,0.25);
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 13px;
+  color: var(--primary);
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.info-banner .ti { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: repeat(3, 1fr); }
+  .stat-num { font-size: 20px; }
+  .content { padding: 14px 12px 40px; }
+}
   </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ===== LOGIN ===== -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-card">
     <div class="login-logo">
       <img src="https://raw.githubusercontent.com/sensaamiru-dev/duvaafaru-court-bot/main/Coat_of_arms_of_Maldives.png" alt="">
       <div>
         <div class="login-logo-text">ރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓް</div>
-        <div class="login-logo-sub">އެޑްމިން ޕެނަލް</div>
+        <div class="login-logo-sub">ބްރޯޑްކާސްޓް ޕެނަލް</div>
       </div>
     </div>
-    <div class="login-error" id="loginError"><i class="ti ti-alert-circle"></i><span id="loginErrorMsg">ޕިން ކޯޑް ރަނގަޅެއްނޫން</span></div>
+    <div class="login-error" id="loginError">
+      <i class="ti ti-alert-circle"></i>
+      <span id="loginErrorMsg">ޕިން ކޯޑް ރަނގަޅެއްނޫން</span>
+    </div>
     <label class="login-label">PIN CODE</label>
     <input type="password" class="login-input" id="pinInput" placeholder="••••••" maxlength="10" onkeydown="if(event.key==='Enter')doLogin()">
     <label class="login-label">GAS WEB URL</label>
-    <input type="url" class="login-input" id="gasUrlLogin" placeholder="https://script.google.com/macros/s/..." style="font-size:12px;font-family:monospace;" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="login-btn" onclick="doLogin()"><i class="ti ti-login"></i> LOGIN</button>
+    <input type="url" class="login-input" id="gasUrlLogin" placeholder="https://script.google.com/macros/s/..." style="font-size:12px; font-family: monospace;" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">
+      <i class="ti ti-login"></i> LOGIN
+    </button>
+    <p style="font-size:11.5px; color:var(--text-muted); margin-top:14px; text-align:center; line-height:1.6;">
+      Enter the WEB URL & <code style="font-size:11px; background:var(--surface-alt); padding:1px 5px; border-radius:4px;">ADMIN_PIN</code>
+    </p>
   </div>
 </div>
 
-<!-- MAIN APP -->
+<!-- ===== MAIN APP ===== -->
 <div class="app" id="mainApp">
   <div class="header">
     <div class="header-title">
-      <i class="ti ti-shield-check" style="color:var(--primary);font-size:20px;"></i>
-      ދުވާފަރު ކޯޓް ބޮޓް
-      <span class="header-badge">ADMIN</span>
+      <i class="ti ti-shield-check" style="color:var(--primary); font-size:20px;"></i>
+      ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓް ބޮޓް
+      <span class="header-badge">ބްރޯޑްކާސްޓް</span>
     </div>
-    <button class="logout-btn" onclick="doLogout()"><i class="ti ti-logout"></i> LOGOUT</button>
+    <button class="logout-btn" onclick="doLogout()">
+      <i class="ti ti-logout"></i> LOGOUT
+    </button>
   </div>
 
   <div class="content">
 
     <!-- STATS -->
     <div class="stats-row">
-      <div class="stat-card"><div class="stat-num" id="statUsers">—</div><div class="stat-label">ބޭނުންކުރާ ފަރާތްތައް</div></div>
-      <div class="stat-card"><div class="stat-num" id="statSent">0</div><div class="stat-label">ފޮނުވި މެސެޖް</div></div>
-      <div class="stat-card"><div class="stat-num" id="statForms">—</div><div class="stat-label">ފޯމުތައް</div></div>
+      <div class="stat-card">
+        <div class="stat-num" id="statUsers">—</div>
+        <div class="stat-label">ބޭނުންކުރާ ފަރާތްތައް</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statSent">0</div>
+        <div class="stat-label">ފޮނުވި މެސެޖް</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statForms">—</div>
+        <div class="stat-label">ފޯމުތައް</div>
+      </div>
     </div>
 
-    <!-- GAS SETTINGS -->
+    <!-- GAS SETTINGS (if URL changed after login) -->
     <div class="section-card">
-      <div class="section-head"><i class="ti ti-settings"></i><div><div class="section-head-text">GAS Connection</div><div class="section-head-sub">Google Apps Script WebApp URL</div></div></div>
+      <div class="section-head">
+        <i class="ti ti-settings"></i>
+        <div>
+          <div class="section-head-text">GAS Connection</div>
+          <div class="section-head-sub">Google Apps Script WebApp URL</div>
+        </div>
+      </div>
       <div class="gas-wrap">
         <input type="url" class="gas-input" id="gasUrlMain" placeholder="https://script.google.com/macros/s/...">
         <button class="gas-save-btn" onclick="saveGasUrl()"><i class="ti ti-check"></i> Save</button>
       </div>
-      <p style="font-size:11.5px;color:var(--text-muted);margin-top:8px;text-align:left;font-family:'Inter',sans-serif;">GAS → Deploy → Manage Deployments → Copy Web App URL</p>
-    </div>
-
-    <!-- FORM MANAGEMENT -->
-    <div class="section-card">
-      <div class="section-head"><i class="ti ti-files"></i><div><div class="section-head-text">Form Management</div><div class="section-head-sub">Add, edit, delete forms from the Google Sheet</div></div></div>
-
-      <!-- Category tabs -->
-      <div class="tab-row">
-        <button class="tab-btn active" onclick="switchFormTab('all',this)">ހުރިހާ</button>
-        <button class="tab-btn" onclick="switchFormTab('marriage',this)">💍 ކައިވެންޏާ</button>
-        <button class="tab-btn" onclick="switchFormTab('divorce',this)">💔 ވަރިއާ</button>
-        <button class="tab-btn" onclick="switchFormTab('expenses',this)">💰 ޚަރަދާ</button>
-        <button class="tab-btn" onclick="switchFormTab('family',this)">👨‍👩‍👧‍👦 ޢާއިލީ</button>
-        <button class="tab-btn" onclick="switchFormTab('civil',this)">⚖️ މަދަނީ</button>
-        <button class="tab-btn" onclick="switchFormTab('misc',this)">📁 އެހެނިހެން</button>
-      </div>
-
-      <!-- Toolbar -->
-      <div class="forms-toolbar">
-        <input type="text" class="search-input" id="formSearch" placeholder="ފޯމެއް ހޯދާ..." oninput="renderFormsTable()">
-        <button class="btn-add" onclick="openAddModal()"><i class="ti ti-plus"></i> Add Form</button>
-        <button class="btn-add" style="background:var(--success);" onclick="loadForms()"><i class="ti ti-refresh"></i> Refresh</button>
-      </div>
-
-      <!-- Table -->
-      <div class="forms-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>ނަން</th>
-              <th>ކެޓެގަރީ</th>
-              <th>File ID</th>
-              <th>ހާލަތު</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="formsTableBody">
-            <tr><td colspan="6" class="empty-table"><i class="ti ti-loader spinner"></i> Loading...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- DELETE USER -->
-    <div class="section-card">
-      <div class="section-head"><i class="ti ti-user-off"></i><div><div class="section-head-text">Delete / Block User</div><div class="section-head-sub">Remove a Telegram chat ID from the broadcast list</div></div></div>
-      <div style="display:flex;gap:8px;">
-        <input type="text" id="deleteUserId" style="flex:1;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-family:'Inter',monospace;font-size:13px;background:var(--surface);color:var(--text);outline:none;direction:ltr;" placeholder="Enter Telegram chat ID" onkeydown="if(event.key==='Enter')deleteUser()">
-        <button onclick="deleteUser()" style="padding:10px 16px;background:var(--danger);color:#fff;border:none;border-radius:9px;font-family:'Faruma',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;"><i class="ti ti-trash"></i> Remove</button>
-      </div>
-      <p style="font-size:11.5px;color:var(--text-muted);margin-top:8px;font-family:'Inter',sans-serif;">Find chat IDs in your Google Sheet → Users tab.</p>
+      <p style="font-size:11.5px; color:var(--text-muted); margin-top:8px; text-align:left; font-family:'Inter',sans-serif;">
+        GAS → Deploy → Manage Deployments → Copy Web App URL
+      </p>
     </div>
 
     <!-- BROADCAST -->
     <div class="section-card">
-      <div class="section-head"><i class="ti ti-speakerphone"></i><div><div class="section-head-text">ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ފޮނުވުން</div><div class="section-head-sub">Broadcast — ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ފޮނުވޭ</div></div></div>
+      <div class="section-head">
+        <i class="ti ti-speakerphone"></i>
+        <div>
+          <div class="section-head-text">ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ފޮނުވުން</div>
+          <div class="section-head-sub">Broadcast — ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ފޮނުވޭނެ</div>
+        </div>
+      </div>
+
+      <!-- Templates -->
       <div style="margin-bottom:12px;">
         <div class="preview-label"><i class="ti ti-template"></i> ތައްޔާރީ ޓެމްޕްލޭޓްތައް</div>
-        <button class="template-btn" onclick="useTemplate('announce')"><i class="ti ti-bell"></i> 📢 އިޢުލާން</button>
-        <button class="template-btn" onclick="useTemplate('maintenance')"><i class="ti ti-tool"></i> 🔧 ހިދުމަތް ވަގުތީ ގޮތުން ހުއްޓާލުން</button>
-        <button class="template-btn" onclick="useTemplate('holiday')"><i class="ti ti-calendar"></i> 🏖️ ބަންދު ދުވަހުގެ ނޯޓިސް</button>
-        <button class="template-btn" onclick="useTemplate('newform')"><i class="ti ti-file-plus"></i> 📝 އާ ފޯމެއް އިތުރުވުން</button>
+        <button class="template-btn" onclick="useTemplate('announce')">
+          <i class="ti ti-bell"></i> 📢 އިޢުލާން
+        </button>
+        <button class="template-btn" onclick="useTemplate('maintenance')">
+          <i class="ti ti-tool"></i> 🔧 ހިދުމަތް ވަގުތީ ގޮތުން ހުއްޓާލުން
+        </button>
+        <button class="template-btn" onclick="useTemplate('holiday')">
+          <i class="ti ti-calendar"></i> 🏖️ ބަންދު ދުވަހުގެ ނޯޓިސް
+        </button>
+        <button class="template-btn" onclick="useTemplate('newform')">
+          <i class="ti ti-file-plus"></i> 📝 އާ ފޯމެއް އިތުރުވުން
+        </button>
       </div>
+
+      <!-- Message type -->
       <div class="preview-label"><i class="ti ti-align-right"></i> ފޯރމެޓް</div>
       <div class="msg-type-row">
-        <button class="type-chip active" id="chip_text" onclick="setType('text')"><i class="ti ti-letter-t"></i> ޓެކްސްޓް</button>
-        <button class="type-chip" id="chip_bold" onclick="setType('bold')"><i class="ti ti-bold"></i> ބޯލްޑް</button>
-        <button class="type-chip" id="chip_list" onclick="setType('list')"><i class="ti ti-list"></i> ލިސްޓް</button>
+        <button class="type-chip active" id="chip_text" onclick="setType('text')">
+          <i class="ti ti-letter-t"></i> ޓެކްސްޓް
+        </button>
+        <button class="type-chip" id="chip_bold" onclick="setType('bold')">
+          <i class="ti ti-bold"></i> ބޯލްޑް ހެޑިން
+        </button>
+        <button class="type-chip" id="chip_list" onclick="setType('list')">
+          <i class="ti ti-list"></i> ލިސްޓް
+        </button>
       </div>
-      <textarea class="broadcast-textarea" id="broadcastMsg" placeholder="ބޭނުންވާ ޚަބަރު ނުވަތަ އިޢުލާން ލިޔުއްވާ..." oninput="updatePreview()"></textarea>
+
+      <!-- Textarea -->
+      <textarea class="broadcast-textarea" id="broadcastMsg"
+        placeholder="ބޭނުންވާ ޚަބަރު ނުވަތަ އިޢުލާން ލިޔުއްވާ..."
+        oninput="updatePreview()"></textarea>
       <div class="char-count" id="charCount">0 / 4096</div>
+
+      <!-- Preview -->
       <div class="preview-label"><i class="ti ti-eye"></i> ޓެލެގްރާމް ޕްރިވިއު</div>
       <div class="preview-box" id="msgPreview" dir="rtl">ލިޔުއްވާ — ޕްރިވިއު މިތާ ފެންނާނެ</div>
+
+      <!-- Send -->
       <div class="send-row" style="margin-top:14px;">
-        <button class="btn-clear" onclick="clearMsg()"><i class="ti ti-trash"></i> ސާފުކުރޭ</button>
-        <button class="btn-send" id="sendBtn" onclick="confirmBroadcast()"><i class="ti ti-send"></i> ފޮނުވާ</button>
+        <button class="btn-clear" onclick="clearMsg()">
+          <i class="ti ti-trash"></i> ސާފުކުރޭ
+        </button>
+        <button class="btn-send" id="sendBtn" onclick="confirmBroadcast()">
+          <i class="ti ti-send"></i> ފޮނުވާ
+        </button>
       </div>
     </div>
 
-    <!-- LOG -->
+    <!-- ACTIVITY LOG -->
     <div class="section-card">
-      <div class="section-head"><i class="ti ti-history"></i><div><div class="section-head-text">ހަރަކާތުގެ ލޮގް</div><div class="section-head-sub">ފޮނުވި ހުރިހާ ބްރޯޑްކާސްޓްތަކުގެ ތާރީޚް</div></div></div>
-      <div id="activityLog"><div class="empty-log"><i class="ti ti-clipboard-list"></i><span>އަދި ހިންގި ކަމެއް ނެތް</span></div></div>
+      <div class="section-head">
+        <i class="ti ti-history"></i>
+        <div>
+          <div class="section-head-text">ހަރަކާތުގެ ލޮގް</div>
+          <div class="section-head-sub">ފޮނުވި ހުރިހާ ބްރޯޑްކާސްޓްތަކުގެ ތާރީޚް</div>
+        </div>
+      </div>
+      <div id="activityLog">
+        <div class="empty-log">
+          <i class="ti ti-clipboard-list"></i>
+          <span>އެއްވެސް ހަރަކާތެއް ނެތް</span>
+        </div>
+      </div>
     </div>
 
   </div>
 </div>
 
-<!-- FORM ADD/EDIT MODAL -->
-<div class="modal-backdrop" id="formModal">
-  <div class="modal">
-    <div class="modal-title"><i class="ti ti-file-plus"></i> <span id="formModalTitle">Add Form</span></div>
-    <label class="field-label">ކެޓެގަރީ</label>
-    <select class="field-select" id="fCategory">
-      <option value="marriage">💍 ކައިވެންޏާއި ގުޅޭ</option>
-      <option value="divorce">💔 ވަރިއާއި ގުޅޭ</option>
-      <option value="expenses">💰 ޚަރަދާއި ގުޅޭ</option>
-      <option value="family">👨‍👩‍👧‍👦 ޢާއިލީ އެހެނިހެން</option>
-      <option value="civil">⚖️ މަދަނީ</option>
-      <option value="misc">📁 އެހެނިހެން</option>
-    </select>
-    <label class="field-label">ފޯމުގެ ނަން</label>
-    <input type="text" class="field-input" id="fName" placeholder="ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
-    <label class="field-label">Google Drive File ID</label>
-    <input type="text" class="field-input" id="fFileId" placeholder="1uYcuctdbAP_aomniBiLvW2SVghBtinT1" dir="ltr">
-    <label class="field-label">ހާލަތު (Status)</label>
-    <select class="field-select" id="fStatus">
-      <option value="active">✅ Active</option>
-      <option value="unavailable">⏳ Unavailable</option>
-    </select>
-    <label class="field-label">Keywords (optional)</label>
-    <input type="text" class="field-input" id="fKeywords" placeholder="ކާވެނި ނިކާ ކޮށްދިނުން" dir="ltr">
-    <div class="modal-btns">
-      <button class="modal-cancel" onclick="closeFormModal()">Cancel</button>
-      <button class="modal-save" id="formSaveBtn" onclick="saveForm()"><i class="ti ti-check"></i> Save</button>
-    </div>
-  </div>
-</div>
-
-<!-- DELETE FORM CONFIRM MODAL -->
-<div class="modal-backdrop" id="deleteFormModal">
-  <div class="modal">
-    <div class="modal-icon" style="background:var(--danger-light);color:var(--danger);"><i class="ti ti-trash"></i></div>
-    <div class="modal-title" style="justify-content:center;">Delete Form?</div>
-    <div class="modal-sub" id="deleteFormName">Are you sure you want to delete this form?</div>
-    <div class="modal-btns">
-      <button class="modal-cancel" onclick="closeDeleteModal()">Cancel</button>
-      <button class="modal-del-confirm" onclick="confirmDeleteForm()"><i class="ti ti-trash"></i> Delete</button>
-    </div>
-  </div>
-</div>
-
-<!-- BROADCAST CONFIRM MODAL -->
+<!-- CONFIRM MODAL -->
 <div class="modal-backdrop" id="confirmModal">
   <div class="modal">
     <div class="modal-icon"><i class="ti ti-speakerphone"></i></div>
-    <div class="modal-title" style="justify-content:center;">މެސެޖު ފޮނުވަން ބޭނުންތޯ؟</div>
+    <div class="modal-title">މެސެޖު ފޮނުވަން ބޭނުންތޯ؟</div>
     <div class="modal-sub" id="modalSubText">ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ތިރީގައިވާ މެސެޖް ފޮނުވޭނެ.</div>
     <div class="modal-preview" id="modalPreviewText"></div>
     <div class="modal-btns">
       <button class="modal-cancel" onclick="closeModal()">ނޫން</button>
-      <button class="modal-confirm" id="modalConfirmBtn" onclick="sendBroadcast()"><i class="ti ti-send"></i> ފޮނުވާ</button>
+      <button class="modal-confirm" id="modalConfirmBtn" onclick="sendBroadcast()">
+        <i class="ti ti-send"></i> ފޮނުވާ
+      </button>
     </div>
   </div>
 </div>
 
 <!-- TOAST -->
-<div class="toast" id="toast"><i class="ti ti-check" id="toastIcon"></i><span id="toastMsg"></span></div>
+<div class="toast" id="toast">
+  <i class="ti ti-check" id="toastIcon"></i>
+  <span id="toastMsg"></span>
+</div>
 
 <script>
-const ADMIN_PIN = "1234";
+const ADMIN_PIN = "1234"; // ← CHANGE THIS to your desired PIN
+
 let gasUrl = "";
 let msgType = "text";
 let activityLog = JSON.parse(localStorage.getItem("adminLog") || "[]");
-let allForms = [];
-let currentFormTab = "all";
-let editingRow = null;
-let deletingRow = null;
-
-const categoryLabels = {
-  marriage: "💍 ކައިވެންޏާ",
-  divorce:  "💔 ވަރިއާ",
-  expenses: "💰 ޚަރަދާ",
-  family:   "👨‍👩‍👧‍👦 ޢާއިލީ",
-  civil:    "⚖️ މަދަނީ",
-  misc:     "📁 އެހެނިހެން"
-};
 
 const templates = {
-  announce:    "📢 *އިޢުލާން*\n\nރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓުން ދެންނެވުމަށް ބޭނުންވަނީ:\n\n[މިތާ ތިބާ ލިޔުއްވާ]\n\nއިތުރު މަޢުލޫމާތަށް: 6580449",
-  maintenance: "🔧 *ހިދުމަތް ވަގުތީ ގޮތުން ހުއްޓާލުން*\n\nތިރީގައިވާ ވަގުތުތަކުގައި ބޮޓްގެ ހިދުމަތް ވަގުތީ ގޮތުން ހުއްޓިދާނެ:\n\nތާރީހް: [ތާރީހް]\nވަގުތު: [ވަގުތު]",
-  holiday:     "🏖️ *ބަންދު ދުވަހުގެ ނޯޓިސް*\n\n[ތާރީހް] ދުވަހަކީ ސަރުކާރު ބަންދު ދުވަހެއްކަމަށްވާތީ، ކޯޓުގެ ހިދުމަތް ލިބެން ނޯންނާނެ.\n\nހޮޓްލައިން: 7413545",
-  newform:     "📝 *އާ ފޯމެއް ތައާރަފްވެއްޖެ!*\n\n[ފޯމުގެ ނަން] ބޮޓްގެ ޒަރިއްޔާއިން ޑައުންލޯޑް ކުރެވޭނެ.\n\nކެޓެގަރީ: [ކެޓެގަރީ]\n\nފޯމް ހޯއްދެވުމަށް: /start",
+  announce: "📢 *އިޢުލާން*\n\nރ.ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓުން ދެންނެވުމަށް ބޭނުންވަނީ:\n\n[މިތާ ތިބާ ލިޔުއްވާ]\n\nއިތުރު މަޢުލޫމާތަށް: 6580449",
+  maintenance: "🔧 *ހިދުމަތް ވަގުތީ ގޮތުން ހުއްޓާލުން*\n\nތިރީގައިވާ ވަގުތުތަކުގައި ބޮޓްގެ ހިދުމަތް ވަގުތީ ގޮތުން ހުއްޓިދާނެ:\n\nތާރީހް: [ތާރީހް]\nވަގުތު: [ވަގުތު]\n\nf ދުވާފަރު މެޖިސްޓްރޭޓް ކޯޓުގެ ރަސްމީ ބޮޓް ބޭނުންކުރައްވާ ހުރިހާ ފަރާތްތަކަށް ނިހާޔަތަށް ޝުކުރު ދަންނަވަން.",
+  holiday: "🏖️ *ބަންދު ދުވަހުގެ ނޯޓިސް*\n\n[ތާރީހް] ދުވަހަކީ ސަރުކާރު ބަންދު ދުވަހެއްކަމަށްވާތީ، ކޯޓުގެ ހިދުމަތް ލިބެން ނޯންނާނެ.\n\n[ތާރީހް] ވަނަ ދުވަހު ހިދުމަތް ލިބޭނެ.\n\nބަންދު ދުވަހު ހިދުމަތް ބޭނުންވެލައްވާ ފަރާތްތަކަށް ހޮޓްލައިން: 7413545",
+  newform: "📝 *އާ ފޯމެއް ތައާރަފްވެއްޖެ!*\n\nކޯޓަށް ހިދުމަތަށްއެދި ހުށަހެޅުމަށް، [ފޯމުގެ ނަން] ބޮޓްގެ ޒަރިއްޔާއިން ޑައުންލޯޑް ކުރެވޭނެ.\n\nކެޓެގަރީ: [ކެޓެގަރީ]\n\nފޯމް ހޯއްދެވުމަށް: /start",
 };
 
-// ── AUTH ──
 function doLogin() {
   const pin = document.getElementById("pinInput").value;
   const url = document.getElementById("gasUrlLogin").value.trim();
   const err = document.getElementById("loginError");
   const errMsg = document.getElementById("loginErrorMsg");
-  if (pin !== ADMIN_PIN) { errMsg.textContent = "ޕިން ކޯޑް ރަނގަޅެއްނޫން"; err.classList.add("show"); return; }
-  if (!url || !url.startsWith("https://script.google.com")) { errMsg.textContent = "ރަނގަޅު GAS URL އެއް ލިޔެދެއްވާ"; err.classList.add("show"); return; }
+
+  if (pin !== ADMIN_PIN) {
+    errMsg.textContent = "ޕިން ކޯޑް ރަނގަޅެއްނޫން";
+    err.classList.add("show");
+    return;
+  }
+  if (!url || !url.startsWith("https://script.google.com")) {
+    errMsg.textContent = "ރަނގަޅު GAS URL އެއް ލިޔެދެއްވާ";
+    err.classList.add("show");
+    return;
+  }
+
   err.classList.remove("show");
   gasUrl = url;
   localStorage.setItem("gasUrl", url);
   document.getElementById("loginWrap").style.display = "none";
   document.getElementById("mainApp").classList.add("show");
   document.getElementById("gasUrlMain").value = url;
-  document.getElementById("statSent").textContent = localStorage.getItem("totalSent") || "0";
+  document.getElementById("statSent").textContent = localStorage.getItem("totalSent") || "0"; // ← ADD THIS
   loadStats();
-  loadForms();
   renderLog();
 }
+
 function doLogout() {
   document.getElementById("loginWrap").style.display = "";
   document.getElementById("mainApp").classList.remove("show");
   document.getElementById("pinInput").value = "";
 }
+
 function saveGasUrl() {
   const url = document.getElementById("gasUrlMain").value.trim();
-  if (!url.startsWith("https://script.google.com")) { showToast("ރަނގަޅު URL އެއް ލިޔެދެއްވާ","error"); return; }
-  gasUrl = url;
-  localStorage.setItem("gasUrl", url);
-  showToast("URL saved ✓","success");
-}
-
-// ── STATS ──
-async function loadStats() {
-  if (!gasUrl) return;
-  try {
-    const resp = await fetch(gasUrl + "?action=stats&key=" + encodeURIComponent(ADMIN_PIN));
-    const data = await resp.json();
-    if (data.users !== undefined) document.getElementById("statUsers").textContent = data.users;
-    if (data.forms !== undefined) document.getElementById("statForms").textContent = data.forms;
-  } catch(e) {
-    document.getElementById("statUsers").textContent = "?";
-  }
-}
-
-// ── FORM MANAGEMENT ──
-async function loadForms() {
-  if (!gasUrl) return;
-  document.getElementById("formsTableBody").innerHTML = '<tr><td colspan="6" class="empty-table"><i class="ti ti-loader spinner"></i> Loading...</td></tr>';
-  try {
-    const resp = await fetch(gasUrl + "?action=getallforms&key=" + encodeURIComponent(ADMIN_PIN));
-    const data = await resp.json();
-    if (data.success) {
-      allForms = data.forms;
-      renderFormsTable();
-    } else {
-      showToast("Error loading forms: " + (data.error || ""), "error");
-    }
-  } catch(e) {
-    showToast("Connection error loading forms", "error");
-  }
-}
-
-function switchFormTab(tab, btn) {
-  currentFormTab = tab;
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  renderFormsTable();
-}
-
-function renderFormsTable() {
-  const q = (document.getElementById("formSearch").value || "").toLowerCase();
-  const tbody = document.getElementById("formsTableBody");
-  let filtered = allForms.filter(f => {
-    if (currentFormTab !== "all" && f.category !== currentFormTab) return false;
-    if (q && !f.name.toLowerCase().includes(q) && !f.category.toLowerCase().includes(q)) return false;
-    return true;
-  });
-  if (!filtered.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-table">ފޯމެއް ނެތް</td></tr>';
+  if (!url.startsWith("https://script.google.com")) {
+    showToast("ރަނގަޅު URL އެއް ލިޔެދެއްވާ", "error");
     return;
   }
-  tbody.innerHTML = filtered.map((f, i) => `
-    <tr>
-      <td style="color:var(--text-muted);font-family:'Inter',sans-serif;font-size:12px;">${f.row}</td>
-      <td class="td-name">${f.name}</td>
-      <td><span style="font-size:12px;">${categoryLabels[f.category] || f.category}</span></td>
-      <td class="td-id" title="${f.file_id}">${f.file_id || '—'}</td>
-      <td><span class="status-badge ${f.status === 'active' ? 'status-active' : 'status-unavailable'}">${f.status === 'active' ? '✅ Active' : '⏳ Unavailable'}</span></td>
-      <td>
-        <div class="action-btns">
-          <button class="btn-edit" onclick="openEditModal(${f.row})"><i class="ti ti-edit"></i> Edit</button>
-          <button class="btn-del" onclick="openDeleteModal(${f.row},'${f.name.replace(/'/g,"\\'")}')"><i class="ti ti-trash"></i></button>
-        </div>
-      </td>
-    </tr>
-  `).join("");
+  gasUrl = url;
+  localStorage.setItem("gasUrl", url);
+  showToast("URL ސޭވް ވެއްޖެ ✓", "success");
 }
 
-function openAddModal() {
-  editingRow = null;
-  document.getElementById("formModalTitle").textContent = "Add Form";
-  document.getElementById("fCategory").value = currentFormTab !== "all" ? currentFormTab : "marriage";
-  document.getElementById("fName").value = "";
-  document.getElementById("fFileId").value = "";
-  document.getElementById("fStatus").value = "active";
-  document.getElementById("fKeywords").value = "";
-  document.getElementById("formModal").classList.add("show");
-}
-
-function openEditModal(row) {
-  const form = allForms.find(f => f.row === row);
-  if (!form) return;
-  editingRow = row;
-  document.getElementById("formModalTitle").textContent = "Edit Form";
-  document.getElementById("fCategory").value = form.category;
-  document.getElementById("fName").value = form.name;
-  document.getElementById("fFileId").value = form.file_id || "";
-  document.getElementById("fStatus").value = form.status;
-  document.getElementById("fKeywords").value = form.keywords || "";
-  document.getElementById("formModal").classList.add("show");
-}
-
-function closeFormModal() { document.getElementById("formModal").classList.remove("show"); }
-
-async function saveForm() {
-  const category = document.getElementById("fCategory").value;
-  const name     = document.getElementById("fName").value.trim();
-  const fileId   = document.getElementById("fFileId").value.trim();
-  const status   = document.getElementById("fStatus").value;
-  const keywords = document.getElementById("fKeywords").value.trim();
-  if (!name) { showToast("ފޯމުގެ ނަން ލިޔެދެއްވާ","error"); return; }
-  const btn = document.getElementById("formSaveBtn");
-  btn.disabled = true;
-  btn.innerHTML = '<i class="ti ti-loader spinner"></i> Saving...';
-  try {
-    let url;
-    if (editingRow) {
-      url = gasUrl + "?action=updateform&key=" + encodeURIComponent(ADMIN_PIN)
-          + "&row=" + editingRow
-          + "&category=" + encodeURIComponent(category)
-          + "&name=" + encodeURIComponent(name)
-          + "&file_id=" + encodeURIComponent(fileId || "PLACE_DRIVE_ID_HERE")
-          + "&status=" + encodeURIComponent(status)
-          + "&keywords=" + encodeURIComponent(keywords);
-    } else {
-      url = gasUrl + "?action=addform&key=" + encodeURIComponent(ADMIN_PIN)
-          + "&category=" + encodeURIComponent(category)
-          + "&name=" + encodeURIComponent(name)
-          + "&file_id=" + encodeURIComponent(fileId || "PLACE_DRIVE_ID_HERE")
-          + "&status=" + encodeURIComponent(status)
-          + "&keywords=" + encodeURIComponent(keywords);
-    }
-    const resp = await fetch(url);
-    const data = await resp.json();
-    if (data.success) {
-      closeFormModal();
-      showToast(editingRow ? "Form updated ✓" : "Form added ✓", "success");
-      loadForms();
-      loadStats();
-    } else {
-      showToast("Error: " + (data.error || ""), "error");
-    }
-  } catch(e) {
-    showToast("Connection error","error");
-  }
-  btn.disabled = false;
-  btn.innerHTML = '<i class="ti ti-check"></i> Save';
-}
-
-function openDeleteModal(row, name) {
-  deletingRow = row;
-  document.getElementById("deleteFormName").textContent = 'Delete "' + name + '"?';
-  document.getElementById("deleteFormModal").classList.add("show");
-}
-function closeDeleteModal() { document.getElementById("deleteFormModal").classList.remove("show"); deletingRow = null; }
-
-async function confirmDeleteForm() {
-  if (!deletingRow) return;
-  try {
-    const resp = await fetch(gasUrl + "?action=deleteform&key=" + encodeURIComponent(ADMIN_PIN) + "&row=" + deletingRow);
-    const data = await resp.json();
-    closeDeleteModal();
-    if (data.success) {
-      showToast("Form deleted ✓","success");
-      loadForms();
-      loadStats();
-    } else {
-      showToast("Error: " + (data.error || ""), "error");
-    }
-  } catch(e) {
-    showToast("Connection error","error");
-  }
-}
-
-// ── DELETE USER ──
-async function deleteUser() {
-  const userId = document.getElementById("deleteUserId").value.trim();
-  if (!userId) { showToast("Enter a chat ID","error"); return; }
-  if (!gasUrl) { showToast("GAS URL not set","error"); return; }
-  try {
-    const resp = await fetch(gasUrl + "?action=deleteuser&key=" + encodeURIComponent(ADMIN_PIN) + "&userid=" + encodeURIComponent(userId));
-    const data = await resp.json();
-    if (data.success) { document.getElementById("deleteUserId").value = ""; showToast("User removed ✓","success"); loadStats(); }
-    else showToast("Error: " + (data.error || "User not found"),"error");
-  } catch(e) { showToast("Connection error","error"); }
-}
-
-// ── BROADCAST ──
 function setType(t) {
   msgType = t;
   document.querySelectorAll(".type-chip").forEach(c => c.classList.remove("active"));
-  document.getElementById("chip_"+t).classList.add("active");
+  document.getElementById("chip_" + t).classList.add("active");
   updatePreview();
 }
-function useTemplate(key) { document.getElementById("broadcastMsg").value = templates[key]; updatePreview(); }
+
+function useTemplate(key) {
+  document.getElementById("broadcastMsg").value = templates[key];
+  updatePreview();
+}
+
 function updatePreview() {
   const raw = document.getElementById("broadcastMsg").value;
   const len = raw.length;
   const counter = document.getElementById("charCount");
   counter.textContent = len + " / 4096";
   counter.className = "char-count" + (len > 3800 ? (len > 4096 ? " over" : " warn") : "");
-  const preview = raw.replace(/\*([^*]+)\*/g,"<strong>$1</strong>").replace(/\n/g,"<br>");
+
+  let preview = raw
+    .replace(/\*([^*]+)\*/g, "<strong>$1</strong>")
+    .replace(/\n/g, "<br>");
+
   document.getElementById("msgPreview").innerHTML = preview || '<span style="color:var(--text-muted)">ލިޔުއްވާ — ޕްރިވިއު މިތާ ފެންނާނެ</span>';
 }
-function clearMsg() { document.getElementById("broadcastMsg").value = ""; updatePreview(); }
+
+function clearMsg() {
+  document.getElementById("broadcastMsg").value = "";
+  updatePreview();
+}
+
 function confirmBroadcast() {
   const msg = document.getElementById("broadcastMsg").value.trim();
-  if (!msg) { showToast("މެސެޖެއް ލިޔެދެއްވާ","error"); return; }
-  if (!gasUrl) { showToast("GAS URL ލިޔެދެއްވާ","error"); return; }
-  document.getElementById("modalPreviewText").textContent = msg.substring(0,300) + (msg.length > 300 ? "..." : "");
+  if (!msg) { showToast("މެސެޖެއް ލިޔެދެއްވާ", "error"); return; }
+  if (!gasUrl) { showToast("GAS URL ލިޔެދެއްވާ", "error"); return; }
+  document.getElementById("modalPreviewText").textContent = msg.substring(0, 300) + (msg.length > 300 ? "..." : "");
+  document.getElementById("modalSubText").textContent = "ހުރިހާ ބޭނުންކުރާ ފަރާތްތަކަށް ތިރީގައިވާ މެސެޖް ފޮނުވޭނެ.";
   document.getElementById("confirmModal").classList.add("show");
 }
-function closeModal() { document.getElementById("confirmModal").classList.remove("show"); }
+
+function closeModal() {
+  document.getElementById("confirmModal").classList.remove("show");
+}
+
 async function sendBroadcast() {
   const msg = document.getElementById("broadcastMsg").value.trim();
   const btn = document.getElementById("modalConfirmBtn");
   btn.disabled = true;
   btn.innerHTML = '<i class="ti ti-loader spinner"></i> ފޮނުވަނީ...';
+
   try {
     const resp = await fetch(gasUrl + "?action=broadcast&key=" + encodeURIComponent(ADMIN_PIN) + "&message=" + encodeURIComponent(msg));
     const data = await resp.json();
     closeModal();
     if (data.success !== false) {
-      const entry = { type:"success", text:msg.substring(0,80)+(msg.length>80?"...":""), time:new Date().toLocaleString("en-MV"), count:data.count||"?" };
+      const entry = { type: "success", text: msg.substring(0, 80) + (msg.length > 80 ? "..." : ""), time: new Date().toLocaleString("en-MV"), count: data.count || "?" };
       activityLog.unshift(entry);
       if (activityLog.length > 30) activityLog.pop();
       localStorage.setItem("adminLog", JSON.stringify(activityLog));
@@ -657,45 +942,62 @@ async function sendBroadcast() {
       document.getElementById("statSent").textContent = prevSent;
       clearMsg();
       renderLog();
-      showToast("ބްރޯޑްކާސްޓް ފޮނުވި ✓ (" + entry.count + " ފަރާތަށް)","success");
+      showToast("ބްރޯޑްކާސްޓް ފޮނުވި ✓ (" + (entry.count) + " ފަރާތަށް)", "success");
     } else {
-      showToast("Error: " + (data.error || ""),"error");
+      showToast("ފޮނުވުމުގައި ގޯހެއް ދިމާވެއްޖެ: " + (data.error || ""), "error");
     }
   } catch(e) {
     closeModal();
-    showToast("ކަނެކްޝަން ގޯހެއް ދިމާވެއްޖެ","error");
+    showToast("ކަނެކްޝަން ގޯހެއް ދިމާވެއްޖެ", "error");
   }
   btn.disabled = false;
-  btn.innerHTML = '<i class="ti ti-send"></i> ފޮނުވާ';
+  btn.innerHTML = '<i class="ti ti-send"></i> އާން، ފޮނުވާ';
 }
 
-// ── LOG ──
+async function loadStats() {
+  if (!gasUrl) return;
+  try {
+    const resp = await fetch(gasUrl + "?action=stats&key=" + encodeURIComponent(ADMIN_PIN));
+    const data = await resp.json();
+    if (data.users !== undefined) document.getElementById("statUsers").textContent = data.users;
+  } catch(e) {
+    document.getElementById("statUsers").textContent = "?";
+  }
+  document.getElementById("statForms").textContent = "86";
+}
+
 function renderLog() {
   const container = document.getElementById("activityLog");
-  if (!activityLog.length) { container.innerHTML = '<div class="empty-log"><i class="ti ti-clipboard-list"></i><span>އަދި ހިންގި ކަމެއް ނެތް</span></div>'; return; }
+  if (!activityLog.length) {
+    container.innerHTML = '<div class="empty-log"><i class="ti ti-clipboard-list"></i><span>އަދި ހިންގި ކަމެއް ނެތް</span></div>';
+    return;
+  }
   container.innerHTML = activityLog.map(e => `
     <div class="log-item">
       <div class="log-dot ${e.type}"></div>
-      <div style="flex:1;min-width:0;">
-        <div style="font-size:13px;color:var(--text);line-height:1.5;word-break:break-word;">${e.text}</div>
-        <div class="log-meta">${e.time} · ${e.count} ފަރާތަށް</div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-size:13px; color:var(--text); line-height:1.5; word-break:break-word;">${e.text}</div>
+        <div class="log-meta">${e.time} &nbsp;·&nbsp; ${e.count} ފަރާތަށް</div>
       </div>
-    </div>`).join("");
+    </div>
+  `).join("");
 }
 
-// ── TOAST ──
 function showToast(msg, type) {
   const t = document.getElementById("toast");
+  const icon = document.getElementById("toastIcon");
   document.getElementById("toastMsg").textContent = msg;
   t.className = "toast " + (type || "success");
-  document.getElementById("toastIcon").className = "ti ti-" + (type === "error" ? "alert-circle" : "check");
+  icon.className = "ti ti-" + (type === "error" ? "alert-circle" : "check");
   t.classList.add("show");
   setTimeout(() => t.classList.remove("show"), 3500);
 }
 
-// ── INIT ──
+// Restore URL from previous session
 const savedUrl = localStorage.getItem("gasUrl");
 if (savedUrl) document.getElementById("gasUrlLogin").value = savedUrl;
+
+// Update preview on load
 updatePreview();
 renderLog();
 </script>
