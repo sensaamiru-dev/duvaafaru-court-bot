@@ -379,16 +379,6 @@ body {
     .btn-view:active { opacity: 0.85; }
     .btn-view .ti { font-size: 15px; }
 
-    /* Word / PDF button group */
-    .btn-group {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-    .btn-view.btn-word { background: var(--primary); }
-    .btn-view.btn-pdf  { background: #dc2626; }
-
     .btn-unavailable {
       background: var(--unavailable-bg);
       color: var(--unavailable-text);
@@ -405,14 +395,6 @@ body {
       flex-shrink: 0;
     }
     .btn-unavailable .ti { font-size: 14px; }
-
-    @media (max-width: 520px) {
-      .card { flex-direction: column; align-items: stretch; }
-      .card.unavailable { flex-direction: row; align-items: center; }
-      .btn-group { width: 100%; }
-      .btn-group .btn-view,
-      .btn-group .btn-unavailable { flex: 1; justify-content: center; }
-    }
 
     .hidden-card { display: none !important; }
 
@@ -647,595 +629,833 @@ body {
 
     <div id="portalContainer">
 
+      <!-- ====================== MARRIAGE ====================== -->
       <div class="category-block" id="cat_marriage" data-title="💍 ކައިވެންޏާއި ގުޅޭ ފޯމުތައް" data-icon="ti-heart">
         <div class="category-title"><i class="ti ti-heart"></i> ކައިވެންޏާއި ގުޅޭ ފޯމުތައް</div>
 
-        <div class="card" data-keywords="ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1TY237zpgfCFqrLWaVkZrWWx5Zi1vL540" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1Zc0qepSyjDRcpQ3qWBObsife5ddQciJa" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1TY237zpgfCFqrLWaVkZrWWx5Zi1vL540" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1Zc0qepSyjDRcpQ3qWBObsife5ddQciJa" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=17wiBXlHY4nudk-gdTyI_ipmKxa_SEa_C" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1AuVi1dFK6S0QFdUkL-mbwKHeKEo8hgwJ" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> އެއްއަންބަށްވުރެ ގިނަ އަންބަށް ކާވެނިކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=17wiBXlHY4nudk-gdTyI_ipmKxa_SEa_C" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1AuVi1dFK6S0QFdUkL-mbwKHeKEo8hgwJ" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ވަރި ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1-gildGkxZc_iV2Mv-7e-MMlKXGCrVAGF" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1tlaym7WSDzThDBEl0ukFr4FGrC4sFXIK" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1-gildGkxZc_iV2Mv-7e-MMlKXGCrVAGF" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1tlaym7WSDzThDBEl0ukFr4FGrC4sFXIK" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1TUvr9nnOApgRFYOtPfQQSif-EL-9LgQY" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1JNZhMtNblGayuv_BYOZ6nT8B_Yr3C3pu" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ކާވެނި ރުޖޫޢުކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1TUvr9nnOApgRFYOtPfQQSif-EL-9LgQY" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1JNZhMtNblGayuv_BYOZ6nT8B_Yr3C3pu" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card unavailable" data-keywords="ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-off"></i></div><div class="card-text">ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
-          <span class="btn-unavailable"><i class="ti ti-clock"></i> ލިބެން ނެތް</span>
-        </div>
-
-        <div class="card" data-keywords="ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1-FEtckZa5sS3SYxPh1oc0tbkUtkV5pTl" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=14LbaaK3zDPT-ptZNITa8SB1BkdvFtGz6" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ކާވެނި ކޮށްގެން އުޅޭކަން ސާބިތުކޮށްދިނުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <span class="btn-unavailable"><i class="ti ti-file-description"></i> ވޯޑް</span>
+            <span class="btn-unavailable"><i class="ti ti-file-description"></i> PDF</span>
           </div>
         </div>
 
-        <div class="card" data-keywords="ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1EuxkhxvmGJNhwbjZI9e0ObZ3cZc63ZZr" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1_sDj0Hgzyb3vRcLwpRACBUhdWg13Sj3Q" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ކާވެނި ފޯމް ކެންސަލް ކުރުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1-FEtckZa5sS3SYxPh1oc0tbkUtkV5pTl" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=14LbaaK3zDPT-ptZNITa8SB1BkdvFtGz6" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=11Ac9-15WyUx0pC9usZWC2i9OpxEHZIJc" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1jclHoVajfdaoN-aJidE9HdsDUqdhnDDq" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ވަލީ ހަމަޖެއްސުމަށްއެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1EuxkhxvmGJNhwbjZI9e0ObZ3cZc63ZZr" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1_sDj0Hgzyb3vRcLwpRACBUhdWg13Sj3Q" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޚާއްޞަ ޝަރުޢީ މައުޛޫނަކު ހަމަޖައްސައިދިނުމަށް އެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޚާއްޞަ ޝަރުޢީ މައުޛޫނަކު ހަމަޖައްސައިދިނުމަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1jP9p6x3PGzyaZiyJrzS6l0SUOEUoLz8X" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1xC0Zjr6bfdTcpBsbj8Ye_C21qqrI7Wty" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ވަލީ ހޯދުމަށް ދަޢުވާ ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=11Ac9-15WyUx0pC9usZWC2i9OpxEHZIJc" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1jclHoVajfdaoN-aJidE9HdsDUqdhnDDq" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
-      </div>
 
+        <div class="card" data-keywords=" ޚާއްޞަ ޝަރުޢީ މައުޛޫނަކު ހަމަޖައްސައިދިނުމަށް އެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޚާއްޞަ ޝަރުޢީ މައުޛޫނަކު ހަމަޖައްސައިދިނުމަށް އެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1jP9p6x3PGzyaZiyJrzS6l0SUOEUoLz8X" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1xC0Zjr6bfdTcpBsbj8Ye_C21qqrI7Wty" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
+          </div>
+        </div>
+
+</div>
+
+      <!-- ====================== DIVORCE ====================== -->
       <div class="category-block" id="cat_divorce" data-title="💔 ވަރިއާއި ގުޅޭ ފޯމުތައް" data-icon="ti-heart-broken">
         <div class="category-title"><i class="ti ti-heart-broken"></i> ވަރިއާއި ގުޅޭ ފޯމުތައް</div>
 
-        <div class="card" data-keywords="ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1NTFOeHPnwYiJBwCKF45ckxXYSZf59YNo" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=14S1bOx0xfVZoyMYTYxBuZJNbd2BT5AG8" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ވަރި ސާބިތުކުރުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1NTFOeHPnwYiJBwCKF45ckxXYSZf59YNo" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=14S1bOx0xfVZoyMYTYxBuZJNbd2BT5AG8" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1Qi35KdNo-69Ecg3okqYYsntMcfbTpeye" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1kJXjW6cyT94k4muxKa9ZOwRgKJ53r9jA" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ދެމަފިރިން ޞުލްޙަކުރުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1Qi35KdNo-69Ecg3okqYYsntMcfbTpeye" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1kJXjW6cyT94k4muxKa9ZOwRgKJ53r9jA" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ވަރިވެފައިވާކަމާމެދު ޝައްކުވެގެން ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ވަރިވެފައިވާކަމާމެދު ޝައްކުވެގެން ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1inC7Eyl8n4bo0LIlPJtZmPyCUcP6xUj9" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=102ENSWp5e6H7m7Ot-l9O7IIPGzpozhFK" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ވަރިވެފައިވާކަމާމެދު ޝައްކުވެގެން ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ވަރިވެފައިވާކަމާމެދު ޝައްކުވެގެން ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1inC7Eyl8n4bo0LIlPJtZmPyCUcP6xUj9" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=102ENSWp5e6H7m7Ot-l9O7IIPGzpozhFK" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ވަރިކުރުމަށް ވަރިވުމަށް އެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ވަރިކުރުމަށް/ވަރިވުމަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1wkWo3rVVk51CFK6oI0liF2ysfT5VRigr" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1bdyHBnpnZBeL60OwW4ElHWFMMqrX7x06" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ވަރިކުރުމަށް/ވަރިވުމަށް އެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ވަރިކުރުމަށް/ވަރިވުމަށް އެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1wkWo3rVVk51CFK6oI0liF2ysfT5VRigr" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1bdyHBnpnZBeL60OwW4ElHWFMMqrX7x06" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ވަރި ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1-gildGkxZc_iV2Mv-7e-MMlKXGCrVAGF" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1tlaym7WSDzThDBEl0ukFr4FGrC4sFXIK" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ވަރި/ކައިވެނީގެ ސެޓްފިކެޓަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1-gildGkxZc_iV2Mv-7e-MMlKXGCrVAGF" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1tlaym7WSDzThDBEl0ukFr4FGrC4sFXIK" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
-      </div>
 
+</div>
+
+      <!-- ====================== EXPENSES ====================== -->
       <div class="category-block" id="cat_expenses" data-title="💰 ޚަރަދާއި ގުޅޭ ފޯމުތައް" data-icon="ti-cash">
         <div class="category-title"><i class="ti ti-cash"></i> ޚަރަދާއި ގުޅޭ ފޯމުތައް</div>
 
-        <div class="card" data-keywords="ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1_wxwKQCE15lD0ksnYB259CdLl6BxxDxg" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1Pc8LOERmfGwRIBd5peIdv6DNDP39YjMF" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޙުކުމް ތަންފީޒު ކުރުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1_wxwKQCE15lD0ksnYB259CdLl6BxxDxg" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1Pc8LOERmfGwRIBd5peIdv6DNDP39YjMF" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޚަރަދުގެ މައްސަލަ ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޚަރަދުގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1ykBoP_nYelcgd3vGYJJ7-RYneBRMM6Z4" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1EzpT3_XxDLsCIfdNAez6egdhFrQi6Ddr" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޚަރަދުގެ މައްސަލަ ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޚަރަދުގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1ykBoP_nYelcgd3vGYJJ7-RYneBRMM6Z4" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1EzpT3_XxDLsCIfdNAez6egdhFrQi6Ddr" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
-      </div>
 
+</div>
+
+      <!-- ====================== FAMILY ====================== -->
       <div class="category-block" id="cat_family" data-title="👨‍👩‍👧‍👦 ޢާއިލީ އެހެނިހެން ފޯމުތައް" data-icon="ti-users">
         <div class="category-title"><i class="ti ti-users"></i> ޢާއިލީ އެހެނިހެން ފޯމުތައް</div>
 
-        <div class="card" data-keywords="ޢާއިލީ މައްސަލަތަކުގައި ކޯޓުގެ އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޢާއިލީ މައްސަލަތަކުގައި ކޯޓުގެ އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1YmFF8ZgVSDoWccr4Doveo_5shjcE4kfh" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=11OxKvgEWeR3PeaWzj89lwX2SXuY-f4RL" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޢާއިލީ މައްސަލަތަކުގައި ކޯޓުގެ އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޢާއިލީ މައްސަލަތަކުގައި ކޯޓުގެ އިޚްތިޞާޞްއާމެދު އިޢުތިރާޒުކުރާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1YmFF8ZgVSDoWccr4Doveo_5shjcE4kfh" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=11OxKvgEWeR3PeaWzj89lwX2SXuY-f4RL" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޙުކުމުގައިވާ ކުށް އިސްލާޙުކުރުމަށް އެދި ހުށަހަޅާ ފޯމު">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޙުކުމުގައިވާ ކުށް އިސްލާޙުކުރުމަށް އެދި ހުށަހަޅާ ފޯމު</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1g1pS98gQLHlytMGnyaHXigLHQwF8OEAB" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1KeoiyCupYF-BtfrkP2JY41M2jNGVzBSC" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޙުކުމުގައިވާ ކުށް އިސްލާޙުކުރުމަށް އެދި ހުށަހަޅާ ފޯމު">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޙުކުމުގައިވާ ކުށް އިސްލާޙުކުރުމަށް އެދި ހުށަހަޅާ ފޯމު</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1g1pS98gQLHlytMGnyaHXigLHQwF8OEAB" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1KeoiyCupYF-BtfrkP2JY41M2jNGVzBSC" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ވަގުތީ ޢަމުރު ތަންފީޒު މުރާޖަޢާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ވަގުތީ ޢަމުރު ތަންފީޒު/މުރާޖަޢާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1-w6h_SJTInPnzSVLOBs4IJ56ZGdUzh87" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1f2BokaFJQu2l3AwSvltKbL0NQpaqzjYz" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ވަގުތީ ޢަމުރު ތަންފީޒު/މުރާޖަޢާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ވަގުތީ ޢަމުރު ތަންފީޒު/މުރާޖަޢާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1-w6h_SJTInPnzSVLOBs4IJ56ZGdUzh87" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1f2BokaFJQu2l3AwSvltKbL0NQpaqzjYz" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ކުޑަކުދިންގެ ޙައްޤުތައް ރައްކާތެރިކުރުމާބެހޭ ޤާނޫނުގެ ދަށުން ކޯޓު އަމުރަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ކުޑަކުދިންގެ ޙައްޤުތައް ރައްކާތެރިކުރުމާބެހޭ ޤާނޫނުގެ ދަށުން ކޯޓު އަމުރަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=17HiynXr2Ga6Pny3_GFeKEPO1Zg1qo08E" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1VjratE38oxWLAzEoWKf58fY3B2pJsvDL" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ކުޑަކުދިންގެ ޙައްޤުތައް ރައްކާތެރިކުރުމާބެހޭ ޤާނޫނުގެ ދަށުން ކޯޓު އަމުރަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ކުޑަކުދިންގެ ޙައްޤުތައް ރައްކާތެރިކުރުމާބެހޭ ޤާނޫނުގެ ދަށުން ކޯޓު އަމުރަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=17HiynXr2Ga6Pny3_GFeKEPO1Zg1qo08E" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1VjratE38oxWLAzEoWKf58fY3B2pJsvDL" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1B7SRQGovSrEVHovBy1lBuztcKmIrTgoY" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1AcIOEBJNmeYlbWN4MW_riMS68muy_alo" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ނަސަބާގުޅޭ މައްސަލަ ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1B7SRQGovSrEVHovBy1lBuztcKmIrTgoY" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1AcIOEBJNmeYlbWN4MW_riMS68muy_alo" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށްއެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށްއެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=14mBnYe4Mbs7eV-z-dv7ofaN4i2x3wxpy" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1hzer8-QmhczfI4gzBZayObFjBqJlyuAs" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށްއެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ރަޖިސްޓްރާރގެ ނިންމުން އަލުން ބަލައިދިނުމަށްއެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=14mBnYe4Mbs7eV-z-dv7ofaN4i2x3wxpy" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1hzer8-QmhczfI4gzBZayObFjBqJlyuAs" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1qrb-cA86HYtruu2_eK-HwL3DlPf_X8s3" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1xFyPUDqJOxs1B57P_8mpW2iMnFxYpRJW" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> މަރުސާބިތުވިކަމުގެ ލިޔުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1qrb-cA86HYtruu2_eK-HwL3DlPf_X8s3" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1xFyPUDqJOxs1B57P_8mpW2iMnFxYpRJW" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ވަގުތީ ޢަމުރަށްއެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ވަގުތީ ޢަމުރަށްއެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1kZ82b0p2Clo737LwGuyvJu_0XAzFfHch" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1VE-NDzDH2DjrDAKDblDGoae1N-2Ybgll" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ވަގުތީ ޢަމުރަށްއެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ވަގުތީ ޢަމުރަށްއެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1kZ82b0p2Clo737LwGuyvJu_0XAzFfHch" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1VE-NDzDH2DjrDAKDblDGoae1N-2Ybgll" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ތަދައްޚުލްވުމަށްއެދޭ ފޯމް (ޢާއިލީ)">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ތަދައްޚުލްވުމަށްއެދޭ ފޯމް (ޢާއިލީ)</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=17Y7lvppecSy9bhRqZr4ula5EUQi83aAb" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1-sbLVI_KvVxPxlsmOcT1UYZcwOdLp6Rh" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ތަދައްޚުލްވުމަށްއެދޭ ފޯމް (ޢާއިލީ)">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ތަދައްޚުލްވުމަށްއެދޭ ފޯމް (ޢާއިލީ)</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=17Y7lvppecSy9bhRqZr4ula5EUQi83aAb" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1-sbLVI_KvVxPxlsmOcT1UYZcwOdLp6Rh" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ބަދަލު ހަމަޖެއްސުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ބަދަލު ހަމަޖެއްސުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1s4ZfLYBtU3og42EIkSSPbLAWLNcnDxhQ" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1qVE3cHvCntXdHqxmBKFsuHtXDnihYoCK" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ބަދަލު ހަމަޖެއްސުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ބަދަލު ހަމަޖެއްސުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1s4ZfLYBtU3og42EIkSSPbLAWLNcnDxhQ" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1qVE3cHvCntXdHqxmBKFsuHtXDnihYoCK" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ބަދަލު ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވުމަށް އެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ބަދަލު ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވުމަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1CK6lIYMq-nBUtSWfsc64Ai7UplMMBON6" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1czuIDTDvJp6HV_mGrt6LdsN7JplLmnDe" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ބަދަލު ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވުމަށް އެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ބަދަލު ހަމަޖެއްސި ފަރާތް ތަނާޒުލުވުމަށް އެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1CK6lIYMq-nBUtSWfsc64Ai7UplMMBON6" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1czuIDTDvJp6HV_mGrt6LdsN7JplLmnDe" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1c4fnwrLPHtQrEQrdRT7lQa9mqqI0oKcD" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=19GP6vBt3JE9Oj67pYeuEaMJXBlaSJ-Ab" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޝަރީޢަތް ނިމުނުގޮތުގެ ރިޕޯޓަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1c4fnwrLPHtQrEQrdRT7lQa9mqqI0oKcD" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=19GP6vBt3JE9Oj67pYeuEaMJXBlaSJ-Ab" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޙަޟާނަތުގެ މައްސަލަ ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޙަޟާނަތުގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1oAzBQDQkIxB0zecwbIqNs0KwHOpYrrsl" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1t9qPSmg78CfrNJDH9nHMHmjYU5wAKZtL" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޙަޟާނަތުގެ މައްސަލަ ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޙަޟާނަތުގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1oAzBQDQkIxB0zecwbIqNs0KwHOpYrrsl" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1t9qPSmg78CfrNJDH9nHMHmjYU5wAKZtL" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ހުށަހަޅާ ފޯމު">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ހުށަހަޅާ ފޯމު</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=11Fqn0YNk_jnYg43FIsb06kpvVP7DWKhN" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1R8qq6dSfNv7Bzh3l0cJh8n46wgQtqb00" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ހުށަހަޅާ ފޯމު">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޢާއިލީ މައްސަލަތަކުގައި ޖަވާބު ހުށަހަޅާ ފޯމު</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=11Fqn0YNk_jnYg43FIsb06kpvVP7DWKhN" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1R8qq6dSfNv7Bzh3l0cJh8n46wgQtqb00" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1_wxwKQCE15lD0ksnYB259CdLl6BxxDxg" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1Pc8LOERmfGwRIBd5peIdv6DNDP39YjMF" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޚުކުމް ތަންފީޛުކުރުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1_wxwKQCE15lD0ksnYB259CdLl6BxxDxg" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1Pc8LOERmfGwRIBd5peIdv6DNDP39YjMF" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރުމުގެ އަމުރަށް އެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރުމުގެ އަމުރަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=19n3vQONULYghH05qvrdUKIw9IF61g3hL" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1785Uq8xdlnCIEKLJte7zSiOUc7VBb4uP" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރުމުގެ އަމުރަށް އެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރުމުގެ އަމުރަށް އެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=19n3vQONULYghH05qvrdUKIw9IF61g3hL" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1785Uq8xdlnCIEKLJte7zSiOUc7VBb4uP" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރުމުގެ އަމުރަށް ބަދަލު ގެނައުމަށް ނުވަތަ އެ އަމުރު ބާޠިލު ކުރުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރުމުގެ އަމުރަށް ބަދަލު ގެނައުމަށް ނުވަތަ އެ އަމުރު ބާޠިލު ކުރުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1IHD0D8znRXSe5cedFbUPsyns5SPT2JWt" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1Xl3gkLw21IE_Wc6hQTV437pDBYcAjJct" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރުމުގެ އަމުރަށް ބަދަލު ގެނައުމަށް ނުވަތަ އެ އަމުރު ބާޠިލު ކުރުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ގެވެށި އަނިޔާއިން ރައްކާތެރިކުރުމުގެ އަމުރަށް ބަދަލު ގެނައުމަށް ނުވަތަ އެ އަމުރު ބާޠިލު ކުރުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1IHD0D8znRXSe5cedFbUPsyns5SPT2JWt" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1Xl3gkLw21IE_Wc6hQTV437pDBYcAjJct" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1chCQfhUWfwt80X3am2vbYd5BFavEP3f6" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1b8SW6QGTDr1g2oTLafQxdJpfsPzAdCH_" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ބަލަދުވެރިކަން ސާބިތުކުރާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1chCQfhUWfwt80X3am2vbYd5BFavEP3f6" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1b8SW6QGTDr1g2oTLafQxdJpfsPzAdCH_" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <span class="btn-unavailable" title="ލިބެން ނެތް"><i class="ti ti-file-word"></i> Word</span>
-            <a href="https://drive.google.com/open?id=1t7BP2ooOejkI1l6R8luEZnJytPB03ln2" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> އަވަސް ނިޔާއަށް އެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <span class="btn-unavailable"><i class="ti ti-file-description"></i> ވޯޑް</span>
+            <a href="https://drive.google.com/open?id=1t7BP2ooOejkI1l6R8luEZnJytPB03ln2" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޢާއިލީ އެހެނިހެން މައްސަލަ ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޢާއިލީ އެހެނިހެން މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1O6HE0n5yhK8zWMSkAKcscLb71gMyCXnQ" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1ZWdX07hgcn0T8cnzdfIRCnGU6JWdRiTo" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޢާއިލީ އެހެނިހެން މައްސަލަ ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޢާއިލީ އެހެނިހެން މައްސަލަ ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1O6HE0n5yhK8zWMSkAKcscLb71gMyCXnQ" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1ZWdX07hgcn0T8cnzdfIRCnGU6JWdRiTo" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
-      </div>
 
+</div>
+
+      <!-- ====================== CIVIL ====================== -->
       <div class="category-block" id="cat_civil" data-title="⚖️ މަދަނީ ފޯމުތައް" data-icon="ti-scale">
         <div class="category-title"><i class="ti ti-scale"></i> މަދަނީ ފޯމުތައް</div>
 
-        <div class="card" data-keywords="ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=16lUt6hhBPFAgUffB6QlYsM1m9bxop1FA" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1G2ApAHTN9BvQ2zNlHPoGxcrfReFPzOxx" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޙުކުމް ތަންފީޒުކުރުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=16lUt6hhBPFAgUffB6QlYsM1m9bxop1FA" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1G2ApAHTN9BvQ2zNlHPoGxcrfReFPzOxx" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1nw6khQhg8repe8OVj4W69ilgiOC44GTk" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1OgSP3RfK13m7HP_OoRNfHD-4bRA4_9Ud" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ކޯޓުގެ ހުއްދައަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1nw6khQhg8repe8OVj4W69ilgiOC44GTk" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1OgSP3RfK13m7HP_OoRNfHD-4bRA4_9Ud" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="އިޙްތިޞާޞްއާމެދު އިޢުތިރާޒްކުރާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އިޙްތިޞާޞްއާމެދު އިޢުތިރާޒްކުރާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1UJ308BUduvPjS4YWOfdrs1ahTNYEq7C-" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1_sla5O3aK0Jjsl-diIUVh7TKGS7MXxRM" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" އިޙްތިޞާޞްއާމެދު އިޢުތިރާޒްކުރާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> އިޙްތިޞާޞްއާމެދު އިޢުތިރާޒްކުރާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1UJ308BUduvPjS4YWOfdrs1ahTNYEq7C-" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1_sla5O3aK0Jjsl-diIUVh7TKGS7MXxRM" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=13Zyhgoce6axOF-I17BDqY7eLV2tojjQu" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1mgGRwDl7FjNHIkuPUk4SH6uhCSVPScyE" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> މުޅި ދަޢުވާއަށް އެއްބަސްވާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=13Zyhgoce6axOF-I17BDqY7eLV2tojjQu" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1mgGRwDl7FjNHIkuPUk4SH6uhCSVPScyE" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1f48yahChQBY8trx_Ia97e_mDBdB2qwrC" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=13wu8dkVsadJpc-jQ6Bp3NTpxPTdLDqpE" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ދަޢުވާގެ ބަޔަކަށް އެއްބަސްވާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1f48yahChQBY8trx_Ia97e_mDBdB2qwrC" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=13wu8dkVsadJpc-jQ6Bp3NTpxPTdLDqpE" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1EOPGXxP_N9nec_O2_yOdI7WjIpsKQluu" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1CgGymGUp_psVpNf_7EXEOUU15kQAJOS5" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> އަޑުއެހުމެއްނެތި ޙުކުމްކޮށްދިނުމަށްއެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1EOPGXxP_N9nec_O2_yOdI7WjIpsKQluu" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1CgGymGUp_psVpNf_7EXEOUU15kQAJOS5" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ދަޢުވާގެ ދިފާޢު ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދަޢުވާގެ ދިފާޢު ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1LDYQmXvtYW9hEkfACFUwl7ru2LWG1VE6" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1k18Eo49_n5DshtbBkZxdIbvJpH2VKhna" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ދަޢުވާގެ ދިފާޢު ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ދަޢުވާގެ ދިފާޢު ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1LDYQmXvtYW9hEkfACFUwl7ru2LWG1VE6" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1k18Eo49_n5DshtbBkZxdIbvJpH2VKhna" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ދިފާޢުގެ ޖަވާބު ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދިފާޢުގެ ޖަވާބު ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1K9Ilzb52pFeQyH1SNKDhr5KQmWA0tZhJ" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1IZzFHKHGlE0stp32IERzeoc_DtrG3-wi" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ދިފާޢުގެ ޖަވާބު ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ދިފާޢުގެ ޖަވާބު ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1K9Ilzb52pFeQyH1SNKDhr5KQmWA0tZhJ" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1IZzFHKHGlE0stp32IERzeoc_DtrG3-wi" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1cOhILH3Mx7VRuEMChAbfqHQPkOZXliXg" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1ol39bQqKtG78O5y6tonz3A4VXYmTHkma" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ދިފާޢުގެ ރައްދު ޖަވާބު ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1cOhILH3Mx7VRuEMChAbfqHQPkOZXliXg" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1ol39bQqKtG78O5y6tonz3A4VXYmTHkma" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1l_MoFZpaBkFBmnnee29L1N44imghDMZ6" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=14_yQrNKz7q5ssYJcwM8d5rPH-8k4DOZP" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> އަނބުރާ ގެނައުމަށްއެދި ހުށަހެޅި ހުށަހެޅުން ބާޠިލުކުރަން ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1l_MoFZpaBkFBmnnee29L1N44imghDMZ6" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=14_yQrNKz7q5ssYJcwM8d5rPH-8k4DOZP" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1TN-s5nkAqenAWDcZLxpnOJLGrtqBdgn_" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1IR0h5xiS3bIaEhcRIO5j2SbVAQWuWAqk" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ދަޢުވާ ނުވަތަ ދަޢުވާއިން ބައެއް އަނބުރާ ގެނައުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1TN-s5nkAqenAWDcZLxpnOJLGrtqBdgn_" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1IR0h5xiS3bIaEhcRIO5j2SbVAQWuWAqk" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1Sn4J0SKYiP5pG1Afd-t3qkMAD-FaJF9W" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1MiZKn52rzmHOev6Waso28maBZuT3t3s3" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> މަދަނީ ވަގުތީ އަމުރަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1Sn4J0SKYiP5pG1Afd-t3qkMAD-FaJF9W" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1MiZKn52rzmHOev6Waso28maBZuT3t3s3" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ކޯޓު އަމުރަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ކޯޓު އަމުރަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=16CuGgDBW3KnsLFn6gc2hNwaxqhlsLb6b" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1u8QiJ4RNZm0Q2Op0RpbXeZcw2PB8gXE1" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ކޯޓު އަމުރަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ކޯޓު އަމުރަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=16CuGgDBW3KnsLFn6gc2hNwaxqhlsLb6b" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1u8QiJ4RNZm0Q2Op0RpbXeZcw2PB8gXE1" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1nN_hnLv_mZaXN6BVLKTVrb3UNNt4C3wE" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1zOoaDhGTFcJ0aK_DVh2NwivaYRHZIlwy" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ދަޢުވާ ފޯމާ ހަވާލުވީކަން އަންގާ ލިޔުން</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1nN_hnLv_mZaXN6BVLKTVrb3UNNt4C3wE" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1zOoaDhGTFcJ0aK_DVh2NwivaYRHZIlwy" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1ErgBvfEHRXWpsOyv-DxYkOFqF82aiJNR" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1wyx3BUkuip5Y1iajIQxDX4kmjwgPU68a" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޣައިރު ހާޒިރުގައި ޙުކުމްކޮށްދިނުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1ErgBvfEHRXWpsOyv-DxYkOFqF82aiJNR" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1wyx3BUkuip5Y1iajIQxDX4kmjwgPU68a" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ތަދައްޚުލުވުމަށް އެދޭ ފޯމް (މަދަނީ)">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ތަދައްޚުލުވުމަށް އެދޭ ފޯމް (މަދަނީ)</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1fuzVYuhtp4gGcuRlvNvrBKSP-eZFPPfD" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1pghHfTZkC1KKVWkJKqzr3LhFMd500ATX" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ތަދައްޚުލުވުމަށް އެދޭ ފޯމް (މަދަނީ)">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ތަދައްޚުލުވުމަށް އެދޭ ފޯމް (މަދަނީ)</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1fuzVYuhtp4gGcuRlvNvrBKSP-eZFPPfD" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1pghHfTZkC1KKVWkJKqzr3LhFMd500ATX" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=10_swyiiWcv8SYGSVi2yGNCDxwMhhhxWg" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1MxWV7tlEXY0GhL9Rkx_dKuEx7tJf5j1n" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ރައްދު ދަޢުވާ ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=10_swyiiWcv8SYGSVi2yGNCDxwMhhhxWg" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1MxWV7tlEXY0GhL9Rkx_dKuEx7tJf5j1n" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1Dpfi2NwabLS92T5dkqorrem0-rV2KaLO" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1kZUtv4BDCACpmE9JMomqAIdAUQIHKJs1" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> އިޚްތިލާފެއް ނެތް ބާވަތުގެ ޢާންމު މައްސަލަތައް ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1Dpfi2NwabLS92T5dkqorrem0-rV2KaLO" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1kZUtv4BDCACpmE9JMomqAIdAUQIHKJs1" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1uBNal0Hwx1LQV3zn8TJlefda-Yr1N4Z3" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1MeDu58RzqSiJuijM1AXu7_61uYHYh3V7" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ހޮވައިގެން ގެނެވޭ ތަކެތި ހަވާލުކުރާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1uBNal0Hwx1LQV3zn8TJlefda-Yr1N4Z3" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1MeDu58RzqSiJuijM1AXu7_61uYHYh3V7" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1zp9cPK_lcKxlchh9ejIXFMnndpWd0JTf" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1VGq3QPjoQ_d1POYvsos0oEBky-fzPQWf" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ބިމާއި އިމާރާތް ވިއްކުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1zp9cPK_lcKxlchh9ejIXFMnndpWd0JTf" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1VGq3QPjoQ_d1POYvsos0oEBky-fzPQWf" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="މިލްކުވެރިކަން ސާބިތުކުރުމުގެ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މިލްކުވެރިކަން ސާބިތުކުރުމުގެ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1YiJifQYNHIqwet4GiNhURzpgHZ7rCiCO" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=19yq5v-Eeh9HOgcajLMgINMWEgGOjJG8u" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" މިލްކުވެރިކަން ސާބިތުކުރުމުގެ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> މިލްކުވެރިކަން ސާބިތުކުރުމުގެ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1YiJifQYNHIqwet4GiNhURzpgHZ7rCiCO" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=19yq5v-Eeh9HOgcajLMgINMWEgGOjJG8u" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1YdFFHgtUawWhwFDACskG__L_837mCbs3" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1xsaeOO2geMpwZTAl5CtXkyWEso9IggJG" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ހިބަ އާއި ވަސިއްޔަތުން ދިނުމުގެ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1YdFFHgtUawWhwFDACskG__L_837mCbs3" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1xsaeOO2geMpwZTAl5CtXkyWEso9IggJG" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1TtiJZwgK7LPucW8FaSgKG95jXnmqso4X" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1WQU4zfoLCbHl2N-xO8g69XLcYEzrP2rD" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ގޯއްޗާއި އިމާރާތް ބައިކުރުމުގެ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1TtiJZwgK7LPucW8FaSgKG95jXnmqso4X" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1WQU4zfoLCbHl2N-xO8g69XLcYEzrP2rD" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1_1s5ZRMPUen5V-YR8WtS6j5yfA4l2hTU" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1hgGCndC3VRJlL9ZA4KaHCu9HxAXMKXxi" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ތަރިކައިގެ މައްސަލަ ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1_1s5ZRMPUen5V-YR8WtS6j5yfA4l2hTU" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1hgGCndC3VRJlL9ZA4KaHCu9HxAXMKXxi" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1Srm_0gSAft5b8c7DvqGSsUJRhe0RIj9d" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1ABTRC5cmBe16UB7r0Ea1oaaFSqvG-chQ" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> އިޚްތިލާފު އޮންނަ ބާވަތުގެ ދަޢުވާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1Srm_0gSAft5b8c7DvqGSsUJRhe0RIj9d" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1ABTRC5cmBe16UB7r0Ea1oaaFSqvG-chQ" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖައްސާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖައްސާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1IQuQ7rXPeUWsvgOebua7uipdruszKY23" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1EcHVROZ7j5yCzqgj2v0Q2jqRcpvtpSwa" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖައްސާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ތަރިކައިގެ މައްސަލައިގައި ބަދަލު ހަމަޖައްސާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1IQuQ7rXPeUWsvgOebua7uipdruszKY23" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1EcHVROZ7j5yCzqgj2v0Q2jqRcpvtpSwa" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
-      </div>
 
+</div>
+
+      <!-- ====================== MISC ====================== -->
       <div class="category-block" id="cat_misc" data-title="📁 އެހެނިހެން ފޯމުތައް" data-icon="ti-folder">
         <div class="category-title"><i class="ti ti-folder"></i> އެހެނިހެން ފޯމުތައް</div>
 
-        <div class="card" data-keywords="ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=10HL-CAMINF8zXqE586jyENXmGZBmBHYK" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1u1uoLylDrzihflpj-v8cdNkvOizkpHAy" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޢިއްދަ ހަމަކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=10HL-CAMINF8zXqE586jyENXmGZBmBHYK" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1u1uoLylDrzihflpj-v8cdNkvOizkpHAy" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1blxsMCF_NHrQI9ikWxIck-3Vn9NoDIa7" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=1Yp5Jj0tXm3LPowtw5JVLHWkIJ2QgxBX7" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޤާނޫނީ ވަކީލަކު ޢައްޔަން ކުރުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1blxsMCF_NHrQI9ikWxIck-3Vn9NoDIa7" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=1Yp5Jj0tXm3LPowtw5JVLHWkIJ2QgxBX7" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="މައްސަލައިގައި ޢައްޔަންކޮށްފައިވާ ޤާނޫނީ ވަކީލު ބަދަލުކުރުމަށް ނުވަތަ ވަކިކުރުމަށް އެދި ހުށަހަޅާ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މައްސަލައިގައި ޢައްޔަންކޮށްފައިވާ ޤާނޫނީ ވަކީލު ބަދަލުކުރުމަށް ނުވަތަ ވަކިކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1zvqxB4Qkdh9l5SC4AzcxrJHzaO_c77yD" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=18lXK3Cn0G9a2WoQabyZHtCt8LCd_MBwH" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" މައްސަލައިގައި ޢައްޔަންކޮށްފައިވާ ޤާނޫނީ ވަކީލު ބަދަލުކުރުމަށް ނުވަތަ ވަކިކުރުމަށް އެދި ހުށަހަޅާ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> މައްސަލައިގައި ޢައްޔަންކޮށްފައިވާ ޤާނޫނީ ވަކީލު ބަދަލުކުރުމަށް ނުވަތަ ވަކިކުރުމަށް އެދި ހުށަހަޅާ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1zvqxB4Qkdh9l5SC4AzcxrJHzaO_c77yD" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=18lXK3Cn0G9a2WoQabyZHtCt8LCd_MBwH" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <span class="btn-unavailable" title="ލިބެން ނެތް"><i class="ti ti-file-word"></i> Word</span>
-            <a href="https://drive.google.com/open?id=13o1OJdu2IOpce7rolDs_uPu7y6cfXmzI" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ދުވަސްވީ ޝަރުޢީ ލިޔުންތަކަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <span class="btn-unavailable"><i class="ti ti-file-description"></i> ވޯޑް</span>
+            <a href="https://drive.google.com/open?id=13o1OJdu2IOpce7rolDs_uPu7y6cfXmzI" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <span class="btn-unavailable" title="ލިބެން ނެތް"><i class="ti ti-file-word"></i> Word</span>
-            <a href="https://drive.google.com/open?id=1xF74X8jA2v1Rq6ZffAphDLaKzEgjQIdW" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ބޭސްފަރުވާއަށް ރަށުން ބޭރަށް ދިއުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <span class="btn-unavailable"><i class="ti ti-file-description"></i> ވޯޑް</span>
+            <a href="https://drive.google.com/open?id=1xF74X8jA2v1Rq6ZffAphDLaKzEgjQIdW" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="އެގްރީމެންޓް ރަޖިސްޓްރީ ތަސްދީޤުކުރުން">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">އެގްރީމެންޓް ރަޖިސްޓްރީ/ތަސްދީޤުކުރުން</div></div>
-          <div class="btn-group">
-            <span class="btn-unavailable" title="ލިބެން ނެތް"><i class="ti ti-file-word"></i> Word</span>
-            <a href="https://drive.google.com/open?id=1i0wEw_iTYme63kOTEUNhLa5muP6PkMEw" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" އެގްރީމެންޓް ރަޖިސްޓްރީ/ތަސްދީޤުކުރުން">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> އެގްރީމެންޓް ރަޖިސްޓްރީ/ތަސްދީޤުކުރުން</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <span class="btn-unavailable"><i class="ti ti-file-description"></i> ވޯޑް</span>
+            <a href="https://drive.google.com/open?id=1i0wEw_iTYme63kOTEUNhLa5muP6PkMEw" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް</div></div>
-          <div class="btn-group">
-            <span class="btn-unavailable" title="ލިބެން ނެތް"><i class="ti ti-file-word"></i> Word</span>
-            <a href="https://drive.google.com/open?id=1botbwRbW4UPQYSgOKdzDUthQ6Tx-Y0oq" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޝަރީޢަތުގެ މަޖުލީސް އަޑުއެހުމަށް އެދޭ ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <span class="btn-unavailable"><i class="ti ti-file-description"></i> ވޯޑް</span>
+            <a href="https://drive.google.com/open?id=1botbwRbW4UPQYSgOKdzDUthQ6Tx-Y0oq" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="މެޑިކަލް ފޯމް">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">މެޑިކަލް ފޯމް</div></div>
-          <div class="btn-group">
-            <span class="btn-unavailable" title="ލިބެން ނެތް"><i class="ti ti-file-word"></i> Word</span>
-            <a href="https://drive.google.com/open?id=17cHXcmipk6Qh99_WqVgGLTQWvvf7NxtR" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" މެޑިކަލް ފޯމް">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> މެޑިކަލް ފޯމް</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <span class="btn-unavailable"><i class="ti ti-file-description"></i> ވޯޑް</span>
+            <a href="https://drive.google.com/open?id=17cHXcmipk6Qh99_WqVgGLTQWvvf7NxtR" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
 
-        <div class="card" data-keywords="ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމު">
-          <div class="card-left"><div class="card-icon"><i class="ti ti-file-description"></i></div><div class="card-text">ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމު</div></div>
-          <div class="btn-group">
-            <a href="https://drive.google.com/open?id=1d-iyOYF8m3NCeUh4V7wXagVM91mRo3e-" target="_blank" class="btn-view btn-word"><i class="ti ti-file-word"></i> Word</a>
-            <a href="https://drive.google.com/open?id=11IM28UXG9HR8TENYSNxVx6JqCUsdZKj4" target="_blank" class="btn-view btn-pdf"><i class="ti ti-file-type-pdf"></i> PDF</a>
+        <div class="card" data-keywords=" ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމު">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> ޤާނޫނީ ވަކީލު ތަނާޒުލުވުމަށް އެދޭ ފޯމު</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <a href="https://drive.google.com/open?id=1d-iyOYF8m3NCeUh4V7wXagVM91mRo3e-" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> ވޯޑް</a>
+            <a href="https://drive.google.com/open?id=11IM28UXG9HR8TENYSNxVx6JqCUsdZKj4" target="_blank" class="btn-view"><i class="ti ti-file-description"></i> PDF</a>
           </div>
         </div>
-      </div>
 
+        <div class="card" data-keywords=" މަޢުލޫމާތު ހޯދާ ފޯމު">
+          <div class="card-left">
+            <div class="card-icon"><i class="ti ti-file-description"></i></div>
+            <div class="card-text"> މަޢުލޫމާތު ހޯދާ ފޯމު</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <span class="btn-unavailable"><i class="ti ti-file-description"></i> ވޯޑް</span>
+            <span class="btn-unavailable"><i class="ti ti-file-description"></i> PDF</span>
+          </div>
+        </div>
+
+</div>
 
 <!-- ====================== CONTACTS ====================== -->
 <div class="category-block" id="cat_contacts">
